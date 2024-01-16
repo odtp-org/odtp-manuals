@@ -7,10 +7,8 @@ WORKDIR /tmp
 COPY . .
 
 RUN apt-get update
-RUN apt-get -y install libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
 
 RUN pip install mkdocs-material
-RUN pip install 'mkdocs-material[imaging]'
 
 # Expose MkDocs development server port
 EXPOSE 8000
