@@ -1,7 +1,6 @@
 name: deployment
 on:
-  pull_request_review:
-    types: [submitted]
+  push:
     branches:
       - master 
       - main
@@ -9,7 +8,6 @@ permissions:
   contents: write
 jobs:
   deploy:
-    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
