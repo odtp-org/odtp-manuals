@@ -2,4 +2,4 @@
 
 Welcome and index page.
 
-In this page we need to define ODTP. 
+In this page we need to define ODTP and its configuration.
