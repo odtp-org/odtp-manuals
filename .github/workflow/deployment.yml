@@ -1,6 +1,7 @@
-name: ci 
+name: deployment
 on:
-  push:
+  pull_request_review:
+    types: [submitted]
     branches:
       - master 
       - main
@@ -8,6 +9,7 @@ permissions:
   contents: write
 jobs:
   deploy:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
