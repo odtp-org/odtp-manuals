@@ -1,93 +1,93 @@
 # ODTP Diagrams
 
 
-## **User login Sequence diagram**
-This part is required only if the user want access to sensitive data or private component.
-
+## **User registration and login sequence diagram**
+The user should always register and login to create and execute a digital twin.<br />
+A user does not need authentication to explore the components.
 
 
 ``` mermaid
 sequenceDiagram
   autonumber
-   User->>+ODTP-UI(NiceGUI): Open()
-   User->>+ODTP-UI(NiceGUI): Connect()
-   ODTP-UI(NiceGUI)->>+Keycloack(Custodian): Redirect()
-   Keycloack(Custodian)->>+Keycloack(Custodian): Authenticate(userID, passwword)
-   Keycloack(Custodian)-->>-ODTP-UI(NiceGUI): 200 ok & JWT
-```
+   User->>+ODTP-UI(NiceGUI): GET Login page
+   ODTP-UI(NiceGUI)->>+Keycloack(Custodian): POST login request
+   Keycloack(Custodian)-->>-User: GET login form
+   User->>+Keycloack(Custodian): POST login information (name,email,git-repo)
+   Keycloack(Custodian)-->>-ODTP-UI(NiceGUI): GET code and callback
+   ODTP-UI(NiceGUI)->>+Keycloack(Custodian): POST Request for tokens
+   Keycloack(Custodian)-->>-ODTP-UI(NiceGUI): GET token and store in session
+   ODTP-UI(NiceGUI)->>+Keycloack(Custodian): POST Request to add user to group
+   Keycloack(Custodian)-->>-ODTP-UI(NiceGUI): GET user added to group
+   ODTP-UI(NiceGUI)-->>-User: GET Logged in
+   ODTP-UI(NiceGUI)->>+ODTP-Mongodb: INSERT user
+   ODTP-Mongodb->>+ODTP-UI(NiceGUI): SEND 200 ok
 
-## **Component preparation Sequence diagram**
-
-``` mermaid
-sequenceDiagram
-  autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add(folder-path,repo,image)
-   ODTP-UI(NiceGUI)->>+ODTP-Backend: Do(Prepare-component(path,repo,image))
-   ODTP-Backend->>+ODTP-Backend: Build(component-image)
-   ODTP-Backend-->>+ODTP-UI(NiceGUI): Send(component-id, component-name)
-```
-
-## **Component running Sequence diagram**
-
-``` mermaid
-sequenceDiagram
-  autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add(folder-path,repo,image, env-file, instance-name)
-   ODTP-UI(NiceGUI)->>+ODTP-Backend: Do(Run-component(component-id)
-   ODTP-Backend->>+ODTP-Backend: Deploy(component-image)
 ```
 
 
-
-## **User registration Sequence diagram**
-
-``` mermaid
-sequenceDiagram
-  autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add-User(name,email,git-repo)
-   ODTP-UI(NiceGUI)->>+ODTP-Mongodb: Store-User(user)
-   ODTP-Mongodb->>+ODTP-UI(NiceGUI): Get-User(name)
-```
-
-
-## **Component registration Sequence diagram**
+## **Component registration sequence diagram**
+We register the component wwith the name, version and git-repo in a database (mongodb).
 
 ``` mermaid
 sequenceDiagram
   autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add-Component(name,version,git-repo)
-   ODTP-UI(NiceGUI)->>+ODTP-Mongodb: Store-Component(component)
-   ODTP-Mongodb->>+ODTP-UI(NiceGUI): Get-Component(name)
+   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): ADD Component information
+   ODTP-UI(NiceGUI)->>+ODTP-Backend: POST Component information
+   ODTP-Backend->>+ODTP-Mongodb: INSERT Component information
+   ODTP-Mongodb-->>+ODTP-Backend: GET 200 ok
+   ODTP-Backend->>+ODTP-UI(NiceGUI): GET Component information
 ```
 
 
 ## **Digital Twin registration Sequence diagram**
+We register the dt with the name, and the user-id in a database (mongodb).
 
 ``` mermaid
 sequenceDiagram
   autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add-dt(dt_name, user_id)
-   ODTP-UI(NiceGUI)->>+ODTP-Mongodb: Store-dt(dt)
-   ODTP-Mongodb->>+ODTP-UI(NiceGUI): Get-dt(dt)
+   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): ADD DT information
+   ODTP-UI(NiceGUI)->>+ODTP-Backend: POST DT information
+   ODTP-Backend->>+ODTP-Mongodb: INSERT DT information
+   ODTP-Mongodb-->>+ODTP-Backend: GET 200 ok
+   ODTP-Backend->>+ODTP-UI(NiceGUI): GET DT information
 ```
 
 ## **Execution registration Sequence diagram**
+We register the execution with the DT_id,execution_name user_id in a database (mongodb).
 
 ``` mermaid
 sequenceDiagram
   autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add-execution(dt_id,execution_name,components[],version[],workflow, user_id)
-   ODTP-UI(NiceGUI)->>+ODTP-Mongodb: Store-execution(execution, steps)
-   ODTP-Mongodb->>+ODTP-UI(NiceGUI): Get-execution(execution_name)
+   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): ADD execution information
+   ODTP-UI(NiceGUI)->>+ODTP-Backend: POST execution information
+   ODTP-Backend->>+ODTP-Mongodb: INSERT execution information
+   ODTP-Mongodb-->>+ODTP-Backend: GET 200 ok
+   ODTP-Backend->>+ODTP-UI(NiceGUI): GET execution information
+```
+## **Execution preparation Sequence diagram**
+We prepare the execution with the DT_id,execution_name user_id, folder-path.
+
+``` mermaid
+sequenceDiagram
+  autonumber
+   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): ADD Execution information
+   ODTP-UI(NiceGUI)->>+ODTP-Backend: POST Execution information
+   ODTP-Backend->>+local-virtual-machine: Build docker image
+   local-virtual-machine->>+ODTP-Backend: GET 200 ok
+   ODTP-Backend-->>+ODTP-UI(NiceGUI): GET execution preparation_info
+
 ```
 
 
 ## **Execution running Sequence diagram**
+We execute the DT workflow with the dt_id,execution_name,components[],version[],workflow, user_id, env-variables.
 
 ``` mermaid
 sequenceDiagram
   autonumber
-   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): Add(execution_name, folder-path)
-   ODTP-UI(NiceGUI)->>+ODTP-Backend: Do(Prepare-Execution(execution_id, folder-path)
-   ODTP-Backend->>+ODTP-Backend: Do(Ruun-Execution(execution_id, folder-path, env-variables)
+   ODTP-UI(NiceGUI)->>+ODTP-UI(NiceGUI): GET Execution information
+   ODTP-UI(NiceGUI)->>+ODTP-Backend: RUN Execution
+   ODTP-Backend->>+local-virtual-machine: ADD output
+   local-virtual-machine->>+ODTP-Backend: GET 200 ok
+   ODTP-Backend-->>+ODTP-UI(NiceGUI): GET execution result
 ```
