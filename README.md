@@ -18,7 +18,8 @@ This will create a `venv` folder and it will install `mkdocs-material` in a loca
 
 1. `python -m venv venv`
 2. `source venv/bin/activate`
-3. `pip install mkdocs-material`
+3.  Run `poetry install --no-root`
+4.  Run `poetry shell`
 
 ### How to serve this documentation in local? 
 
