@@ -53,9 +53,9 @@ docker run -it --rm \
     --name mongo-express-caviri \
     -p 8082:8081 \
     -e ME_CONFIG_OPTIONS_EDITORTHEME="ambiance" \
-    -e ME_CONFIG_BASICAUTH_USERNAME="admin" \
-    -e ME_CONFIG_BASICAUTH_PASSWORD="adminpass" \
-    -e ME_CONFIG_MONGODB_URL="mongodb://admin:adminpass@10.95.48.38:27016/" \
+    -e ME_CONFIG_BASICAUTH_USERNAME=[USERNAME] \
+    -e ME_CONFIG_BASICAUTH_PASSWORD=[PASSWORD] \
+    -e ME_CONFIG_MONGODB_URL="mongodb://[USERNAME]:[PASSWORD]@xx.xx.xx.xx:xxxx/" \
     mongo-express
 ```
 
@@ -174,7 +174,7 @@ odtp new execution-entry \
 --name execution-example \
 --components 65c36599a95e22284b07e823,65c365a9e94d273db99b6cec \
 --versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
---parameters /Users/carlosvivarrios/pro/ODTP/digital_twins/test-vis-component/env,/Users/carlosvivarrios/pro/ODTP/digital_twins/test-vis-component/env \
+--parameters [Project to env file],[Project to env file] \
 --ports +8501:8501
 ```
 
@@ -187,7 +187,7 @@ Now we prepare the execution within one folder that we need to create previously
 ```
 odtp execution prepare \
 --execution-id 65c3ab980c57d37eb076b6ba \
---project-path /Users/carlosvivarrios/pro/ODTP/digital_twins/test-vis-component
+--project-path [Project path]
 ```
 
 And finally we run the execution. 
@@ -195,5 +195,5 @@ And finally we run the execution.
 ```
 odtp execution run \
 --execution-id 65c3ab980c57d37eb076b6ba \
---project-path /Users/carlosvivarrios/pro/ODTP/digital_twins/test-vis-component
+--project-path [Project path]
 ```
