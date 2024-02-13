@@ -5,13 +5,14 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
-    - toc.integrate
+    - toc.follow
     - navigation.top
     - search.suggest
     - search.highlight
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
+    - content.tabs.link
   language: en
   palette:
     - scheme: default
@@ -38,8 +39,18 @@ markdown_extensions:
   - footnotes
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.mark
   - attr_list
 
 copyright: |
   &copy; 2023 SDSC / CSFM
+
+# Page tree
+nav:
+  - Home: index.md
+  - Tutorials: 
+    - Getting started: tutorials/getting-started.md
+    - Users and Digital Twins: tutorials/users-and-digital-twins.md
+    - Components and Versions: tutorials/components-and-versions.md
