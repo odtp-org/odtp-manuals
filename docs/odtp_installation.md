@@ -174,7 +174,7 @@ odtp new execution-entry \
 --name execution-example \
 --components 65c36599a95e22284b07e823,65c365a9e94d273db99b6cec \
 --versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
---parameters [Project to env file],[Project to env file] \
+--parameters [Path to env file],[Path to env file] \
 --ports +8501:8501
 ```
 
