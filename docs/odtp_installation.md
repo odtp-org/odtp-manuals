@@ -27,11 +27,13 @@ This should print out the help for `odtp`
 In order to connect to MongoDB and S3. You need to provide the credentials in an enviroment file with the following structure. This .env file needs to be in the folder where odtp is executed.
 
 ```
-ODTP_MONGO_URL=
+ODTP_MONGO_SERVER=
+ODTP_MONGO_DB=
 ODTP_S3_SERVER=
 ODTP_BUCKET_NAME=
 ODTP_ACCESS_KEY=
 ODTP_SECRET_KEY=
+GITHUB_TOKEN=
 ```
 
 ## Services needed
@@ -112,88 +114,5 @@ odtp new user-entry \
 user ID: 65c3648260106cc50f650bc1
 ```
 
-Now let's add a couple of components that will be run in sequence. And we save their ids. 
+Now that everything has been set up, you are ready to work. Head over to the [tutorials](tutorials/getting-started.md) 
 
-```
-odtp new odtp-component-entry \
---name component-example \
---odtp-version 0.2.0 \
---component-version 0.0.1 \
---repository https://github.com/odtp-org/odtp-component-example \
---commit 6471218
-
-
-odtp new odtp-component-entry \
---name component-test-vis \
---odtp-version 0.2.0 \
---component-version 0.0.1 \
---repository https://github.com/odtp-org/odtp-vis-test \
---commit 8c027e9
-```
-
-In our case is, in yours the id will be different:
-```
-component-example ID: 65c36599a95e22284b07e823
-component-example version ID:   65c36599a95e22284b07e824
-
-component-test-vis ID: 65c365a9e94d273db99b6cec
-compoent-test-vis version ID: 65c365a9e94d273db99b6ced
-```
-
-Now we need to create a new digital twin entry that should be associated to an user. So copy and replace the `user-id` obtained before.
-
-```
-odtp new digital-twin-entry \
---user-id 65c3648260106cc50f650bc1 \
---name test
-```
-
-It should provide a digitalTwin ID:
-
-```
-digitalTwin ID: 65c36638f20bedbcd253df34
-```
-
-Now you can create an execution entry. For this you will need: 
-
-- `digital-twin-id`: Obtained before. 
-- `name`: A name for the execution
-- `components`: All components involved in the workflow aligned sequentially and separated by commas. 
-    - Components should be added before in order to obtain an ID. 
-- `versions`: All versions involved in the workflow aligned sequentially and separated by commas. 
-    - Versions order should match components. 
-- `parameters`: Parameters files separated by commas.
-    - This file should contain all parameters used like in a dotenv file format.
-- `ports`: Ports matching used by the containers. 
-    - Components ports should be separated by `+`. i.e. `8763:3000+8501:8501`
-    - Place as many `+` as connections between components. If ports are not being used in the first, and second component: i.e. `++8501:8501`
-
-```
-odtp new execution-entry \
---digital-twin-id 65c36638f20bedbcd253df34 \
---name execution-example \
---components 65c36599a95e22284b07e823,65c365a9e94d273db99b6cec \
---versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
---parameters [Path to env file],[Path to env file] \
---ports +8501:8501
-```
-
-```
-Execution ID: 65c3ab980c57d37eb076b6ba
-```
-
-Now we prepare the execution within one folder that we need to create previously. 
-
-```
-odtp execution prepare \
---execution-id 65c3ab980c57d37eb076b6ba \
---project-path [Project path]
-```
-
-And finally we run the execution. 
-
-```
-odtp execution run \
---execution-id 65c3ab980c57d37eb076b6ba \
---project-path [Project path]
-```

@@ -13,12 +13,4 @@ that run in sequence
 ## Commandline and Graphical User Interface
 
 You can setup and run these pipelines from both the command line and the graphical user interface.
-The startup tutorials will take you through both options in parallel.
-
-=== "Dashboard GUI"
-
-    ![Dashboard serving](./static/odtp-dashboard-start.png){ width="500" }
-
-=== "Command Line CLI"
-
-    ![Terminal ready](./static/odtp-cli-start.png){ width="500" }
+The [tutorials](tutorials/getting-started.md) will take you through both options in parallel.
