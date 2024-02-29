@@ -27,11 +27,13 @@ This should print out the help for `odtp`
 In order to connect to MongoDB and S3. You need to provide the credentials in an enviroment file with the following structure. This .env file needs to be in the folder where odtp is executed.
 
 ```
-ODTP_MONGO_URL=
+ODTP_MONGO_SERVER=
 ODTP_S3_SERVER=
 ODTP_BUCKET_NAME=
 ODTP_ACCESS_KEY=
 ODTP_SECRET_KEY=
+GITHUB_TOKEN=
+ODTP_MONGO_DB=
 ```
 
 ## Services needed
@@ -120,7 +122,7 @@ odtp new odtp-component-entry \
 --odtp-version 0.2.0 \
 --component-version 0.0.1 \
 --repository https://github.com/odtp-org/odtp-component-example \
---commit 6471218
+--commit 6471218336ce7de41a5162c9556c0ff68f9ec13c
 
 
 odtp new odtp-component-entry \
@@ -128,7 +130,7 @@ odtp new odtp-component-entry \
 --odtp-version 0.2.0 \
 --component-version 0.0.1 \
 --repository https://github.com/odtp-org/odtp-vis-test \
---commit 8c027e9
+--commit 8c027e9a1085fe46a13af22b746c54b4165cf516
 ```
 
 In our case is, in yours the id will be different:
@@ -165,17 +167,16 @@ Now you can create an execution entry. For this you will need:
 - `parameters`: Parameters files separated by commas.
     - This file should contain all parameters used like in a dotenv file format.
 - `ports`: Ports matching used by the containers. 
-    - Components ports should be separated by `+`. i.e. `8763:3000+8501:8501`
-    - Place as many `+` as connections between components. If ports are not being used in the first, and second component: i.e. `++8501:8501`
+    - Intra-component ports should be separated by `+`. i.e. `8763:3000+8501:8501`
+    - Place as many `,` as connections between components. If ports are not being used in the first, and second component: i.e. `++8501:8501`
 
 ```
 odtp new execution-entry \
 --digital-twin-id 65c36638f20bedbcd253df34 \
 --name execution-example \
---components 65c36599a95e22284b07e823,65c365a9e94d273db99b6cec \
---versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
---parameters [Path to env file],[Path to env file] \
---ports +8501:8501
+--component-versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
+--parameter-files [Path to env file],[Path to env file] \
+--ports ,8501:8501
 ```
 
 ```
