@@ -4,7 +4,6 @@ This tutorial will guide you through setting up a digital twin and running it
 
 ## Start
 
-
 === "Dashboard GUI"
 
     ``` sh
@@ -17,19 +16,23 @@ This tutorial will guide you through setting up a digital twin and running it
     ``` sh
     # go to the project folder
     poetry shell
-    odtp dashboard nicegui
+    odtp dashboard
     ```
 
-## Ready to work
+## Now the interface should be up
 
-Then you will be ready to work:    
+So you can start working:    
 
 === "Dashboard GUI"
 
-    ![Dashboard serving](../static/dashboard-start.png){ width="500" }
+    ![Dashboard serving](../static/tutorials/getting-started/dashboard-start.png){ width="800" }
 
 === "Command Line CLI"
 
-    ![Terminal ready](../static/cli-start.png){ width="500" }
+    ![Terminal ready](../static/tutorials/getting-started/cli-start.png){ width="800" }
 
-You are now ready to work.
+Checkout the following topis:
+
+-  [add users and digital twins](../users-and-digital-twins)
+-  [add components and versions](../components-and-versions)
+-  [add users and digital twins](../executions)

@@ -2,27 +2,55 @@
 
 !!! note
 
-    - Components are not owned by users
-    - To specify a digital twin you need to select components and versions
-    - Before you add a component you have to build and test it
+    - Executions are owned by users and belong to a digital twin
+    - Executions consist of components that are run in sequence
+    - The output of one component will serve as input to the next component
 
-## Add a component with a version
+    ``` mermaid
+    graph LR
+    component-example_0.1.0 --> travel_dashboard_0.2.1;
+    ``` 
 
-Add a component with a version and select the component:
+## Add an execution
 
-- you can select a component multiple times
-- since your workflow can containt the component multiple times
+An execution consists of components and can have extra port mappings and parameters.
+
+- `digital-twin-id`: Obtained before. 
+- `name`: A name for the execution
+- `versions`: All versions involved in the workflow aligned sequentially and separated by commas. 
+    - Versions order should match components. 
+- `parameter-files`: Parameters files separated by commas.
+    - This file should contain all parameters used like in a dotenv file format.
+- `ports`: Ports matching used by the containers. 
+    - Components ports should be separated by `+`. i.e. `8763:3000+8501:8501`
+    - Place as many `+` as connections between components. If ports are not being used in the first, and second component: i.e. `++8501:8501`
+
 
 === "Dashboard GUI"
 
-    ![Dashboard Add component version](../static/add-component-version.png){ width="500" }
-    ![Dashboard Select component version](../static/select-component-version1.png){ width="500" }
-    ![Dashboard Select component version](../static/select-component-version2.png){ width="500" }
-    ![Dashboard Select component version](../static/select-component-version3.png){ width="500" }
+    First you need to collect components for your execution and give it a name 
+
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution.png){ width="800" }
+
+    Then you may add paramters and ports: those are optional
+
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution-parameters-and-ports.png){ width="800" }
+
+    You will see your executution, now you can save it.
+
+    ![Dashboard Add execution](../static/tutorials/executions/save-new-execution.png){ width="800" }
 
 === "Command Line CLI"
 
-    ``` sh
-    odtp new odtp-component-entry --name component-example --version 0.0.1 --component-version 0.0.1 --repository https://github.com/odtp-org/odtp-component-example --commit 497e5bd4dce372a5db0070b12e3de5b7cef5a7a3
+    ```sh
+    odtp new execution-entry \
+    --digital-twin-id 65c36638f20bedbcd253df34 \
+    --name execution-example \
+    --component-versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
+    --parameter-files /path/params.yaml,path/params.yaml \
+    --ports 80:80,8501:8501+80:80
     ```
-    output: `A component has been added`` ==65c3ab02b4afbca32db08738==
+    ```
+    execution_id: 65c3ab980c57d37eb076b6ba
+    step_ids 65c3ab980c57d37eb076b6bb, 65c3ab980c57d37eb076b6bc
+    ```
