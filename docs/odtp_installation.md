@@ -1,6 +1,6 @@
 # ODTP Installation
 
-## How to install and configure it?
+## How to install and configure ODTP?
 
 You can install odtp by using [poetry](https://python-poetry.org/) and running: 
 
