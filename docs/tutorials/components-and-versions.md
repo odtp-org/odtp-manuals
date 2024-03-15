@@ -16,7 +16,7 @@
     ``` sh
     odtp db get --collection components
     ```
-    ```json
+    ``` json
     [
         {
             "_id": "65dc21a25b16b1fac7334596",

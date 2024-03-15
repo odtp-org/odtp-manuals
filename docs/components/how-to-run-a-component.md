@@ -6,13 +6,13 @@ In this example we are going to run [ODTP component example](https://github.com/
 
 First let's create a project folder called `digital_twin_project`. In this folder is where all the folders will appear. 
 
-```sh
+``` bash
 mkdir digital_twin_project
 ```
  
  Then we can prepare the project by running the following. This will download the repo and build the image. 
 
- ```sh
+ ``` bash
  odtp component prepare \
  --folder /Users/carlosvivarrios/pro/odtp/digital_twin_project \
  --image_name image_test \
@@ -21,7 +21,7 @@ mkdir digital_twin_project
 
  Now we need to run the component: 
 
- ```sh
+ ``` bash
  odtp component run \
  --folder /Users/carlosvivarrios/pro/odtp/digital_twin_project \
  --image_name image_test \
@@ -33,13 +33,13 @@ mkdir digital_twin_project
 
 Then we can delete the instance by running. In docker terminology this will remove the container
 
-```
+``` bash
 odtp component delete-instance --instance_name instance_test
 ```
 
 And finally if we want to delete the image we can run:
 
-```
+``` bash
 odtp component delete-image --image_name image_test 
 ```
 

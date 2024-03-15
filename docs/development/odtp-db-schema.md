@@ -27,7 +27,7 @@ This is the schema for odtp database.
 - Users are the owning and running projects
 - these projects are called Digital Twins
 
-```json
+``` json
 users = {
     "_id": ObjectId(),
     "displayName": "John Doe",
@@ -45,7 +45,7 @@ users = {
 - they have a name and executions
 - all details are defined in the executions 
 
-```json
+``` json
 digitalTwins = {
     "_id": ObjectId(),
     "userRef": ObjectId(),
@@ -66,7 +66,7 @@ digitalTwins = {
 - versions correspond to commits in the repo
 
 
-```json
+``` json
 components = {
     "_id": ObjectId(),
     "author": "Test",
@@ -87,7 +87,7 @@ components = {
 
 - versions are versions of the components and correspond to versions of the github repo
 
-```json
+``` json
 versions = {
     "_id": ObjectId(),
     "Component”: # n:1 relationship with components 
@@ -118,7 +118,7 @@ versions = {
 - each component version corresponds to a step
 - execution have outputs and a result
 
-```json
+``` json
 executions = {
     "_id": ObjectId(),
     "digitalTwinRef": ObjectId(), 
@@ -141,7 +141,7 @@ executions = {
 
 - each step corresponds to a component version
 
-```json
+``` json
 steps = {
     "_id": ObjectId(),
     "executionRef": ObjectId(),  # Reference to an executions
@@ -166,7 +166,7 @@ steps = {
 
 - output of a step
 
-```json
+``` json
 output = {
     "_id": ObjectId(),
     "stepRef": ObjectId(), # reference to a step,      
@@ -195,7 +195,7 @@ output = {
 - overall result of an execution run
 - the outputs of all steps
 
-```json
+``` json
 results = {
     "_id": ObjectId(),
     "executionRef": ObjectId(), # reference to an execution,

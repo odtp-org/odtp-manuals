@@ -1,7 +1,10 @@
 site_name: Open Digital Twin Platform
 site_url: https://github.com/odtp-org
+repo_url: https://github.com/odtp-org/odtp
+repo_name: odtp-org/odtp
 theme:
   name: material
+  logo: static/logo/logo.png
   features:
     - navigation.tabs
     - navigation.sections
@@ -20,13 +23,13 @@ theme:
       toggle:
         icon: material/toggle-switch-off-outline 
         name: Switch to dark mode
-      primary: teal
-      accent: purple 
+      primary: black 
+      accent: amber
     - scheme: slate 
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode    
-      primary: teal
+      primary: white
       accent: lime
 
 markdown_extensions:
@@ -51,11 +54,13 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format         
 
 copyright: |
-  &copy; 2023 SDSC
+  &copy; 2023 - 2024 SDSC
 
 # Page tree
 nav:
-  - Home: index.md
+  - Home:
+    - Introduction: index.md
+    - ODTP Concepts: odtp-concept.md
   - Usage: 
     - Getting started: tutorials/getting-started.md
     - Users and Digital Twins: tutorials/users-and-digital-twins.md
@@ -66,6 +71,18 @@ nav:
     - Definition: components/components-definition.md
     - How to run a component: components/how-to-run-a-component.md
     - How to create a component: components/components-development.md
-  - Installation: odtp_installation.md
-  - Schema: odtp_schema.md
-  - Concept: odtp_concept.md
+  - Installation: 
+    - Installation: installation/odtp-installation.md
+    - Using `docker-compose.yml`: installation/docker-compose.md
+    - ODTP local installation: installation/odtp-local-installation.md
+    - ODTP third-party services: installation/odtp-third-party-services.md
+  - Zoo:
+    - Introduction: zoo/zoo-definition.md
+  - Use Cases: 
+    - Introduction: use-cases/use-cases.md
+    - Mobility. Eqasim + Matsim: use-cases/mobility-eqasim-matsim.md
+    - Mobility. Causal Inference: use-cases/mobility-causal-interventions.md
+  - Development: 
+    - Roadmap: development/roadmap.md
+    - Develop a component: components/components-development.md
+    - ODTP DB Schema: development/odtp-db-schema.md

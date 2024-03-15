@@ -46,7 +46,7 @@ The user will need to manually create the input/output folders and build the doc
 
 1. Prepare the following folder structure:
 
-```
+``` bash
 - testing-folder
     - data-input
     - data-output
@@ -56,7 +56,7 @@ Place all required input files in `testing-folder/data-input`.
 
 2. Create your `.env` file with the following parameters.
 
-```
+``` bash
 # ODTP COMPONENT VARIABLES
 PARAMETER-A=.....
 PARAMETER-B=.....
@@ -64,13 +64,13 @@ PARAMETER-B=.....
 
 3. Build the dockerfile. 
 
-```
+``` bash
 docker build -t odtp-component .
 ```
 
 4. Run the following command.
 
-```
+``` bash
 docker run -it --rm \ 
 -v {PATH_TO_YOUR_INPUT_VOLUME}:/odtp/odtp-input \
 -v {PATH_TO_YOUR_INPUT_VOLUME}:/odtp/odtp-output \
@@ -90,7 +90,7 @@ Please do it as it is described in section above titled: `How to run a single co
 
 ODTP requires a set of metadata to work that it is define in a file called `odtp.yml` that should be in the root of the repository. These fields should be filled by the developers and they are used to provide a help to the users who wants to use your component.
 
-```yml
+``` yaml title="yaml component file"
 # This file should contain basic component information for your component.
 component-name: Component Name
 component-author: Component Author
