@@ -28,9 +28,9 @@ A step is the minimal unit of an execution. Currently, a step consists of a comp
 
 Some step outputs can be collected and arranged as results. These special outputs will be considered in later stages for multi-execution analysis or data visualizations. 
 
-## Considerations for Designing a Pipeline with `ODTP v0.2.0`
+## Considerations for Designing a Pipeline with `ODTP v0.2.x`
 
-One of the limitations in `ODTP v0.2.0` is that we only offer compatibility with sequential workflows. However, if your pipeline involves loading multiple data inputs into a single step, you can solve this by adding all of them sequentially and activating the environment variable `TRANSFER_INPUT_TO_OUTPUT=TRUE` in the dataloaders. This will transfer the input from one dataloader to the next, accumulating all inputs for the analytical component. 
+One of the limitations in `ODTP v0.2.x` is that we only offer compatibility with sequential workflows. However, if your pipeline involves loading multiple data inputs into a single step, you can solve this by adding all of them sequentially and activating the environment variable `TRANSFER_INPUT_TO_OUTPUT=TRUE` in the dataloaders. This will transfer the input from one dataloader to the next, accumulating all inputs for the analytical component. 
 
 ## `odtp-compose.yml`
 
