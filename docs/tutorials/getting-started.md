@@ -6,17 +6,22 @@ This tutorial will guide you through setting up a digital twin and running it
 
 === "Dashboard GUI"
 
+    If you are using poetry, you can go to `odtp` folder and run `poetry shell`. This will load the enviroment with all dependencies.
+
+    On the other hand, if you are using the `docker-compose` solution you can just run `odtp` command directly.
+
     ``` sh
-    # go to the project folder
-    poetry shell
+    odtp dashboard
     ```
 
 === "Command Line CLI"
 
+    If you are using poetry, you can go to `odtp` folder and run `poetry shell`. This will load the enviroment with all dependencies.
+
+    On the other hand, if you are using the `docker-compose` solution you can just run `odtp` command directly.
+
     ``` sh
-    # go to the project folder
-    poetry shell
-    odtp dashboard
+    odtp --help
     ```
 
 ## Now the interface should be up

@@ -55,12 +55,12 @@ To run an execution you need to go through the following steps:
 
 === "Command Line CLI"
 
-    Prepare the execution
+    Prepare the execution. 
 
     ``` sh
     odtp execution prepare \
     --execution-id 65c3ab980c57d37eb076b6ba \
-    --project-path /usr/carlos/digital-twin-project
+    --project-path [Project path]
     ```
 
     A normal preparation looks like this:
@@ -107,5 +107,5 @@ In this step the docker container for the components will run and produce the ac
     ``` sh
     odtp execution prepare \
     --execution-id 65c3ab980c57d37eb076b6ba \
-    --projecoject-path [Project path]
+    --projecoject-path 
     ```

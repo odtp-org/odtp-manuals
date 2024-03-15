@@ -70,7 +70,7 @@ Add a component:
     --repository https://github.com/odtp-org/odtp-component-example
     ```
     ```
-    A component version has been added`` 
+    A component version has been added
     component_id_: 65c3ab02b4afbca32db08738
     version_id_: 65e00bc02c01a56f2b8c95f9
     ```
@@ -96,6 +96,6 @@ commit will be taken.
     ```
     ```sh
     A component version has been added
-    component_id_: ==65c3ab02b4afbca32db08738==
-    version_id_: ==65e00bc02c01a56f2b8c95f9==
+    component_id_: 65c3ab02b4afbca32db08738
+    version_id_: 65e00bc02c01a56f2b8c95f9
     ```

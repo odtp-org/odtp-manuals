@@ -21,7 +21,12 @@ So the first thing you need is a user:
     --email maxm@gmail.com \
     --github maxm
     ```
-    output: `A user has been added`` ==65c3ab02b4afbca32db08738==
+    
+    The output should looks like: 
+    ```
+    A user has been added: 65c3ab02b4afbca32db08738
+    ``` 
+
 
 ## Setup a digital twin project
 
@@ -41,4 +46,8 @@ Once you have a user, you can set up a digital twin
     --user-id 65c3ab02b4afbca32db08738 \
     --name example
     ```
-    output: ``A digital twin has been added`` ==65a7c735732ae1d3fee2b946==
+
+    The output should looks like: 
+    ```
+    A digital twin has been added: 65a7c735732ae1d3fee2b946
+    ``` 

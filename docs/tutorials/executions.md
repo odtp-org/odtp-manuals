@@ -42,12 +42,14 @@ An execution consists of components and can have extra port mappings and paramet
 
 === "Command Line CLI"
 
+    A set of parameters is a `dotenv` file containing all the variables needed to run that component. 
+
     ```sh
     odtp new execution-entry \
     --digital-twin-id 65c36638f20bedbcd253df34 \
     --name execution-example \
     --component-versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
-    --parameter-files /path/params.yaml,path/params.yaml \
+    --parameter-files /path/params,path/params \
     --ports 80:80,8501:8501+80:80
     ```
     ```
