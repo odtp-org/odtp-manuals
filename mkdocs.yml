@@ -60,7 +60,8 @@ copyright: |
 nav:
   - Home:
     - Introduction: index.md
-    - ODTP Concepts: odtp-concept.md
+    - ODTP Digital Twin: odtp-digital-twin.md
+    - ODTP Concepts: odtp-concepts.md
   - Usage: 
     - Getting started: tutorials/getting-started.md
     - Users and Digital Twins: tutorials/users-and-digital-twins.md

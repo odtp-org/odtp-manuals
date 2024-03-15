@@ -1,6 +1,6 @@
 ## Concept
 
-The idea of odtp is to be installed as an instance in small-medium computing platform (such a servers, workstations, laptops, etc).  
+The idea of odtp is to be installed as an instance in small-medium computing platform (such a servers, workstations, laptops, etc). However, it can be installed and used in local machines too. 
 
 ## Architecture
 
