@@ -18,7 +18,8 @@ This will create a `venv` folder and it will install `mkdocs-material` in a loca
 
 1. `python -m venv venv`
 2. `source venv/bin/activate`
-3. `pip install mkdocs-material`
+3.  Run `poetry install --no-root`
+4.  Run `poetry shell`
 
 ### How to serve this documentation in local? 
 
@@ -35,3 +36,23 @@ Mkdocs is a tool to create a documentation as a static webpage. In order to prod
 
 1. Go to the root of this repository.
 2. `mkdocs build`
+
+## ADD FROM ODTP REPO
+
+
+## How to install and configure it?
+
+You can install odtp by using [poetry](https://python-poetry.org/) and running: 
+
+1. Download the repository. 
+2. (Optional) Rename `.env.dist` as `.env` and populate it with the right credentials. This is essential if you want to use S3 and MongoDB. 
+2. Run `poetry install`
+3. Run `poetry shell`
+4. Run `odtp --help`
+
+This should print out the help for `odtp`
+
+Hint: on a Mac with Apple Chip: change the default shell before you install
+```bash
+env /usr/bin/arch -x86_64 /bin/bash --login
+```

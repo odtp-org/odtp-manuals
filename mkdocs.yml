@@ -1,30 +1,35 @@
 site_name: Open Digital Twin Platform
 site_url: https://github.com/odtp-org
+repo_url: https://github.com/odtp-org/odtp
+repo_name: odtp-org/odtp
 theme:
   name: material
+  logo: static/logo/logo.png
   features:
     - navigation.tabs
     - navigation.sections
-    - toc.integrate
+    - navigation.tracking
+    - toc.follow
     - navigation.top
     - search.suggest
     - search.highlight
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
+    - content.tabs.link
   language: en
   palette:
     - scheme: default
       toggle:
         icon: material/toggle-switch-off-outline 
         name: Switch to dark mode
-      primary: teal
-      accent: purple 
+      primary: black 
+      accent: amber
     - scheme: slate 
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode    
-      primary: teal
+      primary: white
       accent: lime
 
 markdown_extensions:
@@ -38,8 +43,47 @@ markdown_extensions:
   - footnotes
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.mark
   - attr_list
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format         
 
 copyright: |
-  &copy; 2023 SDSC / CSFM
+  &copy; 2023 - 2024 SDSC
+
+# Page tree
+nav:
+  - Home:
+    - Introduction: index.md
+    - ODTP Digital Twin: odtp-digital-twin.md
+    - ODTP Concepts: odtp-concepts.md
+  - Usage: 
+    - Getting started: tutorials/getting-started.md
+    - Users and Digital Twins: tutorials/users-and-digital-twins.md
+    - Components and Versions: tutorials/components-and-versions.md
+    - Executions: tutorials/executions.md
+    - Run Executions: tutorials/run-executions.md
+  - Components: 
+    - Definition: components/components-definition.md
+    - How to run a component: components/how-to-run-a-component.md
+    - How to create a component: components/components-development.md
+  - Installation: 
+    - Installation: installation/odtp-installation.md
+    - Using `docker-compose.yml`: installation/docker-compose.md
+    - ODTP local installation: installation/odtp-local-installation.md
+    - ODTP third-party services: installation/odtp-third-party-services.md
+  - Zoo:
+    - Introduction: zoo/zoo-definition.md
+  - Use Cases: 
+    - Introduction: use-cases/use-cases.md
+    - Mobility. Eqasim + Matsim: use-cases/mobility-eqasim-matsim.md
+    - Mobility. Causal Inference: use-cases/mobility-causal-interventions.md
+  - Development: 
+    - Roadmap: development/roadmap.md
+    - Develop a component: components/components-development.md
+    - ODTP DB Schema: development/odtp-db-schema.md
