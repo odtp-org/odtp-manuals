@@ -120,10 +120,10 @@ docker run -p 9000:9000 -p 9001:9001 --name minio-instance -e "MINIO_ROOT_USER=[
 In this case the variables would be: 
 
 ```
-export ODTP_S3_SERVER='http://localhost:9000'
-export ODTP_BUCKET_NAME='your-bucket-name'  # Replace 'your-bucket-name' with your actual bucket name
-export ODTP_ACCESS_KEY=[MINIO_USER]         # Replace 'minioadmin' with your actual Minio access key
-export ODTP_SECRET_KEY=[MINIO_PASSWORD]       # Replace 'minioadmin' with your actual Minio secret key
+ODTP_S3_SERVER='http://localhost:9000'
+ODTP_BUCKET_NAME='your-bucket-name'  # Replace 'your-bucket-name' with your actual bucket name
+ODTP_ACCESS_KEY=[MINIO_USER]         # Replace 'minioadmin' with your actual Minio access key
+ODTP_SECRET_KEY=[MINIO_PASSWORD]       # Replace 'minioadmin' with your actual Minio secret key
 ```
 
 Entrypoints:

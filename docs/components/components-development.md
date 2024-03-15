@@ -1,67 +1,8 @@
-# ODTP Components
-
-An `odtp` compatible component is a docker container able to perform a functional unit of computing in the digital twin. You can think of it as a blackbox that takes inputs files and/or parameters and perfom a task. Usually this lead to some files as a result (Ephemeral component), or to a visualization (Interactive component).
-
-Internally a component will run a bash script `./app/app.sh` that must include the commands for running your tool, and managing the input/output logic. While input files are located in the folder `/odtp/odtp-input`, parameters values are represented by environment variables within the component. In this way you can access to them by using `$` before the name of your variable. Finally, the output files generated are requested to be placed in `/odtp/odtp-output/`. Also components contains an `odtp.yml` file with relevant metadata about the component. 
-
-ODTP will be able to validate the input/output files and parameters to determine if an execution workflow is valid or not. In order to do this we use SHACL validation if the developer provides valid schema. However, this feature is still under development and it will be available soon. 
-
-## How to run a single component?
-
-Components can only be run on the CLI, not from the GUI.
-
-In this example we are going to run [ODTP component example](https://github.com/odtp-org/odtp-component-example). First, we will prepare the component which will automatically download the repostory, build the image and prepare all the folders needed for the input / output data. 
-
-First let's create a project folder called `digital_twin_project`. In this folder is where all the folders will appear. 
-
-```sh
-mkdir digital_twin_project
-```
- 
- Then we can prepare the project by running the following. This will download the repo and build the image. 
-
- ```sh
- odtp component prepare \
- --folder /Users/carlosvivarrios/pro/odtp/digital_twin_project \
- --image_name image_test \
- --repository https://github.com/odtp-org/odtp-component-example
- ```
-
- Now we need to run the component: 
-
- ```sh
- odtp component run \
- --folder /Users/carlosvivarrios/pro/odtp/digital_twin_project \
- --image_name image_test \
- --instance_name instance_test \
- --repository https://github.com/odtp-org/odtp-component-example \
- --commit 6471218336ce7de41a5162c9556c0ff68f9ec13c \
- --parameter_file /Users/carlosvivarrios/pro/odtp/digital_twin_project/.env
- ```
-
-Then we can delete the instance by running. In docker terminology this will remove the container
-
-```
-odtp component delete-instance --instance_name instance_test
-```
-
-And finally if we want to delete the image we can run:
-
-```
-odtp component delete-image --image_name image_test 
-```
-
-## How to use a component in a Digital Twin?
-
-To start using component in Digital Twin's executions, first you need to register the component into odtp, and using it. 
-
-See the [tutorial](tutorials/components-and-versions.md) on how to do this.
-
-## How to develop a component
+# How to develop a component
 
 The best way to start developing a component is by using [`odtp-component-template`](https://github.com/odtp-org/odtp-component-template) and follow the instructions below.
 
-### Internal data structure of a component
+## Internal data structure of a component
 
 Before starting adapting your tool, it is necessary to understand the internal folder structure. 
 
@@ -74,7 +15,7 @@ Before starting adapting your tool, it is necessary to understand the internal f
 - `/odtp/odtp-logs`: Folder reserved for internal loggings. 
 - `/odtp/odtp-config`: Folder reserved for odtp configuration. 
 
-### Step to create your component based on `odtp-component-template`
+## Step to create your component based on `odtp-component-template`
 
 1. Identify which parameters would you like to expose.
 2. Configure the Dockerfile to install all the OS requirements needed for your tool to run. 
@@ -89,7 +30,7 @@ Before starting adapting your tool, it is necessary to understand the internal f
 5. Publish your tool in the ODTP Zoo. (Temporaly unavailable)
 
 
-### Testing the component
+## Testing the component
 
 There are 3 main ways in which you can test a component and the different odtp features. 
 
@@ -99,7 +40,7 @@ There are 3 main ways in which you can test a component and the different odtp f
 
 When developing we recomend to start by testing the component via docker and then follow with the others.  
 
-#### Testing the component as a docker container
+### Testing the component as a docker container
 
 The user will need to manually create the input/output folders and build the docker image.
 
@@ -141,7 +82,7 @@ This command will run the component. If you want debug some errors and execute t
 
 Also if your tool is interactive such as an Streamlit app, don't forget to map the ports by using `-p XXXX:XXXX`. 
 
-#### Testing the component as part of odtp
+### Testing the component as part of odtp
 
 Please do it as it is described in section above titled: `How to run a single component?`
 
@@ -222,5 +163,3 @@ schema-output: PATH_TO_OUTPUT_SCHEMA
 devices:
   gpu: false
 ```
-
-

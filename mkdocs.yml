@@ -51,7 +51,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format         
 
 copyright: |
-  &copy; 2023 SDSC / CSFM
+  &copy; 2023 SDSC
 
 # Page tree
 nav:
@@ -62,7 +62,10 @@ nav:
     - Components and Versions: tutorials/components-and-versions.md
     - Executions: tutorials/executions.md
     - Run Executions: tutorials/run-executions.md
-  - Components: odtp_components.md
+  - Components: 
+    - Definition: components/components-definition.md
+    - How to run a component: components/how-to-run-a-component.md
+    - How to create a component: components/components-development.md
   - Installation: odtp_installation.md
   - Schema: odtp_schema.md
   - Concept: odtp_concept.md
