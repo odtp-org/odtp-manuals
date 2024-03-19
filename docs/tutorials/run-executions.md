@@ -110,3 +110,5 @@ In this step the docker container for the components will run and produce the ac
     --execution-id 65c3ab980c57d37eb076b6ba \
     --projecoject-path 
     ```
+
+<script src="https://hypothes.is/embed.js" async></script>

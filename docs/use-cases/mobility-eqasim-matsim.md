@@ -27,3 +27,5 @@ graph LR;
 ## Reference and contact
 
 TBD
+
+<script src="https://hypothes.is/embed.js" async></script>
