@@ -51,3 +51,5 @@ Once you have a user, you can set up a digital twin
     ```
     A digital twin has been added: 65a7c735732ae1d3fee2b946
     ``` 
+
+<script src="https://hypothes.is/embed.js" async></script>
