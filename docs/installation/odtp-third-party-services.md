@@ -23,12 +23,13 @@ docker run -it \
     -v /home/[OS_USER]/mongodb:/data/db \
     -e MONGO_INITDB_ROOT_USERNAME=[MONGO_DB_USER] \
     -e MONGO_INITDB_ROOT_PASSWORD=[MONGO_DB_PASSWORD] \
-    -e MONGO_INITDB_DATABASE=odtp \
+    -e MONGO_INITDB_DATABASE=[ODTP_DB] \
     -p 27017:27017 \
     mongo:latest
 ```
 You need to provide the `[OS_USER]` on which you are installing ODTP.
 With this command you are also creating a `[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` that ODTP will use to log information.
+Select the name for the `[ODTP_DB]`, we recommend `odtp`.
 
 !!! note
 
