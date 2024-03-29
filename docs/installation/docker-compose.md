@@ -7,11 +7,21 @@ This offers the possibility of running "Docker in Docker" which can carry [some 
 For production environment running digital twins we recommend to install the tool and dependencies locally following [this guide](odtp-local-installation.md)
 . 
 
+The deployment in docker is done in three parts:
+1. The crendentials are added in the `docker-compose.yml` file.
+2. The containers are build with `docker compose up`.
+3. The dependencies between containers and settings in containers are set.
+
+!!! note
+
+    - The third part is referenced by the first part and therefore it is important to follow this manual exactly, otherwise you will run into errors caused by the wrong execution order.
+
 ## 1. External dependencies
+
 In order to install ODTP you will need to download and install [Docker](https://www.docker.com/) in your machine, and git. 
 
 ## 2. Folder configuration 
-Create a folder (we recommend `odtp`) where ODTP will locate all services, and files needed.
+Create a folder (we recommend you name it `odtp`) where ODTP will locate all services, and files needed.
 Create the following sub-folders: `mongodb`, `minion`, and `digital-twins`.
 The file system structure should be like this:
 
@@ -47,6 +57,7 @@ git clone https://github.com/odtp-org/odtp.git
 The `docker-compose.yml` should be completed by adding administrator users, passwords and configuration for the different services.
 There are four services we are going to need: `mongodb-instance`, `mongodb-express`, `minion-instance`, and `odtp`.
 The variable you have to set yourself are in brackets `[]` and are used as credentials for the ODTP environment.
+We recommend to fill the information in this order as there are dependencies in the credentials.
 
 1. `mongodb-instance`: This is the database.
     1. Configure `environment` variables
@@ -70,10 +81,10 @@ The variable you have to set yourself are in brackets `[]` and are used as crede
     1. Configure `environment` variables
         1. `ODTP_MONGO_SERVER`: `mongodb://[MONGO_DB_USER]:[MONGO_DB_PASSWORD]@[LOCAL_IP]:27017/`
         2. `ODTP_S3_SERVER`: `http://[LOCAL_IP]:9000`
-        3. `ODTP_BUCKET_NAME`: `[ODTP_BUCKET]`, we recommend to name it `odtp`
+        3. `ODTP_BUCKET_NAME`: `[ODTP_BUCKET]`, we recommend to name it `odtp` (setup in [step 8](#bucket_creation))
         4. `ODTP_ACCESS_KEY`: `[MINIO_USER]` 
         5. `ODTP_SECRET_KEY`: `[MINIO_PASSWORD]` 
-        6. `GITHUB_TOKEN`: gh_...
+        6. `GITHUB_TOKEN`: `[GITHUB_TOKEN]`
         7. `ODTP_MONGO_DB`: `[ODTP_DB]`
     2. Configure volume: 
         1. Modify `/Absolute/Path/To/ODTP/DT/FOLDER` to match your `digital-twins` folder.
@@ -100,6 +111,7 @@ GITHUB_TOKEN=[GITHUB_TOKEN]
 ## 7. Execution 
 Run `docker compose up`. This will retrieve all the services images and deploy them. 
 
+<a name="bucket_creation"></a>
 ## 8. S3 Bucket creation in minion dashboard
 Before start using `ODTP`, we need to manually create the bucket by accessing to `[LOCAL_IP]:9001`. Here access with the credentials you generated previously and create a new bucker call `odtp`. 
 
