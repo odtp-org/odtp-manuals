@@ -6,7 +6,7 @@ In square bracket "[]" you find variables that you have to provide before runnin
 These variable are also reused in the installation of ODTP and other services, please have them ready.
 
 ## 1. Get your IP address
-To connect the services we will need your IP address. 
+To connect the services we will need your IP address and remember it is `[LOCAL_IP]`. 
 
 ```
 ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
