@@ -77,6 +77,7 @@ We provide installation of ODTP via two package and dependency managers to ensur
 
 You can install odtp by using [poetry](https://python-poetry.org/) and running: 
 
+1. Run `poetry env use 3.11`
 2. Run `poetry install`
 3. Run `poetry shell`
 4. Run `odtp --help`
