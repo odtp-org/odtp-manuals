@@ -77,12 +77,16 @@ We provide installation of ODTP via two package and dependency managers to ensur
 
 You can install odtp by using [poetry](https://python-poetry.org/) and running: 
 
-1. Run `poetry env use 3.11`
+1. (Required for OSX) Run `poetry env use 3.11`. 
 2. Run `poetry install`
 3. Run `poetry shell`
 4. Run `odtp --help`
 
-This should print out the help for `odtp`
+This should print out the help for `odtp`.
+
+!!! note
+
+- For OSX, the environment needs to be set to 3.11 because there is no wheel for duckdb on arm64 (Apple Silicon) for python 3.12 and higher (last checked April 1, 2024). Poetry selects python 3.12 because there is no dependency issues but missing wheels are not accounted for.
 
 ### Using PDM
 
