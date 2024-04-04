@@ -1,15 +1,13 @@
 # Easy deployment with Docker compose
 
-${\textsf{\color{red}Disclaimer}}$: Under development. Only tested in OSX with Apple Sillicon. 
-
 The easy way to test and develop with `ODTP` is by using Docker with our `docker-compose.yml`.
 This offers the possibility of running "Docker in Docker" which can carry [some security issues](https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/). Therefore it should only be used for testing and development.
 For production environment running digital twins we recommend to install the tool and dependencies locally following [this guide](odtp-local-installation.md)
 . 
 
 The deployment in docker is done in three parts:
-1. The crendentials are added in the `docker-compose.yml` file.
-2. The containers are build with `docker compose up`.
+1. The crendentials are added in the `.env` file.
+2. The containers are build with `docker compose up -d`.
 3. The dependencies between containers and settings in containers are set.
 
 !!! note
@@ -22,26 +20,20 @@ In order to install ODTP you will need to download and install [Docker](https://
 
 ## 2. Folder configuration 
 Create a folder (we recommend you name it `odtp`) where ODTP will locate all services, and files needed.
-Create the following sub-folders: `mongodb`, `minion`, and `digital-twins`.
+Create the following sub-folders: `mongodb`, `minio`, and `digital-twins`.
 The file system structure should be like this:
 
 ```bash
 └── odtp
     ├── mongodb
-    ├── minion
+    ├── minio
     └── digital-twins
 ```
 
 ## 3. Get your IP and your Github Token
-To complete the configuration of the `docker-compose.yml` we will need your `[LOCAL_IP]`: 
+To complete the configuration of the `.env` we will need your Github Token: 
 
-```
-ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
-```
-
-Please have the IP ready for the configuration.
-
-Also, go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights.
+Go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights.
 Choose an appropriate expiration data to work with the token.
 Save the name of the [GITHUB_TOKEN] for later use during the installation.
 
@@ -53,63 +45,52 @@ We recommend to do it in the same folder you created before (e.g.. `odtp`)
 git clone https://github.com/odtp-org/odtp.git
 ```
 
-## 5. Edit `docker-compose.yml` 
-The `docker-compose.yml` should be completed by adding administrator users, passwords and configuration for the different services.
-There are four services we are going to need: `mongodb-instance`, `mongodb-express`, `minion-instance`, and `odtp`.
-The variable you have to set yourself are in brackets `[]` and are used as credentials for the ODTP environment.
-We recommend to fill the information in this order as there are dependencies in the credentials.
+## 5. Edit `.env` 
+The `.env` should be completed by adding administrator users, passwords and configuration for the different services: 
 
-1. `mongodb-instance`: This is the database.
-    1. Configure `environment` variables
-        1. `MONGO_INITDB_ROOT_USERNAME`: `[MONGO_DB_USER]`
-        2. `MONGO_INITDB_ROOT_USERNAME`: `[MONGO_DB_PASSWORD]`
-        3. `MONGO_INITDB_DATABASE`: `[ODTP_DB]`, we recommend to name it `odtp`
-    2. Configure volume: 
-        1. Modify `/Absolute/Path/To/ODTP/Services/Folder/mongodb` to match your `mongodb` folder from step 2.
-2. `mongodb-express`: This is the database dashboard
-    1. Configure `environment` variables
-        1. `ME_CONFIG_BASICAUTH_USERNAME`: `[MONGO_EXPRESS_USER]`
-        2. `ME_CONFIG_BASICAUTH_PASSWORD`: `[MONGO_EXPRESS_PASSWORD]`
-        3. `ME_CONFIG_MONGODB_URL`: `mongodb://[MONGO_DB_USER]:[MONGO_DB_PASSWORD]@[LOCAL_IP]:27017/`
-3. `minion-instance`: This is the s3 server
-    1. Configure `environment` variables
-        1. `MINIO_ROOT_USER`: `[MINIO_USER]`
-        2. `MINIO_ROOT_PASSWORD`: `[MINIO_PASSWORD]`
-    2. Configure volume: 
-        1. Modify `/Absolute/Path/To/ODTP/Services/Folder/minion` to match your `minion` folder
-4. `odtp`: This is the odtp instance
-    1. Configure `environment` variables
-        1. `ODTP_MONGO_SERVER`: `mongodb://[MONGO_DB_USER]:[MONGO_DB_PASSWORD]@[LOCAL_IP]:27017/`
-        2. `ODTP_S3_SERVER`: `http://[LOCAL_IP]:9000`
-        3. `ODTP_BUCKET_NAME`: `[ODTP_BUCKET]`, we recommend to name it `odtp` (setup in [step 8](#bucket_creation))
-        4. `ODTP_ACCESS_KEY`: `[MINIO_USER]` 
-        5. `ODTP_SECRET_KEY`: `[MINIO_PASSWORD]` 
-        6. `GITHUB_TOKEN`: `[GITHUB_TOKEN]`
-        7. `ODTP_MONGO_DB`: `[ODTP_DB]`
-    2. Configure volume: 
-        1. Modify `/Absolute/Path/To/ODTP/DT/FOLDER` to match your `digital-twins` folder.
-    3. Configure ports: Depending on the components you want to run you may add more ports mappings here. `8000` is reserved for ODTP GUI.
-
-## 6. Configuring .env file. 
-
-In order to connect to MongoDB and S3. You need to provide the credentials in an enviroment file with the following structure. This .env file needs to be in the folder where odtp is executed.
-
-1. Rename `.env.dist` as `.env`
-2. Populate it with all credentials that have been generated in the `docker-compose.yml`.
-
-Your `.env`-file should look something similar to this with the correct credentials replacing the variable names:
 ```
-ODTP_MONGO_SERVER= mongodb://[MONGO_DB_USER]:[MONGO_DB_PASSWORD]@[LOCAL_IP]:27017/
-ODTP_MONGO_DB=[ODTP_DB]
-ODTP_S3_SERVER= http://[LOCAL_IP]:9000
-ODTP_BUCKET_NAME=[ODTP_BUCKET] 
-ODTP_ACCESS_KEY=[MINIO_USER]       
-ODTP_SECRET_KEY=[MINIO_PASSWORD]
-GITHUB_TOKEN=[GITHUB_TOKEN]
+cp .env.dist .env
 ```
+
+Then fill in your crendentials into `.env` as follows:
+
+```
+# local setup only
+ODTP_MONGO_SERVER= # leave empty: will be set automatically
+ODTP_S3_SERVER= # leve empty: will be set automatically
+
+# local setup and compose
+ODTP_MONGO_DB=odtp
+ODTP_BUCKET_NAME=odtp
+ODTP_ACCESS_KEY= # chose a user name for example: admin  
+ODTP_SECRET_KEY= # chose a user name for example: test
+GITHUB_TOKEN= # enter your github token
+
+# compose only
+MONGO_DB_USER= # chose a user name for example: admin
+MONGO_DB_PASSWORD= # chose a user name for example: test1234
+                   # (must be at least 8 characters)
+MONGO_EXPRESS_USER= # chose a user name for example: admin
+MONGO_EXPRESS_PASSWORD= # chose a user name for example: test1234
+ODTP_PATH= # /Absolute/Path/To/ODTP/Services/Folder/digital-twins
+MINIO_PATH= # /Absolute/Path/To/ODTP/Services/Folder/minio
+MONGODB_PATH= # /Absolute/Path/To/ODTP/Services/Folder/mongodb
+```
+
+The `compose.yml` file will take the values from the `.env` file 
+to populate its variables. You may also adjust the ports in the `compose.yml` file.
+
+Test your configuration: 
+
+```
+docker compose config
+```
+
+This will print out a generated `docker-compose.yml` file as it will be 
+used for the `docker compose up`. 
 
 ## 7. Execution 
-Run `docker compose up`. This will retrieve all the services images and deploy them. 
+Run `docker compose up -d`. This will retrieve all the services images and deploy them. 
 
 <a name="bucket_creation"></a>
 ## 8. S3 Bucket creation in minion dashboard
@@ -126,6 +107,7 @@ docker exec -it odtp-odtp-1 odtp setup initiate
 Now you use `ODTP` directly via the CLI or via the GUI by executing `odtp dashboard`. 
 
 You can test than the system is working by creating a new user in the database: 
+Inside the docker container you can create a new user: 
 
 ``` bash
 odtp new user-entry \
