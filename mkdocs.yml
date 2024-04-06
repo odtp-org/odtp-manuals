@@ -9,6 +9,7 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.tracking
+    - navigation.indexes
     - toc.follow
     - navigation.top
     - search.suggest
@@ -79,6 +80,7 @@ nav:
     - ODTP local installation: installation/odtp-local-installation.md
     - ODTP third-party services: installation/odtp-third-party-services.md
   - Zoo:
+    - zoo/index.md
     - Introduction: zoo/zoo-definition.md
     - Getting started: zoo/add-component.md
   - Use Cases: 
@@ -90,8 +92,8 @@ nav:
     - Develop a component: components/components-development.md
     - ODTP DB Schema: development/odtp-db-schema.md
   - About: 
-    - Index: about/index.md
-    - Acknowledgement and Funding: about/acknowledgement.md
+    - about/index.md
+    - Acknowledgement: about/acknowledgement.md
     - Copyright: about/copyright.md
     - Licensing: about/licensing.md
     - Disclaimer: about/disclaimer.md    
