@@ -1,4 +1,4 @@
-# Add component to the ODTP zoo
+# Add component to the ODTP-org zoo
 
 ## Locate the github repsitory of the zoo.
 
