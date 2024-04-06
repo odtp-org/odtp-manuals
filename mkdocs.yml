@@ -31,6 +31,7 @@ theme:
         name: Switch to light mode    
       primary: white
       accent: lime
+  custom_dir: overrides      
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -60,7 +61,6 @@ copyright: |
 nav:
   - Home:
     - Introduction: index.md
-    - Acknowledgement and Funding: acknowledgement.md
     - ODTP Digital Twin: odtp-digital-twin.md
     - ODTP Concepts: odtp-concepts.md
   - Usage: 
@@ -89,3 +89,9 @@ nav:
     - Roadmap: development/roadmap.md
     - Develop a component: components/components-development.md
     - ODTP DB Schema: development/odtp-db-schema.md
+  - About: 
+    - Index: about/index.md
+    - Acknowledgement and Funding: about/acknowledgement.md
+    - Copyright: about/copyright.md
+    - Licensing: about/licensing.md
+    - Disclaimer: about/disclaimer.md    
