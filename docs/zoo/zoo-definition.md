@@ -14,4 +14,3 @@ A ODTP zoo is a collection of ODTP components.
 ## Getting started with the zoo
 
 [Tutorial how to add a component to ODTP-org Zoo](add-component.md)
-
