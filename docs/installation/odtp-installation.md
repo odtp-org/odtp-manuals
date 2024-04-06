@@ -26,7 +26,6 @@ graph TD;
     MinioGUI[GUI in port 9001]
     end
     MongoDBExpress -->|dashboard for| MongoDBInstance
-    
 ``` 
 
 ## Easy deployment with `docker-compose.yml`
