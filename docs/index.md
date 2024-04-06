@@ -14,7 +14,7 @@ ODTP offers a comprehensive suite of functionalities to enhance digital twins' m
 
 ## What do we consider a Digital Twin?
 
-In ODTP a digital Twin is compose by a set of executions with specific data inputs, analysis and parameters settings. Each executions represents a pipeline of `odtp components` that runs in individual docker containers. These `odtp components` are wrapper to individual modules for analysis, simulation, or data ingestion tools. On top of this, ODTP offers a solution for reproducibility and digital twin sharing by keeping track of all details and components used.
+In ODTP a digital Twin is composed by a set of executions with specific data inputs, analysis and parameters settings. Each execution represents a pipeline of `odtp components` that runs in individual docker containers. These `odtp components` are wrapper to individual modules for analysis, simulation, or data ingestion tools. On top of this, ODTP offers a solution for reproducibility and digital twin sharing by keeping track of all details and components used.
 
 In v0.2.0 the pipeline is require to be linear. However, we are working to bring compatibility with DAG pipelines. 
 
