@@ -60,6 +60,7 @@ copyright: |
 nav:
   - Home:
     - Introduction: index.md
+    - Acknowledgement and Funding: acknowledgement.md
     - ODTP Digital Twin: odtp-digital-twin.md
     - ODTP Concepts: odtp-concepts.md
   - Usage: 
@@ -73,12 +74,13 @@ nav:
     - How to run a component: components/how-to-run-a-component.md
     - How to create a component: components/components-development.md
   - Installation: 
-    - Installation: installation/odtp-installation.md
+    - Installation Variants: installation/odtp-installation.md
     - Using `docker-compose.yml`: installation/docker-compose.md
     - ODTP local installation: installation/odtp-local-installation.md
     - ODTP third-party services: installation/odtp-third-party-services.md
   - Zoo:
     - Introduction: zoo/zoo-definition.md
+    - Getting started: zoo/add-component.md
   - Use Cases: 
     - Introduction: use-cases/use-cases.md
     - Mobility. Eqasim + Matsim: use-cases/mobility-eqasim-matsim.md
