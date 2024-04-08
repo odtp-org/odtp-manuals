@@ -42,5 +42,3 @@ Checkout the following topis:
 -  [add components and versions](../components-and-versions)
 -  [add executions](../executions)
 -  [run executions](../run-executions)
-
-<script src="https://hypothes.is/embed.js" async></script>
