@@ -2,14 +2,18 @@ site_name: Open Digital Twin Platform
 site_url: https://github.com/odtp-org
 repo_url: https://github.com/odtp-org/odtp
 repo_name: odtp-org/odtp
+plugins:
+  - search
+  - link-marker
+  - ezglossary 
 theme:
   name: material
   logo: static/logo/logo.png
-  custom_dir: overrides  
   features:
     - navigation.tabs
     - navigation.sections
     - navigation.tracking
+    - navigation.indexes
     - toc.follow
     - navigation.top
     - search.suggest
@@ -18,26 +22,37 @@ theme:
     - content.code.annotation
     - content.code.copy
     - content.tabs.link
+    - content.tooltips
   language: en
   palette:
     - scheme: default
       toggle:
-        icon: material/toggle-switch-off-outline 
+        icon: material/toggle-switch-off-outline
         name: Switch to dark mode
-      primary: black 
+      primary: black
       accent: amber
-    - scheme: slate 
+    - scheme: slate
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode    
       primary: white
       accent: lime
+  custom_dir: overrides  
+  features:
+    - content.tooltips   
+    - content.footnote.tooltips        
 
 markdown_extensions:
+  - abbr
+  - attr_list
+  - def_list
+  - pymdownx.snippets  
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      auto_append:
+        - includes/glossary.md
   - admonition
   - pymdownx.arithmatex:
       generic: true
@@ -52,39 +67,53 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format         
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 copyright: |
   &copy; 2023 - 2024 SDSC
 
 # Page tree
 nav:
-  - Home:
-    - Introduction: index.md
-    - ODTP Digital Twin: odtp-digital-twin.md
-    - ODTP Concepts: odtp-concepts.md
-  - Usage: 
+  - Home: 
+    - Getting started: index.md
+    - Introduction: home/index.md
+  - Install ODTP: 
+    - Installation Options: installation/index.md
+    - Install with docker compose: installation/docker-compose_install.md
+    - Install on a local server: installation/local_server_install.md
+    - ODTP third-party services: installation/services.md
+  - Tutorials (Use ODTP): 
+    - Overview: tutorials/index.md 
     - Getting started: tutorials/getting-started.md
     - Users and Digital Twins: tutorials/users-and-digital-twins.md
     - Components and Versions: tutorials/components-and-versions.md
     - Executions: tutorials/executions.md
     - Run Executions: tutorials/run-executions.md
-  - Components: 
-    - Definition: components/components-definition.md
-    - How to run a component: components/how-to-run-a-component.md
-    - How to create a component: components/components-development.md
-  - Installation: 
-    - Installation: installation/odtp-installation.md
-    - Using `docker-compose.yml`: installation/docker-compose.md
-    - ODTP local installation: installation/odtp-local-installation.md
-    - ODTP third-party services: installation/odtp-third-party-services.md
-  - Zoo:
-    - Introduction: zoo/zoo-definition.md
+  - Components:
+    - Definition: components/index.md
+    - Types: components/types.md     
+    - Develop a component: components/develop.md
+    - Run a component: components/run.md
+    - Find components: components/find.md  
+  - Workflows: 
+    - Overview: workflows/index.md
+  - ODTP Orchestrator:
+    - Overview: orchestrator/index.md
+    - Concept: orchestrator/concept.md
+    - Architecture: orchestrator/architecture.md
+    - Schema: orchestrator/schema.md
+    - Roadmap: orchestrator/roadmap.md    
+  - ODTP Zoo:
+    - Overview: zoo/index.md
+    - Add Component: zoo/add-component.md
   - Use Cases: 
-    - Introduction: use-cases/use-cases.md
-    - Mobility. Eqasim + Matsim: use-cases/mobility-eqasim-matsim.md
-    - Mobility. Causal Inference: use-cases/mobility-causal-interventions.md
-  - Development: 
-    - Roadmap: development/roadmap.md
-    - Develop a component: components/components-development.md
-    - ODTP DB Schema: development/odtp-db-schema.md
+    - Introduction: usecases/index.md
+    - Mobility. Eqasim + Matsim: usecases/mobility-eqasim-matsim.md
+    - Mobility. Causal Inference: usecases/mobility-causal-interventions.md
+  - Contributing:
+    - Overview: contributing/index.md 
+  - Legal Notice: 
+    - Acknowledgement: legal/acknowledgement.md
+    - Copyright: legal/copyright.md
+    - Licensing: legal/licensing.md
+    - Disclaimer: legal/disclaimer.md
