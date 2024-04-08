@@ -1,6 +1,6 @@
 # ODTP local installation
 
-In a production environment running digital twins, a local instalation on the operating system is preferable. 
+In a production environment running digital twins, a local installation on the operating system is preferable. 
 
 ## 1. External dependencies
 In order to install ODTP you will need to download and install [Docker](https://www.docker.com/) in your machine, and git. 
@@ -18,16 +18,16 @@ In order to install ODTP you will need to download and install [Docker](https://
         GUI[GUI in port 8000]
         end
         ODTP -->|requires| MongoDBInstance
-        ODTP -->|requires| MinionInstance
+        ODTP -->|requires| MinioInstance
         subgraph MongoDBInstance[MongoDB Instance]
         MongoDB[API in port 27017]
         end
         subgraph MongoDBExpress[MongoDB Express]
         MDBEGUI[GUI in port 8081]
         end
-        subgraph MinionInstance[Minion Instance]
-        MinionAPI[API in port 9000]
-        MinionGUI[GUI in port 9001]
+        subgraph MinionInstance[Minio Instance]
+        MinioAPI[API in port 9000]
+        MinioGUI[GUI in port 9001]
         end
         MongoDBExpress -->|dashboard for| MongoDBInstance
         
@@ -36,7 +36,7 @@ To install third party services, please follow this [guide](odtp-third-party-ser
 
 ## 3. Download and prepare ODTP
 
-We provide installation of ODTP via two package and dependency managers to ensure that all dependencies have the correct version.
+We provide installation of ODTP via poetry as package and dependency manager.
 
 1. Create `odtp` folder.
 2. Download the [odtp](https://github.com/odtp-org/odtp) repository into the folder.
@@ -45,7 +45,7 @@ We provide installation of ODTP via two package and dependency managers to ensur
 
 In order to connect to MongoDB and S3. You need to provide the credentials in an enviroment file with the following structure. This .env file needs to be in the folder where odtp is executed.
 
-1. Rename `.env.dist` as `.env`
+1. Copy `.env.dist` to `.env`
 2. Populate it with all credentials
    1. The credentials have been generated while [installing third party services](odtp-third-party-services.md).
    2. Please go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights. Choose an appropriate expiration data to work with the token. Save the name of the [GITHUB_TOKEN] for later use during the installation.
@@ -71,7 +71,7 @@ ODTP will use the .env file to access the services and github. Please make sure 
 
 ## 5. Install ODTP and dependencies locally
 
-We provide installation of ODTP via two package and dependency managers to ensure that all dependencies have the correct version.
+We provide installation of ODTP via poetry
 
 ### Using poetry
 
@@ -87,14 +87,6 @@ This should print out the help for `odtp`.
 !!! note
 
 - For OSX, the environment needs to be set to 3.11 because there is no wheel for duckdb on arm64 (Apple Silicon) for python 3.12 and higher (last checked April 1, 2024). Poetry selects python 3.12 because there is no dependency issues but missing wheels are not accounted for.
-
-### Using PDM
-
-As an alterntive [PDM](https://pdm-project.org/latest/) can be used. 
-
-3. Run `pdm run odtp --help`
-
-This should print out the help for `odtp`
 
 ## 6 Configure MongoDB and S3 bucket
 

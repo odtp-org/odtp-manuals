@@ -1,7 +1,10 @@
 # ODTP Installation
 
-There are 2 main ways of installing ODTP depending on whether you are developing or deploying digital twins.
-For development, you can deploy all the services and execute ODTP via the `docker-compose.yml` we provide, or for deployment you can install the python tool and all the third-party dependencies manually. 
+There are 2 main ways of installing ODTP depending on whether you are developing or deploying digital twins:
+
+- For development, you can deploy all the services and execute ODTP via the `docker compose`
+- or for deployment you can install the python tool and all the third-party dependencies manually
+
 Below, you can see an overview of the dependencies of services required to run ODTP. 
 
 ``` mermaid
@@ -11,19 +14,18 @@ graph TD;
     GUI[GUI in port 8000]
     end
     ODTP -->|requires| MongoDBInstance
-    ODTP -->|requires| MinionInstance
+    ODTP -->|requires| MinioInstance
     subgraph MongoDBInstance[MongoDB Instance]
     MongoDB[API in port 27017]
     end
     subgraph MongoDBExpress[MongoDB Express]
     MDBEGUI[GUI in port 8081]
     end
-    subgraph MinionInstance[Minion Instance]
-    MinionAPI[API in port 9000]
-    MinionGUI[GUI in port 9001]
+    subgraph MinioInstance[Minio Instance]
+    MinioAPI[API in port 9000]
+    MinioGUI[GUI in port 9001]
     end
     MongoDBExpress -->|dashboard for| MongoDBInstance
-    
 ``` 
 
 ## Easy deployment with `docker-compose.yml`
