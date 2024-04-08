@@ -97,6 +97,7 @@ In this step the docker container for the components will run and produce the ac
     ![Dashboard Add execution](../static/tutorials/run-executions/run-completed.png){ width="800" } 
 
     Now the output folders should have outputs:
+    
     ![Dashboard Add execution](../static/tutorials/run-executions/project-folder-after-run.png){ width="300" }
 
 
@@ -109,3 +110,5 @@ In this step the docker container for the components will run and produce the ac
     --execution-id 65c3ab980c57d37eb076b6ba \
     --projecoject-path 
     ```
+
+<script src="https://hypothes.is/embed.js" async></script>

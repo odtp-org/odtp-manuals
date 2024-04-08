@@ -40,4 +40,7 @@ Checkout the following topis:
 
 -  [add users and digital twins](../users-and-digital-twins)
 -  [add components and versions](../components-and-versions)
--  [add users and digital twins](../executions)
+-  [add executions](../executions)
+-  [run executions](../run-executions)
+
+<script src="https://hypothes.is/embed.js" async></script>

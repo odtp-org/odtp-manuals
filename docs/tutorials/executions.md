@@ -56,3 +56,5 @@ An execution consists of components and can have extra port mappings and paramet
     execution_id: 65c3ab980c57d37eb076b6ba
     step_ids 65c3ab980c57d37eb076b6bb, 65c3ab980c57d37eb076b6bc
     ```
+
+<script src="https://hypothes.is/embed.js" async></script>

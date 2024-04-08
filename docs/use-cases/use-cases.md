@@ -6,4 +6,6 @@ The development of ODTP is made in parallel to the adaptation of different use c
 ## List of Use Cases
 
 - [Mobility: Eqasim and Matsim Simulation](mobility-eqasim-matsim.md)
-- [Mobility: Causal Inference](mobility-causal-inference.md)
+- [Mobility: Causal Inference](mobility-causal-interventions.md)
+
+<script src="https://hypothes.is/embed.js" async></script>
