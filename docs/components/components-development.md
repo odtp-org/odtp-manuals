@@ -1,27 +1,120 @@
 # How to develop a component
 
-The best way to start developing a component is by using [`odtp-component-template`](https://github.com/odtp-org/odtp-component-template) and follow the instructions below.
+Here you find instrutions on how to turn an existing tool into an ODTP component:
 
-## Internal data structure of a component
 
-Before starting adapting your tool, it is necessary to understand the internal folder structure. 
+``` mermaid
+graph LR;
+    Tool -->|transform| ODTPComponent
+    Template -->|fork| ODTPComponent
+    subgraph ODTPComponent[Component]
+    Component[ODTP Client]
+    Commit[checkout tool version]
+    Metadata[odtp.yml]
+    Docker[Dockerfile]
+    end
+``` 
 
-- `/odtp`: The main folder.
-- `/odtp/odtp-component-client`: This is the odtp client that will manage the execution, logging, and input/output functions of the component. It is include as a submodule, and the user doesn't need to modify it.
-- `/odtp/odtp-app`: This folder have the content of `/app` folder in this template. It contains the tool execution bash script and the tool configuration files. 
-- `/odtp/odtp-workdir`: This is the working directory where the tool repository should be placed and all the middle files such as cache folders.
-- `/odtp/odtp-input`: Input folder that is be mounted as volume for the docker container.
-- `/odtp/odtp-output`: Output folder that is mounted as volume for the docker container.
-- `/odtp/odtp-logs`: Folder reserved for internal loggings. 
-- `/odtp/odtp-config`: Folder reserved for odtp configuration. 
+[TOC]
 
-## Step to create your component based on `odtp-component-template`
+## Step 1: Use the `odtp-component-template` to create a github repo for the component
 
-1. Identify which parameters would you like to expose.
-2. Configure the Dockerfile to install all the OS requirements needed for your tool to run. 
-    1. (Optional) If your tool requires python, and the dependencies offered in the repo are not compatible with the docker image you can configure custom dependencies in requirements.txt
+Start with the ODTP component template:
+
+- go to [`odtp-component-template`](https://github.com/odtp-org/odtp-component-template)
+- Click on "Use this template": "Open a new repository"
+- Give the component a name similar to "odtp-name of your tool"
+
+The resulting repo has the following structure:
+
+Folders:
+
+- `app`: app folder to connect to your tool
+- `odtp-component-client`: client for the odtp orchestrator in order to use functions and methods in the docker container
+
+Files:
+- `env.dist`: 
+
+## Step2: Adapt the installations for Docker
+
+In this step you will adapt the installations needed for your tool: 
+
+- If your tool runs on python: adapt the `requirements.txt` file and add the libraries that you need.
+- Adapt the Dockerfile and install the needed libraries that your tool needs to run:
+
+```
+FROM ubuntu:latest
+
+RUN apt update
+RUN apt install python3 python3-pip -y
+
+##################################################
+# Ubuntu setup
+##################################################
+
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get -y upgrade \
+  && apt-get install -y --no-install-recommends \
+    unzip \
+    nano \
+    git \ 
+    g++ \
+    gcc \
+    htop \
+    zip \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+##################################################
+# ODTP setup
+##################################################
+
+COPY odtp-component-client/requirements.txt /tmp/odtp.requirements.txt
+RUN pip install -r /tmp/odtp.requirements.txt
+
+
+#######################################################################
+# PLEASE INSTALL HERE ALL SYSTEM DEPENDENCIES RELATED TO YOUR TOOL
+#######################################################################
+
+# Installing dependecies from the app
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+```
+
+Don't touch the second part of the Dockerfile, from this line onwards:
+
+```
+######################################################################
+# ODTP COMPONENT CONFIGURATION. 
+# DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING.
+######################################################################
+```
+
+## Step3: Adapt the app/app.sh to install your tool
+
+Change the section below so that a version of your tool is checked out
+
+```
+#########################################################
+# 1. GITHUB CLONING OF REPO
+# Clone the repository of your tool and checkout to one specific commit. 
+#########################################################
+
+# git clone https://github.com/odtp-org/tool-example.git /odtp/odtp-workdir/tool-example
+# cd /odtp/odtp-workdir/tool-example
+# git checkout xxxxxxxxxxxx
+```
+
+
+
 3. Configure the `app/app.sh` file to:
     1. Clone the repository of your tool and checkout to one specific commit. 
+
+
     2. (Optional) If your app uses a config file (i.e. `config.yml` or `config.json`), you need to provide a templace including placeholders for the variables you would like to expose. Placeholders can be defined by using double curly braces wrapping the name of the variable, such as `{{VARIABLE}}`. Then you can run `python3 /odtp/odtp-component-client/parameters.py PATH_TO_TEMPLATE PATH_TO_OUTPUT_CONFIG_FILE` and every placeholder will be replaced by the value in the environment variable.
     3. Copy (`cp -r`) or create symbolic links (`ln -s`) to locate the input files in `/odpt/odtp-input/` in the folder. 
     4. Run the tool. You can access to the parameters as environemnt variables (i.e. `$PARAMETER_A`)
@@ -29,8 +122,11 @@ Before starting adapting your tool, it is necessary to understand the internal f
 4. Describe all the metadata in `odtp.yml`. Please check below for instructions.
 5. Publish your tool in the ODTP Zoo. (Temporaly unavailable)
 
+## Step4: Expose parameters
 
-## Testing the component
+If your app uses a config file (i.e. `config.yml` or `config.json`), you need to provide a templace including placeholders for the variables you would like to expose. Placeholders can be defined by using double curly braces wrapping the name of the variable, such as `{{VARIABLE}}`. Then you can run `python3 /odtp/odtp-component-client/parameters.py PATH_TO_TEMPLATE PATH_TO_OUTPUT_CONFIG_FILE` and every placeholder will be replaced by the value in the environment variable.
+
+## Step 5: Test the component
 
 There are 3 main ways in which you can test a component and the different odtp features. 
 
@@ -163,5 +259,3 @@ schema-output: PATH_TO_OUTPUT_SCHEMA
 devices:
   gpu: false
 ```
-
-<script src="https://hypothes.is/embed.js" async></script>

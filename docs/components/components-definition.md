@@ -45,7 +45,7 @@ By default any outputr is stored in the S3 Server. However, when dealing with sp
 
 Checkout the following topis:
 
--  [How to run a component](components//how-to-run-a-component)
+-  [How to run a component](components/how-to-run-a-component)
 -  [How to create a component](components/components-development)
 
 <script src="https://hypothes.is/embed.js" async></script>

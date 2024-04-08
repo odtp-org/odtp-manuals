@@ -1,25 +1,71 @@
 # ODTP Introduction
 
-ODTP offers a comprehensive suite of functionalities to enhance digital twins' management, operation, and analysis. In ODTP, a digital twin is an advanced virtual model, embodying a broad spectrum of scenarios and systems that mirror current conditions and forecast future scenarios, offering users a robust platform for strategic optimization and decision-making. With ODTP, the digital twin concept transcends traditional boundaries, providing a pivotal tool for various applications, ensuring adaptability, insight, and innovation across diverse domains.
+ODTP is a framework that allows to combine tools that have been developed independently from each other into workflows that can acchieve a common goal. 
 
-## Features
+The goal that ODTP has in mind is enabling digital twins and OTDP originated in the mobility sector, see [Acknowlegdemet and Funding](legal-notice/acknowledgement.md). But the framework can be used for any purpose where tools need to be combined into workflows.
 
-- **Intuitive User Interface** to manage and operate your digital twins. 
-- **Component Execution** to execute your or existing components for simulation, analysis or visualization.
-- **Iteration Monitoring** to check digital twins iterations.
-- **Log Analysis** to conveniently access and analyze container logs.
-- **Workflow Design Tool** to design and run digital twins.
-- **Schema Management & Testing** to restart and test different schemas for MongoDB / S3.
-- **Result Analysis** to inspect outputs/snapshots and download results.
+## How ODTP stands out from other workflow managers
 
-## What do we consider a Digital Twin?
+Most workflow managers fall into two categories:
 
-In ODTP a digital Twin is composed by a set of executions with specific data inputs, analysis and parameters settings. Each execution represents a pipeline of `odtp components` that runs in individual docker containers. These `odtp components` are wrapper to individual modules for analysis, simulation, or data ingestion tools. On top of this, ODTP offers a solution for reproducibility and digital twin sharing by keeping track of all details and components used.
+- Workflows are build within a homogenous project and defined in just one programming language, example [Metaflow](https://metaflow.org/)
+- Workflow tasks are written in a special language, example [Airflow](https://airflow.apache.org/)
 
-In v0.2.0 the pipeline is require to be linear. However, we are working to bring compatibility with DAG pipelines. 
+The goal of ODTP is instead:
 
-## How can I run ODTP?
+- use heterogenous tools in the way they have been developed 
+- wrap them and transform them into ODTP components to make them usable by the ODTP Orchestrator
 
-ODTP is a tool designed to be deployed in a server and shared across a number of users. Providing an easy to access environment to Digital Twin execution and management. It provides a user-frienly graphical user interface (GUI) that can be access through a web browser, and a command line interface (CLI) for those advance users. The [tutorials](tutorials/getting-started.md) will take you through both options in parallel.
+``` mermaid
+graph TD;
+    ToolVersion -->|transform into reusable component| ODTPComponent
+    subgraph ODTPComponent[Component]
+    Component[ODTPAdapter]
+    Commit[ToolVersion]
+    end
+``` 
 
-<script src="https://hypothes.is/embed.js" async></script>
+## Tools that can be turned into ODTPComponents
+
+The tools can be of the following kinds:
+
+- Data loading
+- Data preparation
+- Data analysis
+- Data visualization
+
+## Workflow of Components
+
+The tools that have been transformed into components can then be used in Workflows:
+
+``` mermaid
+graph TD;
+    ToolA
+    ToolB
+    ToolC
+    ODTPComponentA --> ODTPComponentB
+    ODTPComponentB --> ODTPComponentC
+    subgraph ODTPComponentA[ComponentA]
+    AAdapter[ODTPAdapter]
+    ATool[ToolA]
+    end
+    subgraph ODTPComponentB[ComponentB]
+    BAdapter[ODTPAdapter]
+    BTool[ToolB]
+    end
+    subgraph ODTPComponentC[ComponentC]
+    CAdapter[ODTPAdapter]
+    CTool[ToolB]
+    end    
+``` 
+
+## ODTP Parts 
+
+The ODTP framework consists of the following three parts:
+
+**ODTP components**: Developing ODTP components is a precondition to using them in the ODTP framework: See what components already exist and how to add new components: [Getting started with ODTP components](components/index.md){ .md-button }
+
+**ODTP Orchestrator**: The ODTP orchestrator allows to combine the existing components into workflows. The workflows can then be excuted, monitored and outputs and results can be saved:
+[Getting started with the ODTP orchestrator](components/index.md){ .md-button }
+
+**ODTP Zoo**: Components can be regitered and then discovered in the ODTP Zoo: [Getting started with the ODTP zoo](zoo/index.md){ .md-button }

@@ -8,5 +8,3 @@ Component Zoo Template: The template for the Component Zoo operates under the BS
 
 ## Alternative Commercial Licensing
 Alternative commercial licensing options for the core platform and other components are available and can be negotiated through the EPFL Technology Transfer Office (https://tto.epfl.ch) or ETH Zürich Technology Transfer Office (https://ethz.ch/en/industry/transfer.html).
-
-<script src="https://hypothes.is/embed.js" async></script>

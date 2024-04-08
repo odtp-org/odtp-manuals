@@ -2,7 +2,7 @@
 
 ## Locate the github repsitory of the zoo.
 
-Each zoo db is located in a github repository: [ODTP-org Zoo](https://github.com/odtp-org/odtp-zoo-db)
+The zoo db is located in a github repository: [ODTP-org Zoo](https://github.com/odtp-org/odtp-zoo-db)
 
 In order to add a component you must submit it via a PR. It will then be added to
 `index.yaml` and `index.json`, that lists all available components with their metadata. 

@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 mkdocs-material = "^9.5.8"
+mkdocs-ezglossary-plugin = "^1.5.8"
 
 
 [build-system]
