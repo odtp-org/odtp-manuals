@@ -3,7 +3,7 @@
 !!! note
 
     - Components are code repos that can be used for digital twin workflows
-    - Components can have differen versions
+    - Components can have different versions
 
 ## Checkout existing components
 

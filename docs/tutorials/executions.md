@@ -32,11 +32,11 @@ An execution consists of components and can have extra port mappings and paramet
 
     ![Dashboard Add execution](../static/tutorials/executions/add-execution.png){ width="800" }
 
-    Then you may add paramters and ports: those are optional
+    Then you may add parameters and ports: those are optional
 
     ![Dashboard Add execution](../static/tutorials/executions/add-execution-parameters-and-ports.png){ width="800" }
 
-    You will see your executution, now you can save it.
+    You will see your execution, now you can save it.
 
     ![Dashboard Add execution](../static/tutorials/executions/save-new-execution.png){ width="800" }
 
