@@ -5,6 +5,7 @@ repo_name: odtp-org/odtp
 theme:
   name: material
   logo: static/logo/logo.png
+  custom_dir: overrides  
   features:
     - navigation.tabs
     - navigation.sections

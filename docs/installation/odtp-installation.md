@@ -33,5 +33,3 @@ For test and development purposes we recommend to use the former, however this m
 
 1. First deploy all third-party dependencies following this [guide](odtp-third-party-services.md)
 2. Then install ODTP locally following these [instructions](odtp-local-installation.md)
-
-<script src="https://hypothes.is/embed.js" async></script>
