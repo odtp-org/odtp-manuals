@@ -163,5 +163,3 @@ schema-output: PATH_TO_OUTPUT_SCHEMA
 devices:
   gpu: false
 ```
-
-<script src="https://hypothes.is/embed.js" async></script>

@@ -15,5 +15,3 @@
 - I/O operations optimization
 - Automatic executions planner
 - Enhancement of DB Schema
-
-<script src="https://hypothes.is/embed.js" async></script>

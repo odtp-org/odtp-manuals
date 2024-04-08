@@ -66,5 +66,3 @@ These modules are the different parts that we are developing for the ODTP. These
 
 ### Services
 One service or micro-service, in a micro-services architecture refers to one logical unit that performs one specific task in an independent manner. In ODTP we use different servers to support core modules, such as MongoDB for the database, Minion for the storage, or GraphDB for the knowledge graph storing. But also, from a technical standpoint every component is turned into a micro-service when running. I think this is the part that’s bringing more confusion. 
-
-<script src="https://hypothes.is/embed.js" async></script>
