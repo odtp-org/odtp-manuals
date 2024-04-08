@@ -45,19 +45,36 @@ We provide installation of ODTP via poetry as package and dependency manager.
 
 In order to connect to MongoDB and S3. You need to provide the credentials in an enviroment file with the following structure. This .env file needs to be in the folder where odtp is executed.
 
-1. Copy `.env.dist` to `.env`
+1. Copy `.env.dist.local` to `.env`
 2. Populate it with all credentials
    1. The credentials have been generated while [installing third party services](odtp-third-party-services.md).
    2. Please go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights. Choose an appropriate expiration data to work with the token. Save the name of the [GITHUB_TOKEN] for later use during the installation.
 
 Your `.env`-file should look something similar to this with the correct credentials replacing the variable names:
-```
-ODTP_MONGO_SERVER= mongodb://[MONGO_DB_USER]:[MONGO_DB_PASSWORD]@[LOCAL_IP]:27017/
-ODTP_MONGO_DB=[ODTP_DB]
-ODTP_S3_SERVER= http://[LOCAL_IP]:9000
-ODTP_BUCKET_NAME=[ODTP_BUCKET] 
-ODTP_ACCESS_KEY=[MINIO_USER]       
+
+```yaml
+# environment variables for local installation
+# ----------------------------------------------
+# fill these variables in case you want to 
+# install otdp locally on your computer or 
+# on a server
+
+# mongo url: example "mongodb://localhost:27017/"
+ODTP_MONGO_SERVER=mongodb://[MONGO_DB_USER]:[MONGO_DB_PASSWORD]@[LOCAL_IP]:27017/
+# S3 server url: example: "https://s3.epfl.ch"
+ODTP_S3_SERVER=http://[LOCAL_IP]:9000
+
+# odtp db instance in the mongo db: "odtp"
+ODTP_MONGO_DB=odtp
+
+# s3 bucket name: "odtp" 
+ODTP_BUCKET_NAME=odtp
+
+# s3 access and secret key
+ODTP_ACCESS_KEY=[MINIO_USER]     
 ODTP_SECRET_KEY=[MINIO_PASSWORD]
+
+# your github token
 GITHUB_TOKEN=[GITHUB_TOKEN]
 ```
 

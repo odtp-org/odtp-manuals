@@ -49,29 +49,41 @@ git clone https://github.com/odtp-org/odtp.git
 The `.env` should be completed by adding administrator users, passwords and configuration for the different services: 
 
 ```
-cp .env.dist .env
+cp .env.dist.compose .env
 ```
 
 Then fill in your crendentials into `.env` as follows:
 
-```
-# local setup only
-ODTP_MONGO_SERVER= # leave empty: will be set automatically
-ODTP_S3_SERVER= # leve empty: will be set automatically
+```yaml
+# environment variables for installation with docker compose
+# -----------------------------------------------------------
+# fill these variables in case you want to install odtp with
+# docker compose
 
 # local setup and compose
-ODTP_MONGO_DB=odtp
-ODTP_BUCKET_NAME=odtp
-ODTP_ACCESS_KEY= # chose a user name for example: admin  
+
+# odtp db instance in the mongo db: "odtp"
+ODTP_MONGO_DB=odtp 
+# s3 bucket name: "odtp" 
+ODTP_BUCKET_NAME=odtp 
+
+# s3 access and secret key
+ODTP_ACCESS_KEY= # chose a user name for example: admin      
 ODTP_SECRET_KEY= # chose a user name for example: test
+
+# your github token
 GITHUB_TOKEN= # enter your github token
 
-# compose only
-MONGO_DB_USER= # chose a user name for example: admin
+# mongodb user and password
+MONGO_DB_USER= # chose a user name for example: test1234
 MONGO_DB_PASSWORD= # chose a user name for example: test1234
                    # (must be at least 8 characters)
+
+# mongoexpress user and password
 MONGO_EXPRESS_USER= # chose a user name for example: admin
 MONGO_EXPRESS_PASSWORD= # chose a user name for example: test1234
+
+# absolute path for docker volumes
 ODTP_PATH= # /Absolute/Path/To/ODTP/Services/Folder/digital-twins
 MINIO_PATH= # /Absolute/Path/To/ODTP/Services/Folder/minio
 MONGODB_PATH= # /Absolute/Path/To/ODTP/Services/Folder/mongodb
@@ -94,7 +106,7 @@ Run `docker compose up -d`. This will retrieve all the services images and deplo
 
 <a name="bucket_creation"></a>
 ## 8. S3 Bucket creation in minion dashboard
-Before start using `ODTP`, we need to manually create the bucket by accessing to `[LOCAL_IP]:9001`. Here access with the credentials you generated previously and create a new bucker call `odtp`. 
+Before start using `ODTP`, we need to manually create the bucket by accessing to `http://127.0.0.1:9001`. Here access with the credentials you generated previously and create a new bucker call `odtp`. 
 
 ## 9. ODTP initial configuration
 After this is done you should be able to execute `odtp setup initiate` which will finish the configuration of the database and s3 instance. This needs to be run in docker assuming that the container is called `odtp-odtp-1`:
