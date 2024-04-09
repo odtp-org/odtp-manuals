@@ -37,5 +37,3 @@ In order to submit a component you need to make an entry in `components` directo
 ## How to deploy your own zoo
 
 TO BE DEVELOPED
-
-<script src="https://hypothes.is/embed.js" async></script>

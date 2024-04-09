@@ -42,3 +42,4 @@ Two steps are required to get ODTP running locally on your machine:
 2. Install ODTP locally following these [instructions](odtp-local-installation.md).
 
 <script src="https://hypothes.is/embed.js" async></script>
+

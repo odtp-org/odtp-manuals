@@ -35,5 +35,3 @@ One of the limitations in `ODTP v0.2.x` is that we only offer compatibility with
 ## `odtp-compose.yml`
 
 The goal of ODTP is to prioritize the flexibility and independence of the Digital Twins generated. That's why we are developing the exporting of each digital twin into an `odtp-compose.yml` file that can be executed directly by Docker. This file will offer the user the possibility to run one specific execution in an isolated and reproducible environment, ensuring consistency across different executions and facilitating collaboration and sharing among users. The `odtp-compose.yml` will include definitions for all the services involved in the execution, their configuration, inter-service dependencies, and any necessary environment variables or volume mounts.
-
-<script src="https://hypothes.is/embed.js" async></script>

@@ -208,5 +208,3 @@ results = {
     "updated_at": datetime.utcnow(),
 }
 ```
-
-<script src="https://hypothes.is/embed.js" async></script>

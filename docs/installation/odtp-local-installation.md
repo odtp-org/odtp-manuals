@@ -132,5 +132,3 @@ user ID: 65c3648260106cc50f650bc1
 ```
 
 Now that everything has been set up, you are ready to work. Head over to the [tutorials](tutorials/getting-started.md) 
-
-<script src="https://hypothes.is/embed.js" async></script>
