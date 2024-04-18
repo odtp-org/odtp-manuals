@@ -76,6 +76,10 @@ ODTP_SECRET_KEY=[MINIO_PASSWORD]
 
 # your github token
 GITHUB_TOKEN=[GITHUB_TOKEN]
+
+# Dashboard parameters
+ODTP_DASHBOARD_PORT= # some port, for example: 8003
+ODTP_DASHBOARD_RELOAD=false # true is needed for development
 ```
 
 ODTP will use the .env file to access the services and github. Please make sure that you have entered all information correctly.
