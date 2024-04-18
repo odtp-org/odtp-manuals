@@ -87,6 +87,10 @@ MONGO_EXPRESS_PASSWORD= # chose a user name for example: test1234
 ODTP_PATH= # /Absolute/Path/To/ODTP/Services/Folder/digital-twins
 MINIO_PATH= # /Absolute/Path/To/ODTP/Services/Folder/minio
 MONGODB_PATH= # /Absolute/Path/To/ODTP/Services/Folder/mongodb
+
+# Dashboard parameters
+ODTP_DASHBOARD_PORT= # some port, for example: 8003
+ODTP_DASHBOARD_RELOAD=false # true is needed for development
 ```
 
 The `compose.yml` file will take the values from the `.env` file 
