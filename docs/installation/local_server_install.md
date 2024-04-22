@@ -1,4 +1,123 @@
-# ODTP local installation
+!!! Note
+    For deploying digital twins we recommend to use ODTP as a local installation as described here. In a production environment running digital twins, a local installation on the operating system is preferable. Note that this requires additional third party services to be setup along side ODTP
+
+[TOC]
+
+## Prerequisites
+
+In order to install ODTP you need: 
+
+### Docker
+
+- [Docker](https://www.docker.com/)
+
+### Git 
+
+- [git](https://git-scm.com/)
+
+On a local server, ODTP needs additionally the following services to be setup:
+
+### Mongodb
+
+- [Mongodb](https://www.mongodb.com/docs/manual/installation/)
+
+Form this installation you need the following variables:
+
+- `[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGODB_URL]` from the Mongodb Installation
+
+Optional: for the Mongodb it is advisable to install also a graphical user interface for the mongodb. Options are: ¨
+
+- https://www.mongodb.com/products/tools/compass
+- https://github.com/mongo-express/mongo-express
+
+### Minio
+
+- [Minio](https://min.io/docs/minio/linux/operations/installation.html)
+
+From these installations you need the following variables:
+
+- `[MINIO_ROOT_USER]` and `[MINIO_ROOT_PASSWORD]` and `[MINIO_URL]` from the Minio Installation
+
+### Github token
+
+You need a github token: 
+
+Go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights.
+Choose an appropriate expiration data to work with the token. Save the name of the `[GITHUB_TOKEN]` for later use during the installation.
+
+### Python 3.11
+
+You also need Python3.11 installed on your Server: https://www.python.org/downloads/. Save the `[PYTHON_3_11_PATH]` on your local server.
+
+### Poetry
+
+As  python dependency manager ODTP uses [poetry](https://python-poetry.org/docs/#installation)
+
+## 1. Install ODTP
+
+Clone the repository
+ 
+```bash
+git clone https://github.com/odtp-org/odtp.git
+cd odtp
+```
+
+Install ODTP
+
+```
+poetry env use [PYTHON_3_11_PATH]
+poetry shell
+poetry install
+```
+
+!!! Note
+    On a server with Apple Chip you might need to change the shell using this command: `env /usr/bin/arch -x86_64 /bin/bash --login` before the installation.
+
+
+## 2. Set the environment variables: 
+
+Create a `.env` file from the template `.env.dist.local`
+
+```bash
+cd odtp
+cp .env.dist.local .env
+```
+
+```yaml
+# environment variables for local installation
+# ----------------------------------------------
+# fill these variables in case you want to 
+# install otdp locally on your computer or 
+# on a server
+
+# mongo url: example "mongodb://localhost:27017/"
+ODTP_MONGO_SERVER=
+# S3 server url: example: "https://s3.epfl.ch"
+ODTP_S3_SERVER=[Minio or S3 Server URL]
+
+# odtp db instance in the mongo db: "odtp"
+ODTP_MONGO_DB=
+[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGODB_URL]`
+# s3 bucket name: "odtp" 
+ODTP_BUCKET_NAME=
+
+# s3 access and secret key
+ODTP_ACCESS_KEY=     
+ODTP_SECRET_KEY=
+
+# your github token
+GITHUB_TOKEN=
+
+# Dashboard parameters
+ODTP_DASHBOARD_PORT=
+ODTP_DASHBOARD_RELOAD=
+```
+
+
+
+
+
+These requirements a
 
 In a production environment running digital twins, a local installation on the operating system is preferable. 
 
@@ -135,4 +254,30 @@ odtp new user-entry \
 user ID: 65c3648260106cc50f650bc1
 ```
 
-Now that everything has been set up, you are ready to work. Head over to the [tutorials](tutorials/getting-started.md) 
+Now that everything has been set up, you are ready to work. Head over to the [tutorials](../tutorials/getting-started.md) 
+
+
+[TOC]
+
+Below, you can see an overview of the dependencies of services required to run ODTP. 
+
+``` mermaid
+graph TD;
+    subgraph ODTP
+    CLI[CLI]
+    GUI[GUI in port 8000]
+    end
+    ODTP -->|requires| MongoDBInstance
+    ODTP -->|requires| MinioInstance
+    subgraph MongoDBInstance[MongoDB Instance]
+    MongoDB[API in port 27017]
+    end
+    subgraph MongoDBExpress[MongoDB Express]
+    MDBEGUI[GUI in port 8081]
+    end
+    subgraph MinioInstance[Minio Instance]
+    MinioAPI[API in port 9000]
+    MinioGUI[GUI in port 9001]
+    end
+    MongoDBExpress -->|dashboard for| MongoDBInstance
+``` 

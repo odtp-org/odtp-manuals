@@ -87,5 +87,3 @@ We recommend to call it `odtp`.
 ## 5. Continue ODTP installation
 
 Please head back to the main [local installation guide](odtp-local-installation.md).
-
-<script src="https://hypothes.is/embed.js" async></script>
