@@ -3,6 +3,7 @@
 ODTP requires two external services to function.
 Please ensure that you have installed them in docker on your machine.
 In square bracket "[]" you find variables that you have to provide before running a command.
+The square brackets need to be replaced by your name.
 These variable are also reused in the installation of ODTP and other services, please have them ready.
 
 ## 1. Get your IP address
@@ -76,7 +77,7 @@ With this command you are also creating a `[MINIO_USER]` and `[MINIO_PASSWORD]` 
 
 !!! note
 
-    - If your operation system is OSX, the `[MINIO_USER]` and `[MINIO_PASSWORD]` need to be registered with OSX. You either need to create a new account for ODTP on your OS or reuse your own credentials at your own peril.
+    - If your operation system is OSX or WSL, the `[MINIO_USER]` and `[MINIO_PASSWORD]` need to be registered with OSX/WSL. You either need to create a new account for ODTP on your OS or reuse your own credentials at your own peril.
     
     - If your operation system is OSX, the -v directory is not /home/[OS_USER] but /Users/[OS_USER]
 
