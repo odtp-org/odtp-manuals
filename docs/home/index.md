@@ -5,7 +5,7 @@ ODTP is a framework that allows to combine tools that have been developed indepe
 
 OTDP originated in the mobility sector, see [Acknowledgement and Funding](../legal/acknowledgement.md) to enable the composition of Digital Twins. But the framework can be used for any purpose where independent tools need to be combined into workflows.
 
-## ODTP as a workflow managers
+## ODTP as a workflow manager
 
 ODTP's features as workflow manager are the following:
 
