@@ -24,8 +24,9 @@ The file system structure should be like this:
 ```bash
 └── odtp
     ├── mongodb
-    ├── minio
-    └── digital-twins
+    ├── digital-twins
+    └── minio
+        └── odtp
 ```
 
 Save the name of the path names for later use during the installation:
