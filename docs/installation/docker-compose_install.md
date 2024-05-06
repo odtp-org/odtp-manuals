@@ -59,6 +59,7 @@ Afterwards your folder structure will look like this:
 └── odtp
     ├── mongodb
     ├── minio
+    |   └── odtp
     └── digital-twins
     └── odtp
         └── compose.yml
@@ -115,8 +116,8 @@ MONGO_EXPRESS_PASSWORD=[MONGO_EXPRESS_PASSWORD]
 
 # absolute path for docker volumes
 ODTP_PATH=[ODTP_PATH]
-MINIO_PATH=[ODTP_PATH]
-MONGODB_PATH=[ODTP_PATH]
+MINIO_PATH=[MINIO_PATH]
+MONGODB_PATH=[MONGODB_PATH]
 
 # Dashboard parameters
 ODTP_DASHBOARD_PORT=[DASHBOARD_PORT]
@@ -144,11 +145,7 @@ docker compose build --no-cache`
 
 This will retrieve all the services images and deploy them. The `--no-cache` option makes sure that the current version of ODTP, that was cloned in step 3 is used for the build. 
 
-## 7. S3 Bucket creation in the Minio dashboard
-
-Before start using `ODTP`, we need to manually create the bucket by accessing to `http://127.0.0.1:9001`. Here access with the credentials you generated previously and create a new bucker call `odtp`. 
-
-## 8. ODTP initial configuration
+## 7. ODTP initial configuration
 
 Enter the Docker container `odtp-odtp-1` and execute: `odtp setup initiate`. This will finish the configuration of the database and s3 instance:
 
@@ -156,7 +153,7 @@ Enter the Docker container `odtp-odtp-1` and execute: `odtp setup initiate`. Thi
 docker exec -it odtp-odtp-1 odtp setup initiate
 ```
 
-## 9. Ready to use ODTP
+## 8. Ready to use ODTP
 
 Now you are ready use `ODTP` directly via the CLI or via the GUI:
 
