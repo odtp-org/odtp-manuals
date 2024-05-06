@@ -139,7 +139,6 @@ ODTP_DASHBOARD_RELOAD=False
 
 ```
 
-
 ODTP will use the .env file to access the services and github. Please make sure that you have entered all information correctly.
 
 !!! note
@@ -199,6 +198,7 @@ Now that everything has been set up, you are ready to work. Head over to the [tu
 [TOC]
 
 Below, you can see an overview of the dependencies of services required to run ODTP. 
+Ports are defined by default. Please adjust them according to your installation.
 
 ``` mermaid
 graph TD;
