@@ -23,7 +23,7 @@ On a local server, ODTP needs additionally the following services to be setup:
 
 Form this installation you need the following variables:
 
-- ==[MONGO_DB_USER]== and ==[MONGO_DB_PASSWORD]== and ==[MONGODB_URL]== from the Mongodb Installation
+- ==[MONGO_DB_USER]== and ==[MONGO_DB_PASSWORD]== and ==[MONGO_SERVER_URL]== from the Mongodb Installation
 
 Optional: for the Mongodb it is advisable to install also a graphical user interface for the mongodb. Options are: ¨
 
@@ -96,7 +96,7 @@ cp .env.dist.local .env
 By now you should have:
 
 - ==[MINIO_ROOT_USER]== and ==[MINIO_ROOT_PASSWORD]== and ==[MINIO_URL]== from the Minio Installation
-- ==[MONGO_DB_USER]== and ==[MONGO_DB_PASSWORD]== and ==[MONGODB_URL]== from the Mongodb Installation
+- ==[MONGO_DB_USER]== and ==[MONGO_DB_PASSWORD]== and ==[MONGO_SERVER_URL]== from the Mongodb Installation
 - ==[GITHUB_TOKEN]== and ==[GITHUB_USER]== from your github
 
 Additionally you need:
@@ -121,7 +121,7 @@ ODTP_S3_SERVER=[MINIO_URL]
 
 # odtp db instance in the mongo db: "odtp"
 ODTP_MONGO_DB=[MINIO_BUCKET_NAME]
-[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGODB_URL]`
+[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGO_SERVER_URL]`
 # s3 bucket name: "odtp" 
 ODTP_BUCKET_NAME=[MONGO_DB_NAME]
 
