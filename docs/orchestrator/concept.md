@@ -1,4 +1,4 @@
-## Turning tools into pipelines
+## Combining tools into workflows
 
 The concept of ODTP starts with tools that have been deveoped independently: they may be in different programming languages and have not be designed to run in combination. ODTP offers a solutions to combine these tools in pipeline without permanently linking them or integrating them into a monolytic application.
 
