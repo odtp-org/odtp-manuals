@@ -13,7 +13,7 @@ In order to submit a component you need to make an entry in the `components` dir
 
 #### Step by step instructions
 
-1. Fork this repository.
+1. Fork the zoo repository.
 2. Copy the `odtp.yml` and rename it as `component_version.yaml`.
 3. Place the file into `components` directory.
 5. Submit a pull request and wait for review. 
