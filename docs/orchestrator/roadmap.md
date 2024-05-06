@@ -43,7 +43,7 @@ I/O operations optimization and enhancement of the Mongodb Schema are planned.
 
 Another possible enhancement would be to schedule Execution runs.
 
-### Integration with the Swiss Data Custodian
+### Compatibility with the Swiss Data Custodian
 
 It is planned to offer an integration of ODTP with the [Swiss Data Custodian](https://www.datascience.ch/resources/swiss-data-custodian) so that ODTP can better support use cases with sensitive data.
 
