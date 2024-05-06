@@ -6,7 +6,7 @@ Here you find instructions on how to turn an existing tool into an ODTP componen
 ``` mermaid
 graph LR;
     Tool -->|transform| ODTPComponent
-    Template -->|fork| ODTPComponent
+    Template -->|use| ODTPComponent
     subgraph ODTPComponent[Component]
     Component[ODTP Client]
     Commit[checkout tool version]
