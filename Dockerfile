@@ -8,7 +8,7 @@ COPY . .
 
 RUN apt-get update
 
-RUN pip install mkdocs-material
+RUN pip install mkdocs-material mkdocs-link-marker
 
 # Expose MkDocs development server port
 EXPOSE 8000
