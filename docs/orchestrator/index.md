@@ -4,14 +4,14 @@ The Orchestrator is the Application behind ODTP: it can be installed and run.
 
 ``` mermaid
 graph TD;
-    ODTPOrchestartor --> |defines and runs| Executions
-    ODTPOrchestartor --> |registers| ODTPComponents
-    ODTPOrchestartor --> |provides service to| Users
-    ODTPOrchestartor --> |registers| DigitalTwins
+    ODTPOrchestrator --> |defines and runs| Executions
+    ODTPOrchestrator --> |registers| ODTPComponents
+    ODTPOrchestrator --> |provides service to| Users
+    ODTPOrchestrator --> |registers| DigitalTwins
     Users --> |own| DigitalTwins
     DigitalTwins --> |are collections of| Executions
     Executions --> |are pipelines of| ODTPComponents
-    subgraph ODTPOrchestartor
+    subgraph ODTPOrchestrator
     Minio[S3: store snapshots between component runs]
     Mongodb[Mongodb: store all Metadata]
     Docker[Docker: run executions]
