@@ -25,6 +25,15 @@ Start with the ODTP component template:
 - Click on "Use this template": "Open a new repository"
 - Give the component a name similar to "odtp-name of your tool"
 
+!!! Note
+    This repository makes use of submodules. Therefore, when cloning it you need to include them.
+    
+    ```bash 
+    git clone --recurse-submodules https://github.com/odtp-org/odtp-component-template
+    ```
+    
+    See [README](https://github.com/odtp-org/odtp-component-template?tab=readme-ov-file#how-to-clone-this-repository)
+
 The resulting repo has the following structure:
 
 Folders:
