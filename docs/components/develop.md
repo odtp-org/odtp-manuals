@@ -211,12 +211,25 @@ tags:
   - tag1
   - tag2
 
-# Information about the tool
-tool-name: Tool name
-tool-author: Tool's author
-tool-version: Tool version
-tool-repository: Tool's repository
-tool-license: Tool's license
+# Information about the tools
+tools:
+  - tool-name: tool's name
+    tool-author: Tool's author
+    tool-version: Tool version
+    tool-repository: Tool's repository
+    tool-license: Tool's license
+
+# If your tool require some secrets token to be passed as ENV to the component
+# This won't be traced
+secrets:
+  - name: Key of the argument
+  - description: Description of the secret
+
+# If the tool requires some building arguments such as Matlab license
+build-args:
+  - name: Key of the argument
+  - description: Descriptio of the building argument
+  - secret: Bool
 
 # If applicable, ports exposed by the component
 # Include Name, Description, and Port Value for each port
@@ -235,10 +248,22 @@ parameters:
     default-value: DEFAULT_VALUE_A
     datatype: DATATYPE_A
     description: Description of Parameter A
+    parameter-bounds: # Boundaries for int and float datatype
+      - 0 # Lower bound
+      - inf # Upper bound
+    options: null
+    allow-custom-value: false # If true the user can add a custom value out of parameter-bounds, or options
+
   - name: PARAMETER B
     default-value: DEFAULT_VALUE_B
     datatype: DATATYPE_B
     description: Description of Parameter B
+    parameter-bounds: null
+    options: # If your string parameter is limited to a few option, please list them here. 
+      - OptionA
+      - OptionB
+      - OptionC
+    allow-custom-value: false # If true the user can add a custom value out of parameter-bounds, or options
 
 # If applicable, data-input list required by the component
 data-inputs:
@@ -269,5 +294,5 @@ schema-output: PATH_TO_OUTPUT_SCHEMA
 
 # If applicable, define devices needed such as GPU.
 devices:
-  gpu: false
+  gpu: Bool
 ```
