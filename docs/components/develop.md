@@ -44,10 +44,10 @@ In this step you will adapt the Build Instructions for the Docker Image:
 - Adapt the Dockerfile and install the needed libraries that your tool needs to run:
 
 ```
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 RUN apt update
-RUN apt install python3 python3-pip -y
+RUN apt install python3.10 python3-pip -y 
 
 ##################################################
 # Ubuntu setup
