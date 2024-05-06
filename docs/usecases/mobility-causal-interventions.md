@@ -11,9 +11,10 @@ Overview of the mobility causal intervention workflow in ODTP:
 ``` mermaid
 graph TB
     subgraph ODTP
-        postgresql-dataloader --> odtp-mobility-simulation
+        sql-dataloader --> odtp-mobility-simulation
         odtp-mobility-simulation --> odtp-mobility-metrics
         odtp-mobility-simulation --> odtp-next-location-prediction
+        postgis-dataloader --> odtp-mobility-simulation
     end    
 ```
 
