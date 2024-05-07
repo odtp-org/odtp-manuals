@@ -20,38 +20,18 @@ To run an execution you need to go through the following steps:
 
 ### Prepare for the execution
 
-- in this step a folder struture will be established in an empty project folder on your local computer
+- in this step a folder structure will be established in an empty project folder on your local computer
 - the docker images for the components will be build
 
 === "Dashboard GUI"
 
-    Start with an empty project folder: choose a folder from your local computer
+    First you have to select the execution, then you may add secrets. You also need to setup a project folder that needs to be empty at the start.
 
-    ![Dashboard Add execution](../static/tutorials/run-executions/run-execution-start.png){ width="800" }
+    ![Dashboard Run execution](../static/tutorials/run-executions/select-execution-to-run.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/run-executions/select-execution-project-folder.png){ width="300" }
+    ![Dashboard Run execution](../static/tutorials/run-executions/add-secrets.png){ width="800" } 
 
-    Once you have the folder set up, the GUI will show you that you are now ready to prepare the run
-    
-    ![Dashboard Add execution](../static/tutorials/run-executions/prepare-execution.png){ width="800" }
-
-    You can check your project folder by clicking on "Check project folder"
-
-    ![Dashboard Add execution](../static/tutorials/run-executions/folder-empty.png){ width="800" }
-
-    Next: prepare the execution by clicking on "Prepare project folder
-
-    ![Dashboard Add execution](../static/tutorials/run-executions/prepare-execution.png){ width="800" }
-
-    You should be able to watch the preparation
-
-    ![Dashboard Add execution](../static/tutorials/run-executions/prepare-success.png){ width="800" }
-
-    You can check your project folder again: now it has been created with a structure matching
-    the components in the execution, but the input and output folders should still be empty. The component 
-    repo has been downloaded.
-
-    ![Dashboard Add execution](../static/tutorials/run-executions/project-folder-before-run.png){ width="300" }
+    ![Dashboard Run execution](../static/tutorials/run-executions/choose-project-folder.png){ width="800" }
 
 === "Command Line CLI"
 
@@ -59,7 +39,7 @@ To run an execution you need to go through the following steps:
 
     ``` sh
     odtp execution prepare \
-    --execution-id 65c3ab980c57d37eb076b6ba \
+    --execution-name my-example-execution \
     --project-path [Project path]
     ```
 
@@ -88,18 +68,8 @@ To run an execution you need to go through the following steps:
 In this step the docker container for the components will run and produce the actual output.
 
 === "Dashboard GUI"
-
-    Then you are ready to run the execution: click on the button: "Run execution"
-
-    ![Dashboard Add execution](../static/tutorials/run-executions/run-execution.png){ width="800" }
-
-    After the execution finished you will be able to see that on the dashboard:
-    ![Dashboard Add execution](../static/tutorials/run-executions/run-completed.png){ width="800" } 
-
-    Now the output folders should have outputs:
     
-    ![Dashboard Add execution](../static/tutorials/run-executions/project-folder-after-run.png){ width="300" }
-
+    ![Dashboard Run execution](../static/tutorials/run-executions/run-execution.png){ width="800" }
 
 === "Command Line CLI"
 
@@ -107,6 +77,6 @@ In this step the docker container for the components will run and produce the ac
 
     ``` sh
     odtp execution prepare \
-    --execution-id 65c3ab980c57d37eb076b6ba \
-    --projecoject-path 
+    --execution-name my-example-execution \
+    --project-path 
     ```

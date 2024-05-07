@@ -6,7 +6,7 @@ This tutorial will guide you through setting up a digital twin and running it
 
 === "Dashboard GUI"
 
-    If you are using poetry, you can go to `odtp` folder and run `poetry shell`. This will load the enviroment with all dependencies.
+    If you are using poetry, you can go to `odtp` folder and run `poetry shell`. This will load the environment with all dependencies.
 
     On the other hand, if you are using the `docker-compose` solution you can just run `odtp` command directly.
 
@@ -16,7 +16,7 @@ This tutorial will guide you through setting up a digital twin and running it
 
 === "Command Line CLI"
 
-    If you are using poetry, you can go to `odtp` folder and run `poetry shell`. This will load the enviroment with all dependencies.
+    If you are using poetry, you can go to `odtp` folder and run `poetry shell`. This will load the environment with all dependencies.
 
     On the other hand, if you are using the `docker-compose` solution you can just run `odtp` command directly.
 
@@ -38,7 +38,7 @@ So you can start working:
 
 Checkout the following topis:
 
--  [add users and digital twins](../users-and-digital-twins)
--  [add components and versions](../components-and-versions)
--  [add executions](../executions)
--  [run executions](../run-executions)
+-  [add users and digital twins](users-and-digital-twins.md)
+-  [add components and versions](components-and-versions.md)
+-  [add executions](executions.md)
+-  [run executions](run-executions.md)
