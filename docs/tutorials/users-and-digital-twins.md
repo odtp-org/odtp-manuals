@@ -13,6 +13,12 @@ So the first thing you need is a user:
     ![Dashboard Add user](../static/tutorials/users-and-digital-twins/add-user.png){ width="800" }
     ![Dashboard Select user](../static/tutorials/users-and-digital-twins/select-user.png){ width="800" }
 
+    In the Dashboard you can additionally to managing users also choose a working directory. A default
+    directory will have been preselected, but you can refine that setting:
+
+    ![Dashboard Select user](../static/tutorials/users-and-digital-twins/select-workdir.png){ width="800" }
+
+
 === "Command Line CLI"
 
     ``` sh
@@ -40,11 +46,20 @@ Once you have a user, you can set up a digital twin
 
 === "Command Line CLI"
 
-    In the CLI you need the ``user_id`` from the previous step 
-    ``` sh
+    In the CLI you need the ``user_id`` from the previous step: 
+
+    ```sh
     odtp new digital-twin-entry \
     --user-id 65c3ab02b4afbca32db08738 \
-    --name example
+    --name example 
+    ```
+
+    You can also use the user email to identify the user, that the digital twin belongs to
+
+    ```sh
+    odtp new digital-twin-entry \
+    --user-email max@mail.com \
+    --name example 
     ```
 
     The output should looks like: 
