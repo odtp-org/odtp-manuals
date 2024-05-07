@@ -23,7 +23,7 @@ On a local server, ODTP needs additionally the following services to be setup:
 
 Form this installation you need the following variables:
 
-- ==[MONGO_DB_USER]== and ==[MONGO_DB_PASSWORD]== and ==[MONGO_SERVER_URL]== from the Mongodb Installation
+- `[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGO_SERVER_URL]` from the Mongodb Installation
 
 Optional: for the Mongodb it is advisable to install also a graphical user interface for the mongodb. Options are: ¨
 
@@ -36,7 +36,7 @@ Optional: for the Mongodb it is advisable to install also a graphical user inter
 
 From these installations you need the following variables:
 
-- ==[MINIO_ROOT_USER]== and ==[MINIO_ROOT_PASSWORD]== and ==[MINIO_URL]== from the Minio Installation
+- `[MINIO_ROOT_USER]` and `[MINIO_ROOT_PASSWORD]` and `[MINIO_URL]` from the Minio Installation
 
 ### Github token
 
@@ -45,7 +45,7 @@ You need a github token:
 Go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights.
 Choose an appropriate expiration data to work with the token.
 
-- Save the name of the ==[GITHUB_TOKEN]== for later use during the installation. You also need your ==[GITHUB_USER]==
+- Save the name of the `[GITHUB_TOKEN]` for later use during the installation. You also need your `[GITHUB_USER]`
 
 ### Python 3.11
 
@@ -55,7 +55,7 @@ You also need Python3.11 installed on your Server: https://www.python.org/downlo
 
 As  python dependency manager ODTP uses [poetry](https://python-poetry.org/docs/#installation)
 
-## Docker network
+### Docker network
 
 ODTP needs a Docker network to be setup:
 
@@ -95,16 +95,16 @@ cp .env.dist.local .env
 
 By now you should have:
 
-- ==[MINIO_ROOT_USER]== and ==[MINIO_ROOT_PASSWORD]== and ==[MINIO_URL]== from the Minio Installation
-- ==[MONGO_DB_USER]== and ==[MONGO_DB_PASSWORD]== and ==[MONGO_SERVER_URL]== from the Mongodb Installation
-- ==[GITHUB_TOKEN]== and ==[GITHUB_USER]== from your github
+- `[MINIO_ROOT_USER]` and `[MINIO_ROOT_PASSWORD]` and `[MINIO_URL]` from the Minio Installation
+- `[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGO_SERVER_URL]` from the Mongodb Installation
+- `[GITHUB_TOKEN]` and `[GITHUB_USER]` from your github
 
 Additionally you need:
 
-- Minio Bucket name: ==[MINIO_BUCKET_NAME]==, recommended `odtp`
-- Minio Bucket name: ==[MONGO_DB_NAME]==, recommended `odtp`
-- Dashboard port: ==[ODTP_PORT]==, recommended `8003` or some other port that is not frequently used
-- Working directory: ==[ODTP_PATH]==: working directory for user of ODTP, where projects and data files can be stored
+- Minio Bucket name: `[MINIO_BUCKET_NAME]`, recommended `odtp`
+- Minio Bucket name: `[MONGO_DB_NAME]`, recommended `odtp`
+- Dashboard port: `[ODTP_PORT]`, recommended `8003` or some other port that is not frequently used
+- Working directory: `[ODTP_PATH]`: working directory for user of ODTP, where projects and data files can be stored
 
 
 ```yaml
@@ -135,40 +135,33 @@ GITHUB_TOKEN=[GITHUB_TOKEN]
 # Dashboard parameters
 ODTP_DASHBOARD_PORT=[ODTP_PORT]
 ODTP_DASHBOARD_RELOAD=False
-
-
 ```
 
 ODTP will use the .env file to access the services and github. Please make sure that you have entered all information correctly.
 
-!!! note
+!!! Note
+    Under OSX, you may be asked to accept the type change through renaming of the .env file. If you don't accept, it will be named .env but will still be of type .env.dist meaning the installation will fail. This can be fixed by creating a new file named .env with the same contents.
+    
+    The `[ODTP_S3_SERVER]` requires the http:// 
 
-    - Under OSX, you may be asked to accept the type change through renaming of the .env file. If you don't accept, it will be named .env but will still be of type .env.dist meaning the installation will fail. This can be fixed by creating a new file named .env with the same contents.
-    - The `[ODTP_S3_SERVER]` requires the http:// 
 
+## 3. Install ODTP and dependencies locally
 
-## 5. Install ODTP and dependencies locally
-
-We provide installation of ODTP via poetry
-
-### Using poetry
-
-You can install odtp by using [poetry](https://python-poetry.org/) and running: 
+We provide installation of ODTP via poetry:
 
 1. (Required for OSX) Run `poetry env use 3.11`. 
 2. Run `poetry install`
 3. Run `poetry shell`
 4. Run `odtp --help`
 
-This should print out the help for `odtp`.
+This should print out the help for `odtp --help`
 
-!!! note
+!!! Note
+    - For OSX, the environment needs to be set to 3.11 because there is no wheel for duckdb on arm64 (Apple Silicon) for python 3.12 and higher (last checked April 1, 2024). Poetry selects python 3.12 because there is no dependency issues but missing wheels are not accounted for.
 
-- For OSX, the environment needs to be set to 3.11 because there is no wheel for duckdb on arm64 (Apple Silicon) for python 3.12 and higher (last checked April 1, 2024). Poetry selects python 3.12 because there is no dependency issues but missing wheels are not accounted for.
+## 4 Configure MongoDB and S3 bucket
 
-## 6 Configure MongoDB and S3 bucket
-
-After deployin the different services you need to run the following command in order to finish the configuration of the collections required. 
+After deploying the different services you need to run the following command in order to finish the configuration of the collections required. 
 
 ```
 odtp setup initiate 
@@ -176,10 +169,9 @@ odtp setup initiate
 
 This command will create the collections needed in mongoDB and S3 automatically. 
 
-## How to test that everything works? 
+## 5. How to test that everything works? 
 
-In order to do some test we need to create first an user: 
-
+In order to do some test we can create first an user: 
 
 ```
 odtp new user-entry \
@@ -192,10 +184,11 @@ odtp new user-entry \
 user ID: 65c3648260106cc50f650bc1
 ```
 
-Now that everything has been set up, you are ready to work. Head over to the [tutorials](../tutorials/getting-started.md) 
+Now that everything has been set up, you are ready to work. Head over to the tutorials.
 
+[ODTP Tutorials](tutorials/index.md){ .md-button } 
 
-[TOC]
+## Services and Ports
 
 Below, you can see an overview of the dependencies of services required to run ODTP. 
 Ports are defined by default. Please adjust them according to your installation.
