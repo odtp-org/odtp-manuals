@@ -28,28 +28,44 @@ An execution consists of components and can have extra port mappings and paramet
 
 === "Dashboard GUI"
 
-    First you need to collect components for your execution and give it a name 
+    In the Dashboard you are guided through the process of creating an execution step by step:
+
+    First you select the number of steps, the maximum number of ports and the maximum number of parameters per step. 
 
     ![Dashboard Add execution](../static/tutorials/executions/add-execution.png){ width="800" }
 
-    Then you may add parameters and ports: those are optional
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution2.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution-parameters-and-ports.png){ width="800" }
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution3.png){ width="800" }
 
-    You will see your execution, now you can save it.
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution4.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/executions/save-new-execution.png){ width="800" }
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution5.png){ width="800" }
+
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution6.png){ width="800" }
+
+    You will see your execution, now you can save it.    
+
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution7.png){ width="800" }
 
 === "Command Line CLI"
 
-    A set of parameters is a `dotenv` file containing all the variables needed to run that component. 
+    A set of parameters is a file containing all the variables needed to run that component. 
+
+    ```
+    DATASET=rf3
+    CATEGORY=Health
+    BATCH_SIZE=100
+    ```
+
+    The components tags are formed by component name and version tag from github:
 
     ```sh
     odtp new execution-entry \
-    --digital-twin-id 65c36638f20bedbcd253df34 \
+    --digital-twin-name example-workflow \
     --name execution-example \
-    --component-versions 65c36599a95e22284b07e824,65c365a9e94d273db99b6ced \
-    --parameter-files /path/params,path/params \
+    --component-tags odtp-dataloader:v1.0.1,odtp-data-dashboard:v1.2.0 \
+    --parameter-files /path/params1,path/params2 \
     --ports 80:80,8501:8501+80:80
     ```
     ```
