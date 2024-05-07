@@ -80,7 +80,6 @@ nav:
     - Installation Options: installation/index.md
     - Install with docker compose: installation/docker-compose_install.md
     - Install on a local server: installation/local_server_install.md
-    - ODTP third-party services: installation/services.md
   - Tutorials (Use ODTP): 
     - Overview: tutorials/index.md 
     - Getting started: tutorials/getting-started.md
