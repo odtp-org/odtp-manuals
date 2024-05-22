@@ -8,14 +8,19 @@ We provide another workflow for a digital twin that implements the mobility caus
 
 Overview of the mobility causal intervention workflow in ODTP:
 
-``` mermaid
-graph TB
+```mermaid
+graph LR
+    ExternalDatabase[External Database] --> SQLDataloader[SQL Dataloader]
+    ExternalDatabase --> PostGisDataloader[Post-GIS Dataloader]
+
     subgraph ODTP
-        sql-dataloader --> odtp-mobility-simulation
-        odtp-mobility-simulation --> odtp-mobility-metrics
-        odtp-mobility-simulation --> odtp-next-location-prediction
-        postgis-dataloader --> odtp-mobility-simulation
-    end    
+        SQLDataloader --> ODTPMobilitySimulation[ODTP Mobility Simulation]
+        PostGisDataloader --> ODTPMobilitySimulation
+        ODTPMobilitySimulation --> ODTpMetrics[ODTP Metrics]
+        ODTPMobilitySimulation --> ODTpNextLocationPrediction[ODTP Next Location Prediction]
+    end
+
+    Model[Model] --> ODTpNextLocationPrediction
 ```
 
 The mobility simulation module is used to generate individual location sequences. It also incorporates the causal intervention mechanism to generate intervened synthetic data that represent different data distribution shifts. These synthetic data are fed into the next-location-prediction module to quantify a model’s robustness against interventions. Meanwhile, a mobility-metrics module is used to monitor the change in the characteristics of mobility data.
