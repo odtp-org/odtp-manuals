@@ -2,10 +2,13 @@
 
 Here you find instructions on how to turn an existing tool into an ODTP component:
 
+!!! Note
+    Not every component needs to come from an external tool: you can also develop a component that is unrelated to a tool
+
 
 ``` mermaid
 graph LR;
-    Tool -->|transform| ODTPComponent
+    Tool -.->|transform| ODTPComponent
     Template -->|use| ODTPComponent
     subgraph ODTPComponent[Component]
     Component[ODTP Client]
@@ -23,31 +26,60 @@ Start with the ODTP component template:
 
 - go to [`odtp-component-template`](https://github.com/odtp-org/odtp-component-template)
 - Click on "Use this template": "Open a new repository"
-- Give the component a name similar to "odtp-name of your tool"
+- Give the component a name similar to "odtp-your-tool-name"
 
 !!! Note
     This repository makes use of submodules. Therefore, when cloning it you need to include them.
     
     ```bash 
-    git clone --recurse-submodules https://github.com/odtp-org/odtp-component-template
+    git clone --recurse-submodules https://github.com/your-organization/odtp-your-tool-name
     ```
     
     See [README](https://github.com/odtp-org/odtp-component-template?tab=readme-ov-file#how-to-clone-this-repository)
 
 The resulting repo has the following structure:
 
-Folders:
+```
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── README.template.md
+├── app
+│   ├── app.sh
+│   └── config_templates
+│       └── template.yml
+├── odtp-component-client
+│   ├── LICENSE
+│   ├── README.md
+│   ├── __init__.py
+│   ├── logger.py
+│   ├── odtp-app.sh
+│   ├── parameters.py
+│   ├── requirements.txt
+│   ├── s3uploader.py
+│   └── startup.sh
+├── odtp.yml
+├── .env.dist
+└── requirements.txt
+```
 
-- `app`: app folder to connect to your tool
-- `odtp-component-client`: client for the odtp orchestrator in order to use functions and methods in the docker container
+Files and Folders that need to get modified:
 
-Files:
+- `app`: contains `app.sh` and additional configuration for it: this script will run your tool. It will get started by the `startup.sh` that is part of the `odtp-component-client` and serves as an entrypoint for the Dockerfile.
+- `Dockerfile`: check whether you need additional installations for your tool to run and add this to the Dockerfile: you may also use `requirements.txt` in case your tool is in python
+- `odtp.yml`: this will contain the metadata for your component
+- `.env.dist`: includes the environment variables that your component needs and that are also specified in `odtp.yml`
+- `README.md`: there is a template `README.template.md` that you can started on making a `README.md` that describes your component.
 
-- `env.dist`: 
+Mounted as git submodule (should not be modify):
 
-## Step2: Adapt the Dockerfile and Installations
+- `odtp-component-client`: client for the odtp orchestrator: `startup.sh` serves as an entrypoint in Docker
 
-In this step you will adapt the Build Instructions for the Docker Image: 
+All changes will be further described in the steps below. So no need to do them now already.
+
+## Step 2: Adapt the Dockerfile and Installations
+
+In this step you will adapt the build instructions for the Docker Image: 
 
 - If your tool runs on python: adapt the `requirements.txt` file and add the libraries that you need.
 - Adapt the Dockerfile and install the needed libraries that your tool needs to run:
@@ -104,9 +136,11 @@ Don't touch the second part of the Dockerfile, from this line onwards:
 ######################################################################
 ```
 
-## Step3: Adapt the app/app.sh to install your tool
+## Step 3: Adapt the app/app.sh
 
-Change the section below so that a version of your tool is checked out
+Change the section below so that a version of your tool is checked out: 
+
+Clone the repository of your tool and checkout to one specific commit. We recommend to specify the commit with a tag for a semantic version.
 
 ```
 #########################################################
@@ -119,86 +153,54 @@ Change the section below so that a version of your tool is checked out
 # git checkout xxxxxxxxxxxx
 ```
 
-## Step 3: Adapt the App to so that it runs your tool
+(Optional) If your app uses a config file (i.e. `config.yml` or `config.json`), you need to provide a templace including placeholders for the variables you would like to expose. Placeholders can be defined by using double curly braces wrapping the name of the variable, such as `{{VARIABLE}}`. Then you can run `python3 /odtp/odtp-component-client/parameters.py PATH_TO_TEMPLATE PATH_TO_OUTPUT_CONFIG_FILE` and every placeholder will be replaced by the value in the environment variable.
 
-Configure the `app/app.sh` file in the following way:
+```
+#########################################################
+# 2. CONFIG FILE CONFIGURATION
+# Read placeholders and create config file from Environment  
+#########################################################
 
-1. Clone the repository of your tool and checkout to one specific commit. We recommend to specify the commit with a tag for a semantic version.
-2. (Optional) If your app uses a config file (i.e. `config.yml` or `config.json`), you need to provide a templace including placeholders for the variables you would like to expose. Placeholders can be defined by using double curly braces wrapping the name of the variable, such as `{{VARIABLE}}`. Then you can run `python3 /odtp/odtp-component-client/parameters.py PATH_TO_TEMPLATE PATH_TO_OUTPUT_CONFIG_FILE` and every placeholder will be replaced by the value in the environment variable.
-3. Copy (`cp -r`) or create symbolic links (`ln -s`) to locate the input files in `/odpt/odtp-input/` in the folder. 
-4. Run the tool. You can access to the parameters as environment variables (i.e. `$PARAMETER_A`)
-5. Manage the output exporting. At the end of the component execution all generated output should be located in `/odtp/odtp-output`. Copy all output files into this folder. 
-6. Describe all the metadata in `odtp.yml`. Please check below for instructions.
-7. Publish your tool in the [ODTP Zoo](../zoo/index.md).
-
-## Step4: Expose parameters
-
-If your app uses a config file (i.e. `config.yml` or `config.json`), you need to provide a template including placeholders for the variables you would like to expose. Placeholders can be defined by using double curly braces wrapping the name of the variable, such as `{{VARIABLE}}`. Then you can run `python3 /odtp/odtp-component-client/parameters.py PATH_TO_TEMPLATE PATH_TO_OUTPUT_CONFIG_FILE` and every placeholder will be replaced by the value in the environment variable.
-
-## Step 5: Test the component
-
-There are 3 main ways in which you can test a component and the different odtp features. 
-
-1. Testing it as a docker container
-2. Testing it as a single component using `odtp`
-3. Testing it in a `odtp` digital twin execution
-
-When developing we recommend to start by testing the component via docker and then follow with the others.  
-
-### Testing the component as a docker container
-
-The user will need to manually create the input/output folders and build the docker image.
-
-Prepare the following folder structure:
-
-``` bash
-- testing-folder
-    - data-input
-    - data-output
+# python3 /odtp/odtp-component-client/parameters.py /odtp/odtp-app/config_templates/template.yml /odtp/odtp-workdir/config.yml
 ```
 
-Place all required input files in `testing-folder/data-input`.
+Copy (`cp -r`) or create symbolic links (`ln -s`) to locate the input files in `/odpt/odtp-input/` in the folder. 
 
-Create your `.env` file with the following parameters.
+```
+#########################################################
+# 3. INPUT FOLDER MANAGEMENT
+#########################################################
 
-``` bash
-# ODTP COMPONENT VARIABLES
-PARAMETER-A=.....
-PARAMETER-B=.....
+# ln -s /odtp/odtp-input/... /odtp/odtp-workdir/...
 ```
 
-Build the dockerfile. 
+Run the tool. You can access to the parameters as environment variables (i.e. `$PARAMETER_A`)
 
-``` bash
-docker build -t odtp-component .
+```
+#########################################################
+# 4. TOOL EXECUTION
+# While the output is managed by ODTP and placed in /odtp/odtp-output/
+#########################################################
+
+# COMMAND $PARAMETER_A #PARAMETER_B /odtp/odtp-input/data
 ```
 
-Run the following command.
+Manage the output exporting. At the end of the component execution all generated output should be located in `/odtp/odtp-output`. Copy all output files into this folder. 
 
-``` bash
-docker run -it --rm \ 
--v {PATH_TO_YOUR_INPUT_VOLUME}:/odtp/odtp-input \
--v {PATH_TO_YOUR_INPUT_VOLUME}:/odtp/odtp-output \
---env-file .env \
-odtp-component
+```
+#########################################################
+# 5. OUTPUT FOLDER MANAGEMENT
+# The selected output files generated should be placed in the output folder
+#########################################################
+
+# cp -r /odtp/odtp-workdir/output/* /odtp/odtp-output
 ```
 
-This command will run the component. If you want debug some errors and execute the docker in an interactive manner, you can use the flag `--entrypoint bash` when running docker.
-
-Also if your tool is interactive such as an [Streamlit](https://streamlit.io/) app, don't forget to map the ports by using `-p XXXX`. 
-
-### Testing the component as part of odtp
-
-Please do it as it is described in section above titled: `How to run a single component?`
-## Step 6: Version your Component
-
-ODTP relies on tagged versions of Component. In the ODTP Orchestrator you need a version tag for the Component to register it. Use [Semantic Versioning](https://semver.org/) for your Component.
-
-## Step 7: Provide Metadata for the Component
+## Step 4: Provide Metadata for the Component
 
 ODTP requires a set of metadata to work that it is defined in a file called `odtp.yml` that should be in the root of the repository. These fields should be filled by the developers and they are used to provide a help to the users who wants to use your component.
 
-``` yaml title="yaml component file"
+``` yaml title="odtp.yml"
 # This file should contain basic component information for your component.
 component-name: Component Name
 component-author: Component Author
@@ -296,3 +298,72 @@ schema-output: PATH_TO_OUTPUT_SCHEMA
 devices:
   gpu: Bool
 ```
+
+## Step 5: Test the component
+
+There are 3 main ways in which you can test a component and the different odtp features. 
+
+1. Testing it as a docker container
+2. Testing it as a single component using `odtp`
+3. Testing it in a `odtp` digital twin execution
+
+When developing we recommend to start by testing the component via docker and then follow with the others.  
+
+### Testing the component as a docker container
+
+The user will need to manually create the input/output folders and build the docker image.
+
+Prepare the following folder structure:
+
+``` bash
+- testing-folder
+    - data-input
+    - data-output
+```
+
+Place all required input files in `testing-folder/data-input`.
+
+In case you have parameters specified in the `odtp.yaml` file: 
+
+- `cp .env.dist .env` 
+- Create your `.env` file with the following parameters.
+
+``` bash
+# ODTP COMPONENT VARIABLES
+PARAMETER-A=.....
+PARAMETER-B=.....
+```
+
+Build the dockerfile. 
+
+``` bash
+docker build -t odtp-component .
+```
+
+Run the following command.
+
+``` bash
+docker run -it --rm \ 
+-v {PATH_TO_YOUR_INPUT_VOLUME}:/odtp/odtp-input \
+-v {PATH_TO_YOUR_OUTPUT_VOLUME}:/odtp/odtp-output \
+--env-file .env \
+odtp-component
+```
+
+This command will run the component. If you want debug some errors and execute the docker in an interactive manner, you can use the flag `--entrypoint bash` when running docker.
+
+Also if your tool is interactive such as an [Streamlit](https://streamlit.io/) app, don't forget to map the ports by using `-p XXXX:XXXX`. 
+
+### Testing the component as part of odtp
+
+For this you need to have odtp installed: see [Install ODTP](../installation/index.md)
+Then run the component as described in [How to tun a single component](../components/run.md)
+
+## Step 6: Version your Component
+
+ODTP relies on tagged versions of Component. In the ODTP Orchestrator you need a version tag for the Component to register it. Use [Semantic Versioning](https://semver.org/) for your Component.
+
+## Step 7: Publish your tool in the ODTP Zoo.
+
+Once your component has been tested you can publish it in the [ODTP Zoo](../zoo/index.md). 
+See [Add component to the ODTP-org zoo](../zoo/add-component.md)
