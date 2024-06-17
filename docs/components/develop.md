@@ -32,7 +32,7 @@ Start with the ODTP component template:
     This repository makes use of submodules. Therefore, when cloning it you need to include them.
     
     ```bash 
-    git clone --recurse-submodules https://github.com/odtp-org/odtp-your-tool-name
+    git clone --recurse-submodules https://github.com/your-organization/odtp-your-tool-name
     ```
     
     See [README](https://github.com/odtp-org/odtp-component-template?tab=readme-ov-file#how-to-clone-this-repository)
