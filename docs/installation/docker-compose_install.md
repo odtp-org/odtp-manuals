@@ -135,15 +135,16 @@ docker compose config
 This will print out a generated `docker-compose.yml` file as it will be 
 used for the `docker compose up`. 
 
-## 6. Build the docker containers
+## 6. Build and run the docker containers
 
 Run the docker compose build command in the `odtp` directory where the `compose.yml` file resides:
 
 ```bash
-docker compose build --no-cache`  
+docker compose build --no-cache
+docker compose up -d  
 ```
 
-This will retrieve all the services images and deploy them. The `--no-cache` option makes sure that the current version of ODTP, that was cloned in step 3 is used for the build. 
+This will retrieve all the services images and deploy them. The `--no-cache` option makes sure that the current version of ODTP, that was cloned in step 3 is used for the build. The `-d` flag means that the containers are going to be run in detached mode. If you want to have access to the logs, omit this flag.
 
 ## 7. ODTP initial configuration
 
@@ -160,7 +161,7 @@ Now you are ready use `ODTP` directly via the CLI or via the GUI:
 Start with the Commandline Interface of ODTP: 
 
 ```bash
-docker exec -it odtp-odtp-1 bash 
+docker exec -it odtp-odtp-1 sh
 ```
 
 Start using the ODTP Dashboard: 
