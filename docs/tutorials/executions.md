@@ -11,6 +11,50 @@
     component-example_0.1.0 --> travel_dashboard_0.2.1;
     ``` 
 
+On this page you can manage your executions, specify and save them, so that they can be later 
+selected for running them.    
+
+## List executions
+
+The Execution page assumes that you have selected both a user and a digital twin to work on.
+You can go to the "EXECUTION TABLE" Tab and list all executions that belong to the digital twin
+
+=== "Dashboard GUI"
+
+    In the Dashboard you are guided through the process of creating an execution step by step: 
+
+    ![Dashboard List executions](../static/tutorials/executions/list-executions.png){ width="800" }
+
+=== "Command Line CLI"
+
+    On the command you can only list all executions for a digital twin: 
+
+    ```sh
+    odtp db executions_for_digitalTwin \
+    --dt-id 65c3ab02b4afbca32db08738 
+    ```   
+
+## Select execution
+
+Existing executions can be selected in order to run them: when you select an execution you see a 
+button: "PREPARE AND RUN EXECUTION": click on it and you will get to a run page where you can run the
+execution: see [run executions](run-executions.md)
+
+=== "Dashboard GUI"
+
+    In the Dashboard you are guided through the process of creating an execution step by step: 
+
+    ![Dashboard Add execution](../static/tutorials/executions/select-execution.png){ width="800" }
+
+=== "Command Line CLI"
+
+    In the command line you can print the execution object as it is stored in the mongodb:
+
+    ```sh
+    odtp db get executions_for_digitalTwin \
+    --dt-id 65c3ab02b4afbca32db08738 
+    ```
+
 ## Add an execution
 
 An execution consists of components and can have extra port mappings and parameters.
@@ -25,28 +69,48 @@ An execution consists of components and can have extra port mappings and paramet
     - Components ports should be separated by `+`. i.e. `8763:3000+8501:8501`
     - Place as many `+` as connections between components. If ports are not being used in the first, and second component: i.e. `++8501:8501`
 
+In the GUI a form is offered to guide you through the process of specifying all these elements.
+In the CLI you have to add all elements yourself: 
+
+In order to better understand these workflows it is best to set up workflow repos as we did in some of our use cases:
+
+- [dt-example workflow](https://github.com/odtp-org/dt-example)
+- [dt-corsica-mobility](https://github.com/odtp-org/dt-corsica-mobility)
+
+These repos help you to setup executions in both CLI and the GUI
 
 === "Dashboard GUI"
 
-    In the Dashboard you are guided through the process of creating an execution step by step:
+    In the Dashboard you are guided through the process of creating an execution step by step: 
 
-    First you select the number of steps, the maximum number of ports and the maximum number of parameters per step. 
+    First you need to name your execution:
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution.png){ width="800" }
+    ![Dashboard Add execution](../static/tutorials/executions/name-execution.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution2.png){ width="800" }
+    Select component versions as workflow steps. The components and versions that you can use here must have
+    been added at the components page, see [components and versions](components-and-versions.md).
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution3.png){ width="800" }
+    ![Dashboard Add execution](../static/tutorials/executions/select-component-versions.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution4.png){ width="800" }
+    Next you may add parameters from file. In a later step you can also overwrite those initial settings from file.
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution5.png){ width="800" }
+    ![Dashboard Add execution](../static/tutorials/executions/pick-parameters-from-file.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution6.png){ width="800" }
+    So here you can overwrite parameters, delete rows or add additional parameters:
 
-    You will see your execution, now you can save it.    
+    ![Dashboard Add execution](../static/tutorials/executions/overwrite-parameters.png){ width="800" }
 
-    ![Dashboard Add execution](../static/tutorials/executions/add-execution7.png){ width="800" }
+    Next you need to add port mappings: this is only necessary for persistent components and for the 
+    mapping you need to know the component port, that was registered with the component, see 
+    [components and versions](components-and-versions.md).
+
+    ![Dashboard Add execution](../static/tutorials/executions/add-execution-ports.png){ width="800" }
+
+    Check your execution and save it if everything is correct. If not, you can walk back through the 
+    steps and correct your settings without loosing any information that you already correctly.
+    
+    ![Dashboard Save the execution](../static/tutorials/executions/save-execution.png){ width="800" }
+    Once the execution is save you can run it. See above on Selecting an execution.
 
 === "Command Line CLI"
 
