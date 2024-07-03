@@ -11,31 +11,58 @@
     component-example_0.1.0 --> travel_dashboard_0.2.1;
     ``` 
 
-## Run an execution
+## Explain the Execution Run
 
 To run an execution you need to go through the following steps:
 
-- Prepare for the execution
-- Run the execution
+### Prepare => Docker Build, Prepare File System
 
-### Prepare for the execution
+- in this step a folder structure will be established in an empty project folder on your local computer and the repository will be downloaded into it. Also folders for logs, input and output will be created
+- for all components it is checked whether docker images already exist, otherwise they will be build: As the settings are added only when the execution is run, images for components can be reused as long as the component version does not change. In case of a version change on the component all existing docker images for that component should be deleted. 
+     
 
-- in this step a folder structure will be established in an empty project folder on your local computer
-- the docker images for the components will be build
+### Run => Docker Run
+
+- the docker containers for the components will run in sequence as specified in the workflow
+- Only when the execution runs all parameters, secrets, volumes and port mapping are needed. Except for the secrets and the project folder they are taken from the execution as it is stored in the mongo db.
+
+## Run the execution in practice
+
+### Prepare the Execution CLI/GUI
 
 === "Dashboard GUI"
 
-    First you have to select the execution, then you may add secrets. You also need to setup a project folder that needs to be empty at the start.
+    As most arguments that are needed for the execution run are stored in the mongo db only the project folder and secrets if needed have to be added. The GUI takes you through the process step by step. You enter the execution run page with an execution that has already been selected. You first task is to check whether it has all parameters and ports setup correctly. For that the execution is displayed again on the run page: 
+    ![Dashboard Run execution](../static/tutorials/run-executions/prepare-and-run-execution.png){ width="800" }
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/select-execution-to-run.png){ width="800" }
+    You can see that the project path has not been set yet: so in the first step you need to choose the project path by creating a new project folder:
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/add-secrets.png){ width="800" } 
+    ![Dashboard Run execution](../static/tutorials/run-executions/create-project-folder.png){ width="800" } 
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/choose-project-folder.png){ width="800" }
+    Don't worry: it will tell you in case the project folder already exists:
+
+    ![Dashboard Run execution](../static/tutorials/run-executions/validate-project-folder.png){ width="800" }
+
+    The next step is optional: only if your components needs secrets such as for example github credential, then you need to add the secrets as a file. This might be the case if your tool is in a private repository.
+
+    ![Dashboard Run execution](../static/tutorials/run-executions/select-secrets.png){ width="800" }
+
+    ![Dashboard Run execution](../static/tutorials/run-executions/secrets-selected.png){ width="800" }
+
+    Now you are ready to prepare your execution: 
+
+    ![Dashboard Run execution](../static/tutorials/run-executions/prepare-execution.png){ width="800" }
+
+    Once you click the button the log will open:
+
+    ![Dashboard Run execution](../static/tutorials/run-executions/prepare-execution-log.png){ width="800" }
+
+    There will be a success message at the end of the log file indicating that all docker images have been build. 
+    Then you will be able to click the "NEXT" button to proceed to the run step.
 
 === "Command Line CLI"
 
-    Prepare the execution. 
+    Prepare the execution. See the GUI section for a detailed information. 
 
     ``` sh
     odtp execution prepare \
@@ -63,13 +90,20 @@ To run an execution you need to go through the following steps:
     INFO (21/12/2023 03:24:36 PM): COMPONENTS DOWNLOADES AND BUILT (LineL 60 [workflow.py])
     ```
 
-### Run the execution   
+### Run the Execution CLI/GUI  
 
-In this step the docker container for the components will run and produce the actual output.
+In this step the docker container for the components will run and produce logs and output. For this step it is essential that all parameters and ports have been set correctly and also that secrets files have been selected, in case the secrets will be needed during the execution of the components.
 
 === "Dashboard GUI"
-    
+
+    Click on the button "RUN EXECUTION" to start a run. You will see a message indicating that the run started. After that click on the Log Button for the first step. The log will open and you can follow the execution run directly from the GUI. The messages that you will see are also stored on file in the logs directory `odtp-logs`, which is a subdirectory of the project folder: there is one logs directory for each component in your execution. The logs are also identical with what you would see in your docker container as long as it runs.
+
     ![Dashboard Run execution](../static/tutorials/run-executions/run-execution.png){ width="800" }
+    ![Dashboard Run execution](../static/tutorials/run-executions/run-execution-logs.png){ width="800" }
+
+    For ephemeral components will be a line at the end of each log, indicating that the component ended the run. 
+    For persistent components that line will not be there as they did not end but the docker container should remain
+    up until shut down manually by the user.
 
 === "Command Line CLI"
 
