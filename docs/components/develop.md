@@ -65,7 +65,7 @@ The resulting repo has the following structure:
 
 Files and Folders that need to get modified:
 
-- `app`: contains `app.sh` and additional configuration for it: this script will run your tool. It will get started by the `startup.sh` that is part of the `odtp-component-client` and serves as an entrypoint for the Dockerfile.
+- `app`: contains `app.sh` and additional configuration for it: this script will checkout and run your tool. It will get started by the `startup.sh` that is part of the `odtp-component-client` and serves as an entrypoint for the Dockerfile.
 - `Dockerfile`: check whether you need additional installations for your tool to run and add this to the Dockerfile: you may also use `requirements.txt` in case your tool is in python
 - `odtp.yml`: this will contain the metadata for your component
 - `.env.dist`: includes the environment variables that your component needs and that are also specified in `odtp.yml`
