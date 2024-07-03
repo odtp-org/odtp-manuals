@@ -24,6 +24,7 @@ An ODTP Component needs the following parts:
 
 - A **Dockerfile**: that builds the Component as Docker image, so that it can be run by the [ODTP Orchestrator](../orchestrator/index.md)
 - An **App script**: that will be started in the Docker container. It runs the tool and communicates its outputs, results and logs to the ODTP orchestrator
+- **Checkout tool version**: the tool will be checked out in `app.sh` from a git repo on a specified version.
 -  An **ODTP client** library is installed in the Dockerfile, so that the App script can use predefined functions to communicate with the ODTP orchestrator
 
 ``` mermaid

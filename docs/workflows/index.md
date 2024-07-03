@@ -54,7 +54,7 @@ See the [use cases](../usecases/index.md) for workflow examples
 
 ## Supported Workflow Structure
 
-Currently the [ODTP orchestrator](../orchestrator/index.md) supports only linear workflows. But it is planned to also supprt acyclic graphs in the future, see our [roadmap](../orchestrator/roadmap.md)
+Currently the [ODTP orchestrator](../orchestrator/index.md) supports only linear workflows. But it is planned to also support acyclic graphs in the future, see our [roadmap](../orchestrator/roadmap.md)
 
 !!! Note
 
