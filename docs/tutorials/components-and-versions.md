@@ -9,10 +9,11 @@
 
 === "Dashboard GUI"
   
-    In the Dashboard you can compare the components side by side on github and on ODTP: 
-    you see the versions that are listed in bot environments. If a new version of the component appears on github you can head over to the Add Version tab and import the latest version. 
+    In the Dashboard you can list all components that are already on ODTP. For all these components you can select them in
+    the tab "COMPONENT OPTIONS". There you can compare their versions between ODPT and github
 
-    ![Dashboard Show existing components](../static/tutorials/components-and-versions/view-component.png){ width="800" }
+    ![Dashboard Show existing components](../static/tutorials/components-and-versions/components-table.png){ width="800" }
+    ![Dashboard Select components](../static/tutorials/components-and-versions/component-options.png){ width="800" }
 
 === "Command Line CLI"
 
@@ -87,8 +88,7 @@ Add a component:
 
 ## Add a new version for an existing component
 
-You can update a component by adding a new version for it.
-The parameters are the same as for the original adding of the component.
+Under the tab "COMPONENT OPTIONS" you can also update a component by adding a new version for it from github. 
 
 === "Dashboard GUI"
 
