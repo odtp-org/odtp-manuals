@@ -326,7 +326,7 @@ Place all required input files in `testing-folder/data-input`.
 In case you have parameters specified in the `odtp.yaml` file: 
 
 - `cp .env.dist .env` 
-- Create your `.env` file with the following parameters.
+- Create your `.env` file with the following parameters. If you don't have parameters you can omit this.
 
 ``` bash
 # ODTP COMPONENT VARIABLES
@@ -361,7 +361,7 @@ Then run the component as described in [How to tun a single component](../compon
 
 ## Step 6: Version your Component
 
-ODTP relies on tagged versions of Component. In the ODTP Orchestrator you need a version tag for the Component to register it. Use [Semantic Versioning](https://semver.org/) for your Component.
+ODTP relies on tagged versions of Component. In the ODTP Orchestrator you need a version tag for the Component to register it. Use [Semantic Versioning](https://semver.org/) for your Component. For instance: `v0.1.0` or `v0.2.0-alpha`.
 
 ## Step 7: Publish your tool in the ODTP Zoo.
 
