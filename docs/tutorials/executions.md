@@ -130,39 +130,9 @@ These repos help you to setup executions in both CLI and the GUI
     step_ids 65c3ab980c57d37eb076b6bb, 65c3ab980c57d37eb076b6bc
     ```
 
-## Prepare an execution 
+## Prepare and run an execution 
 
-Before running our execution we need to prepare it. This will generate all the folder structure and build all necesary docker images for our digital twin. From `v0.4.0` odtp will check for available images before building, if no image is available then the repository will be pulled and the docker image will be built. 
-
-A folder must be provided to generate the data folder required. 
-
-In the GUI this step is automatically done when running the execution. 
-
-=== "Command Line CLI"
-
-    A set of parameters is a file containing all the variables needed to run that component. 
-
-    ```sh
-    odtp execution prepare \
-    --execution-name execution-example \
-    --project-path /path/execution
-    ```
-
-The project path should be empty, and we recommend placing it in a preconfigured digital twin folder. 
-
-## Run an execution
-
-Once your execution is prepared, it's time to run it! When running an execution you can provide some secrets for your components separated by commas (`,`) similar to how you define the pipeline in the execution generation.
-
-=== "Command Line CLI"
-
-    ```sh
-    odtp execution run \
-    --execution-name execution-example \
-    --secrets-files /path/Secrets001,/path/Secrets001 \
-    --project-path /path/execution
-    ```
-
+Please refer to section [Run Executions](https://odtp-org.github.io/odtp-manuals/tutorials/run-executions/)
 
 # Delete an execution
 

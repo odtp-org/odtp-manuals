@@ -62,12 +62,14 @@ To run an execution you need to go through the following steps:
 
 === "Command Line CLI"
 
-    Prepare the execution. See the GUI section for a detailed information. 
+    Prepare the execution. This will generate all the folder structure and build all necesary docker images for our digital twin. From `v0.4.0` odtp will check for available images before building, if no image is available then the repository will be pulled and the docker image will be built. 
+
+    An empty folder must be provided to generate the data folder required, and we recommend placing it in a preconfigured digital twin folder. 
 
     ``` sh
     odtp execution prepare \
-    --execution-name my-example-execution \
-    --project-path [Project path]
+    --execution-name execution-example \
+    --project-path /path/execution
     ```
 
     A normal preparation looks like this:
@@ -107,10 +109,11 @@ In this step the docker container for the components will run and produce logs a
 
 === "Command Line CLI"
 
-    Run the execution
+    Once your execution is prepared, it's time to run it! When running an execution you can provide some secrets for your components separated by commas (`,`) similar to how you define the pipeline in the execution generation. Secrets files are structure in a similar way to parameters files described in [Executions](https://odtp-org.github.io/odtp-manuals/tutorials/executions/#__tabbed_3_2)
 
     ``` sh
-    odtp execution prepare \
-    --execution-name my-example-execution \
-    --project-path 
+    odtp execution run \
+    --execution-name execution-example \
+    --secrets-files /path/Secrets001,/path/Secrets001 \
+    --project-path /path/execution
     ```
