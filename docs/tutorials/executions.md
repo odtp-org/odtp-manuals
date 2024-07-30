@@ -27,7 +27,7 @@ You can go to the "EXECUTION TABLE" Tab and list all executions that belong to t
 
 === "Command Line CLI"
 
-    On the command you can only list all executions for a digital twin: 
+    On the command you can only list all executions in json for a digital twin by running: 
 
     ```sh
     odtp db executions_for_digitalTwin \
@@ -46,28 +46,21 @@ execution: see [run executions](run-executions.md)
 
     ![Dashboard Add execution](../static/tutorials/executions/select-execution.png){ width="800" }
 
-=== "Command Line CLI"
-
-    In the command line you can print the execution object as it is stored in the mongodb:
-
-    ```sh
-    odtp db get executions_for_digitalTwin \
-    --dt-id 65c3ab02b4afbca32db08738 
-    ```
 
 ## Add an execution
 
 An execution consists of components and can have extra port mappings and parameters.
 
-- `digital-twin-id`: Obtained before. 
+- `digital-twin-id` (Optional): Obtained before. Alternatively, you can use the name of the digital twin. 
+- `digital-twin-name` (Optional): Name of the digital twin. Alternatively, you can use the `digital-twin-id`. 
 - `name`: A name for the execution
-- `versions`: All versions involved in the workflow aligned sequentially and separated by commas. 
-    - Versions order should match components. 
+- `component-tags`: All components tags (`componentA:v0.1.0`) involved in the workflow aligned sequentially and separated by commas. 
 - `parameter-files`: Parameters files separated by commas.
     - This file should contain all parameters used like in a dotenv file format.
 - `ports`: Ports matching used by the containers. 
-    - Components ports should be separated by `+`. i.e. `8763:3000+8501:8501`
-    - Place as many `+` as connections between components. If ports are not being used in the first, and second component: i.e. `++8501:8501`
+    - Components ports should be separated by `,`. i.e. `8763:3000,8501:8501`
+    - Place as many `,` as connections between components (steps). If ports are not being used in the first, and second component: i.e. `,,8501:8501`
+    - If multiple ports are being use in the same step please use `+`: i.e. `,,8501:8501+3000:3000`
 
 In the GUI a form is offered to guide you through the process of specifying all these elements.
 In the CLI you have to add all elements yourself: 
@@ -135,4 +128,50 @@ These repos help you to setup executions in both CLI and the GUI
     ```
     execution_id: 65c3ab980c57d37eb076b6ba
     step_ids 65c3ab980c57d37eb076b6bb, 65c3ab980c57d37eb076b6bc
+    ```
+
+## Prepare an execution 
+
+Before running our execution we need to prepare it. This will generate all the folder structure and build all necesary docker images for our digital twin. From `v0.4.0` odtp will check for available images before building, if no image is available then the repository will be pulled and the docker image will be built. 
+
+A folder must be provided to generate the data folder required. 
+
+In the GUI this step is automatically done when running the execution. 
+
+=== "Command Line CLI"
+
+    A set of parameters is a file containing all the variables needed to run that component. 
+
+    ```sh
+    odtp execution prepare \
+    --execution-name execution-example \
+    --project-path /path/execution
+    ```
+
+The project path should be empty, and we recommend placing it in a preconfigured digital twin folder. 
+
+## Run an execution
+
+Once your execution is prepared, it's time to run it! When running an execution you can provide some secrets for your components separated by commas (`,`) similar to how you define the pipeline in the execution generation.
+
+=== "Command Line CLI"
+
+    ```sh
+    odtp execution run \
+    --execution-name execution-example \
+    --secrets-files /path/Secrets001,/path/Secrets001 \
+    --project-path /path/execution
+    ```
+
+
+# Delete an execution
+
+Excutions and all associated data, such as MongoDB entries, S3 Files, and project path folders can be easily deleted. In `v0.4.0` this feature is only available in the CLI
+
+=== "Command Line CLI"
+
+    ```sh
+    odtp execution delete \
+    --execution-name execution-example \
+    --project-path /path/exeuction
     ```
