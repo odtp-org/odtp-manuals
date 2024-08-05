@@ -24,8 +24,8 @@ So the first thing you need is a user:
     ``` sh
     odtp new user-entry \
     --name Max \
-    --email maxm@gmail.com \
-    --github maxm
+    --email max@mail.com \
+    --github max
     ```
     
     The output should looks like: 
@@ -46,7 +46,7 @@ Once you have a user, you can set up a digital twin
 
 === "Command Line CLI"
 
-    In the CLI you need the ``user_id`` from the previous step: 
+    In the CLI you need the `user-id` from the previous step: 
 
     ```sh
     odtp new digital-twin-entry \

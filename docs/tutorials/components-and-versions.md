@@ -2,8 +2,10 @@
 
 !!! note
 
-    - Components are code repos that can be used for digital twin workflows
+    - Components are code repositories that can be used in digital twin workflows
     - Components can have different versions
+    - Components are executed with specific parameters and input files in executions associated to a digital twin
+    - In order to add components located in GitHub a Token Key should be provided
 
 ## Checkout existing components
 
@@ -17,7 +19,7 @@
 
 === "Command Line CLI"
 
-    In the CLI you can get the metadata for a component from the Mongodb:
+    In the CLI you can get the metadata associated to all components from the MongoDB by running. This will provide a JSON output in the terminal.
 
     ``` sh
     odtp db get --collection components
@@ -46,12 +48,24 @@
     ]
     ```
 
+    Alternatively, you can obtain a table by running: 
+
+    ``` sh
+    odtp db ls components
+    ```
+    ``` sh
+
+    ```
+
 ## Add a new component
+
+In order to start using the components in ODTP you need to add them to the platform. This will add all the necessary metadata to work with them in executions and digital twins.  
 
 Add a component:
 
 - Components are imported by their github url and version tag
-- you can specify ports with `--ports`
+- A component repository should have a valid tag in order to be imported.
+- You can specify ports with `--ports` and the type of component (`ephemeral`, `api` or `interactive`).
 
 !!! note
 
@@ -73,7 +87,7 @@ Add a component:
     ``` sh
     odtp new odtp-component-entry \
     --name component-example \
-    --component-version 0.1.0 \
+    --component-version v0.1.0 \
     --repository https://github.com/odtp-org/odtp-component-example
     ```
 
@@ -96,10 +110,12 @@ Under the tab "COMPONENT OPTIONS" you can also update a component by adding a ne
 
 === "Command Line CLI"
 
+    To add a new version you can use the same command as adding a component but including the newer version. 
+
     ``` sh
     odtp new odtp-component-entry \
     --name component-example \
-    --component-version 0.1.1 \
+    --component-version v0.1.1 \
     --repository https://github.com/odtp-org/odtp-component-example
     ```
     ```sh
