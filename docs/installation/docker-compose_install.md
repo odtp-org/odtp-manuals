@@ -185,4 +185,4 @@ Start using the ODTP Dashboard:
 docker exec -it odtp-odtp-1 odtp dashboard 
 ```
 
-[ODTP Tutorials](tutorials/index.md){ .md-button }
+[ODTP Tutorials](../tutorials/index.md){ .md-button }
