@@ -186,7 +186,7 @@ user ID: 65c3648260106cc50f650bc1
 
 Now that everything has been set up, you are ready to work. Head over to the tutorials.
 
-[ODTP Tutorials](tutorials/index.md){ .md-button } 
+[ODTP Tutorials](../tutorials/index.md){ .md-button } 
 
 ## Services and Ports
 
