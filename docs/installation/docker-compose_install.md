@@ -176,7 +176,7 @@ Now you are ready use `ODTP` directly via the CLI or via the GUI:
 Start with the Commandline Interface of ODTP: 
 
 ```bash
-docker exec -it odtp-odtp-1 bash
+docker exec -it odtp-odtp-1 sh
 ```
 
 Start using the ODTP Dashboard: 
