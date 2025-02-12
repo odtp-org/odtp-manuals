@@ -7,7 +7,7 @@ For the setup with docker compose the following is provided at [https://github.c
 - `compose.yml` file that contains secrets as variables
 - `.env.dist.compose` file that contains all variables that need to be set for the `docker compose`
 
-The Installation  is done in the following steps: 
+The Installation  is done in the following steps:
 
 [TOC]
 
@@ -15,7 +15,7 @@ The Installation  is done in the following steps:
 
 In order to install ODTP with Docker compose you need [Docker compose](https://docs.docker.com/compose/install/) additionally to [Docker](https://www.docker.com/) and [git](https://git-scm.com/).
 
-## 1. Set up a folder configuration 
+## 1. Set up a folder configuration
 
 Create a folder (we recommend you name it `odtp`) where ODTP will locate all services, and files needed.
 Create the following sub-folders: `mongodb`, `minio`, and `digital-twins`.
@@ -37,7 +37,7 @@ Save the name of the path names for later use during the installation:
 
 ## 2. Get your your Github Token
 
-To complete the configuration of the `.env` we will need your Github Token: 
+To complete the configuration of the `.env` we will need your Github Token:
 
 Go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights.
 Choose an appropriate expiration data to work with the token.
@@ -69,7 +69,7 @@ Afterwards your folder structure will look like this:
 
 ## 4. Setup the enviroment variables
 
-The `.env` should be completed by adding administrator users, passwords and configuration for the different services: 
+The `.env` should be completed by adding administrator users, passwords and configuration for the different services:
 
 ```bash
 cd odtp
@@ -80,9 +80,9 @@ Then fill in your crendentials into `.env` as follows:
 
 Decide on crendentials for the different services
 
-- user and password for the Mongodb: `[MONGO_DB_USER]`, `[MONGO_DB_PASSWORD]` 
-- user and password for Mongodb Express: `[MONGO_EXPRESS_USER]`, `[MONGO_EXPRESS_PASSWORD]` 
-- user and password for Minio: `[MINIO_ROOT_USER]`, `[MINIO_ROOT_PASSWORD]` 
+- user and password for the Mongodb: `[MONGO_DB_USER]`, `[MONGO_DB_PASSWORD]`
+- user and password for Mongodb Express: `[MONGO_EXPRESS_USER]`, `[MONGO_EXPRESS_PASSWORD]`
+- user and password for Minio: `[MINIO_ROOT_USER]`, `[MINIO_ROOT_PASSWORD]`
 
 Decide on a port to run the OTPD Dasboard on: `[DASHBOARD_PORT]`, for example `8003`
 
@@ -96,11 +96,11 @@ Decide on a port to run the OTPD Dasboard on: `[DASHBOARD_PORT]`, for example `8
 
 # odtp db instance in the mongo db: "odtp"
 ODTP_MONGO_DB=odtp
-# s3 bucket name: "odtp" 
+# s3 bucket name: "odtp"
 ODTP_BUCKET_NAME=odtp
 
 # s3 access and secret key
-ODTP_ACCESS_KEY=[MINIO_ROOT_USER]      
+ODTP_ACCESS_KEY=[MINIO_ROOT_USER]
 ODTP_SECRET_KEY=[MINIO_ROOT_PASSWORD]
 
 # your github token
@@ -121,26 +121,28 @@ MONGODB_PATH=[MONGODB_PATH]
 
 # Dashboard parameters
 ODTP_DASHBOARD_PORT=[DASHBOARD_PORT]
-ODTP_DASHBOARD_RELOAD=False 
-ODTP_DASHBOARD_JSON_EDITOR=True
+ODTP_DASHBOARD_RELOAD=False
 
 # Log Level General
 ODTP_LOG_LEVEL=ERROR
 
 # Log Level when running executions
 RUN_LOG_LEVEL=INFO
+
+# set to False if your docker installation does not allow the flag --gpus all
+ALLOW_DOCKER_GPUS=False
 ```
 
 ## 5. Test the docker compose configuration
 
-Test your configuration: 
+Test your configuration:
 
 ```bash
 docker compose config
 ```
 
-This will print out a generated `docker-compose.yml` file as it will be 
-used for the `docker compose up`. 
+This will print out a generated `docker-compose.yml` file as it will be
+used for the `docker compose up`.
 
 ## 6. Build the docker containers
 
@@ -155,10 +157,10 @@ docker compose build --no-cache
 
 Once the containers have been build, you can run them. You need to repeat this step each time you start your computer.
 In case you just want to update the environment variables in the `.env` file, you can use the flag `--force-recreate`.
-The `-d` flag means that the containers are going to be run in detached mode. If you want to see the logs on the terminal, omit this flag. 
+The `-d` flag means that the containers are going to be run in detached mode. If you want to see the logs on the terminal, omit this flag
 
 ```bash
-docker compose up --force-recreate -d  
+docker compose up --force-recreate -d
 ```
 
 ## 8. ODTP initial configuration
@@ -173,16 +175,16 @@ docker exec -it odtp-odtp-1 odtp setup initiate
 
 Now you are ready use `ODTP` directly via the CLI or via the GUI:
 
-Start with the Commandline Interface of ODTP: 
+Start with the Commandline Interface of ODTP:
 
 ```bash
 docker exec -it odtp-odtp-1 sh
 ```
 
-Start using the ODTP Dashboard: 
+Start using the ODTP Dashboard:
 
 ```bash
-docker exec -it odtp-odtp-1 odtp dashboard 
+docker exec -it odtp-odtp-1 odtp dashboard
 ```
 
 [ODTP Tutorials](../tutorials/index.md){ .md-button }
