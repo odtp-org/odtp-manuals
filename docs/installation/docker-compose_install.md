@@ -18,15 +18,17 @@ In order to install ODTP with Docker compose you need [Docker compose](https://d
 ## 1. Set up a folder configuration
 
 Create a folder (we recommend you name it `odtp`) where ODTP will locate all services, and files needed.
-Create the following sub-folders: `mongodb`, `minio`, and `digital-twins`.
-The file system structure should be like this:
+Create the following sub-folders: `mongodb`, `minio`, and `digital-twins`. This folders will serve as 
+volumes for the odtp services.
+
+The file system structure should look like this:
 
 ```bash
 └── odtp
-    ├── mongodb
     ├── digital-twins
-    └── minio
-        └── odtp
+    ├── minio
+    |   └── odtp
+    └── mongodb
 ```
 
 Save the name of the path names for later use during the installation:
@@ -57,54 +59,56 @@ Afterwards your folder structure will look like this:
 
 ```bash
 └── odtp
-    ├── mongodb
+    ├── digital-twins
     ├── minio
     |   └── odtp
-    └── digital-twins
+    └── mongodb
     └── odtp
         └── compose.yml
         └── .env.dist.compose
         ...
 ```
 
-## 4. Setup the enviroment variables
+## 4. Setup the environment variables
 
 The `.env` should be completed by adding administrator users, passwords and configuration for the different services:
 
 ```bash
 cd odtp
-cp .env.dist.compose .env
+cp .env.dist .env
 ```
 
 Then fill in your crendentials into `.env` as follows:
 
-Decide on crendentials for the different services
+Decide on credentials for the different services
 
 - user and password for the Mongodb: `[MONGO_DB_USER]`, `[MONGO_DB_PASSWORD]`
 - user and password for Mongodb Express: `[MONGO_EXPRESS_USER]`, `[MONGO_EXPRESS_PASSWORD]`
 - user and password for Minio: `[MINIO_ROOT_USER]`, `[MINIO_ROOT_PASSWORD]`
 
-Decide on a port to run the OTPD Dasboard on: `[DASHBOARD_PORT]`, for example `8003`
-
 ```yaml
-# environment variables for installation with docker compose
+# Environment variables for
+# installation with docker compose
 # -----------------------------------------------------------
-# fill these variables in case you want to install odtp with
-# docker compose
+# fill these variables in case you want to install odtp in a
+# setup with `docker compose` or for a development setup with
+# `docker compose -f compose.dev.yml`
 
-# local setup and compose
+# ===========================================================
+# Credentials with other services
+# ===========================================================
 
-# odtp db instance in the mongo db: "odtp"
-ODTP_MONGO_DB=odtp
-# s3 bucket name: "odtp"
-ODTP_BUCKET_NAME=odtp
-
-# s3 access and secret key
-ODTP_ACCESS_KEY=[MINIO_ROOT_USER]
-ODTP_SECRET_KEY=[MINIO_ROOT_PASSWORD]
-
+# Credentials github
 # your github token
 GITHUB_TOKEN=[GITHUB_TOKEN]
+
+# ===========================================================
+# Credentials that you can choose on setup
+# ===========================================================
+
+# Credentials S3
+ODTP_ACCESS_KEY=[MINIO_ROOT_USER]
+ODTP_SECRET_KEY=[MINIO_ROOT_PASSWORD]
 
 # mongodb user and password
 MONGO_DB_USER=[MONGO_DB_USER]
@@ -114,24 +118,70 @@ MONGO_DB_PASSWORD=[MONGO_DB_PASSWORD]
 MONGO_EXPRESS_USER=[MONGO_EXPRESS_USER]
 MONGO_EXPRESS_PASSWORD=[MONGO_EXPRESS_PASSWORD]
 
-# absolute path for docker volumes
+# ===========================================================
+# Database names
+# ===========================================================
+
+# odtp db instance in the mongo db: "odtp"
+ODTP_MONGO_DB=odtp
+
+# s3 bucket name: "odtp"
+ODTP_BUCKET_NAME=odtp
+
+# ===========================================================
+# Volumes to persist database content
+# these must match path on your local computer
+# ===========================================================
+
+# path where your executions run and the digital twins are stored
 ODTP_PATH=[ODTP_PATH]
+
+# path where s3 data is stored
 MINIO_PATH=[MINIO_PATH]
+
+# path where mongodb content is stored
 MONGODB_PATH=[MONGODB_PATH]
 
+# ===========================================================
+# Operational settings: change only if needed
+# ===========================================================
+
 # Dashboard parameters
-ODTP_DASHBOARD_PORT=[DASHBOARD_PORT]
+# you can chose a different port to serve the dashboard in case port
+# 8003 is not available as port on your computer
+ODTP_DASHBOARD_PORT=8003
+# this setting should only be True during development but False in
+# production
 ODTP_DASHBOARD_RELOAD=False
 
-# Log Level General
+# Log level
+# Log level for the dashboard
 ODTP_LOG_LEVEL=ERROR
-
-# Log Level when running executions
+# log level for the component runs
 RUN_LOG_LEVEL=INFO
 
-# set to False if your docker installation does not allow the flag --gpus all
+# Set to False if your docker installation does not allow the flag --gpus all
+# Set to True in case you want to use GPUs
 ALLOW_DOCKER_GPUS=False
+
+# ===========================================================
+# Development settings: only needed for development
+# setup with compose.dev.yml:
+# `docker compose -f compose.dev.yml`
+# ===========================================================
+
+# Local path on your computer to your odtp installation
+APP_PATH=
+
+# Install the package in editable mode.
+PIP_INSTALL_ARGS="--editable"
 ```
+
+!!! Note
+    The variables `APP_PATH` and `PIP_INSTALL_ARGS="--editable"` are
+    only needed for the development setup of the project with `docker compose -f compose.dev.yml`.
+    In that case `APP_PATH` should be the path to the project directory on your local computer.
+    For a production setup this section of the `.env` file can be deleted.
 
 ## 5. Test the docker compose configuration
 
