@@ -4,8 +4,9 @@
 
 For the setup with docker compose the following is provided at [https://github.com/odtp-org/odtp](https://github.com/odtp-org/odtp)
 
-- `compose.yml` file that contains secrets as variables
-- `.env.dist.compose` file that contains all variables that need to be set for the `docker compose`
+- `compose.yml` production docker compose setup that is used by default with `docker compose`
+- `.env.dist` explaining the env variables and should be copied to `.env`
+- `compose.dev.yml` development setup of  docker compose: can be used via `docker compose -f `compose.dev.yml`
 
 The Installation  is done in the following steps:
 
@@ -78,7 +79,10 @@ cd odtp
 cp .env.dist .env
 ```
 
-Then fill in your crendentials into `.env` as follows:
+Then fill in your credentials into `.env` as follows: you can delete parts of the
+`.env` file that are only needed for the setup method `[VM]`.
+In case you are not setting up the project for development, you can also delete the 
+sections that are only needed for `[DEV]`.
 
 Decide on credentials for the different services
 
@@ -86,16 +90,20 @@ Decide on credentials for the different services
 - user and password for Mongodb Express: `[MONGO_EXPRESS_USER]`, `[MONGO_EXPRESS_PASSWORD]`
 - user and password for Minio: `[MINIO_ROOT_USER]`, `[MINIO_ROOT_PASSWORD]`
 
+For a docker compose production setup, your `.env` file will look like this:
+
 ```yaml
-# Environment variables for
-# installation with docker compose
-# -----------------------------------------------------------
-# fill these variables in case you want to install odtp in a
-# setup with `docker compose` or for a development setup with
-# `docker compose -f compose.dev.yml`
+# ===========================================================
+# Environment variables for odtp
+# Setup options:
+# - [COMPOSE] `docker compose` (recommended)
+# - [DEV] `docker compose -f compose.dev.yml` (for development)
+# - [VM] server setup with poetry
+# ===========================================================
 
 # ===========================================================
 # Credentials with other services
+# - needed for all setup methods
 # ===========================================================
 
 # Credentials github
@@ -104,6 +112,7 @@ GITHUB_TOKEN=[GITHUB_TOKEN]
 
 # ===========================================================
 # Credentials that you can choose on setup
+# - needed for all setup methods
 # ===========================================================
 
 # Credentials S3
@@ -120,6 +129,7 @@ MONGO_EXPRESS_PASSWORD=[MONGO_EXPRESS_PASSWORD]
 
 # ===========================================================
 # Database names
+# - needed for all setup methods
 # ===========================================================
 
 # odtp db instance in the mongo db: "odtp"
@@ -129,12 +139,19 @@ ODTP_MONGO_DB=odtp
 ODTP_BUCKET_NAME=odtp
 
 # ===========================================================
-# Volumes to persist database content
-# these must match path on your local computer
+# ODTP Path is where the dashboard will store users,
+# digital twins and executions
+# - needed for all setup methods
 # ===========================================================
 
 # path where your executions run and the digital twins are stored
 ODTP_PATH=[ODTP_PATH]
+
+# ===========================================================
+# Volumes to persist database content
+# these must match path on your local computer
+# - only needed for setup methods [COMPOSE], [DEV]
+# ===========================================================
 
 # path where s3 data is stored
 MINIO_PATH=[MINIO_PATH]
@@ -163,18 +180,6 @@ RUN_LOG_LEVEL=INFO
 # Set to False if your docker installation does not allow the flag --gpus all
 # Set to True in case you want to use GPUs
 ALLOW_DOCKER_GPUS=False
-
-# ===========================================================
-# Development settings: only needed for development
-# setup with compose.dev.yml:
-# `docker compose -f compose.dev.yml`
-# ===========================================================
-
-# Local path on your computer to your odtp installation
-APP_PATH=
-
-# Install the package in editable mode.
-PIP_INSTALL_ARGS="--editable"
 ```
 
 !!! Note
