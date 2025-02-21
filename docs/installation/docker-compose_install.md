@@ -81,7 +81,7 @@ cp .env.dist .env
 
 Then fill in your credentials into `.env` as follows: you can delete parts of the
 `.env` file that are only needed for the setup method `[VM]`.
-In case you are not setting up the project for development, you can also delete the 
+In case you are not setting up the project for development, you can also delete the
 sections that are only needed for `[DEV]`.
 
 Decide on credentials for the different services
