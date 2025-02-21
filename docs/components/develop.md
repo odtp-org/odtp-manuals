@@ -185,7 +185,7 @@ Run the tool. You can access to the parameters as environment variables (i.e. `$
 # COMMAND $PARAMETER_A #PARAMETER_B /odtp/odtp-input/data
 ```
 
-Manage the output exporting. At the end of the component execution all generated output should be located in `/odtp/odtp-output`. Copy all output files into this folder. 
+Manage the output exporting. At the end of the component execution all generated output should be located in `/odtp/odtp-output`. Copy all output files into this folder.
 
 ```
 #########################################################
@@ -201,113 +201,174 @@ Manage the output exporting. At the end of the component execution all generated
 ODTP requires a set of metadata to work that it is defined in a file called `odtp.yml` that should be in the root of the repository. These fields should be filled by the developers and they are used to provide a help to the users who wants to use your component.
 
 ``` yaml title="odtp.yml"
-# This file should contain basic component information for your component.
+# Schema version for tracking updates to the schema format
+schema-version: "v0.5.0"
+
+# Component Information
 component-name: Component Name
-component-author: Component Author
-component-version: Component Version
-component-repository: Component Repository
+component-authors:
+  - name: Author One
+    orcid: "https://orcid.org/0000-0001-2345-6789"
+  - name: Author Two
+    orcid: "https://orcid.org/0000-0002-3456-7890"
+component-version: "1.0.0"
+component-repository:
+  url: "https://github.com/organization/component-repo"
+  doi: "https://doi.org/10.1234/component.doi"
 component-license: Component License
 component-type: ephemeral or interactive
-component-description: Description
+component-description: Description of the component's function
+component-docker-image: "dockeruser/dockerimage:label"
 tags:
   - tag1
   - tag2
 
-# Information about the tools
+# Tool Information
 tools:
-  - tool-name: tool's name
-    tool-author: Tool's author
-    tool-version: Tool version
-    tool-repository: Tool's repository
-    tool-license: Tool's license
+  - tool-name: Tool Name
+    tool-authors:
+      - name: Tool Author
+        orcid: "https://orcid.org/0000-0001-1234-5678"
+    tool-version: Tool Version
+    tool-repository:
+      url: "https://github.com/organization/tool-repo"
+      doi: "https://doi.org/10.1234/tool.doi"
+    tool-license: Tool License
 
-# If your tool require some secrets token to be passed as ENV to the component
-# This won't be traced
+# Secrets (ENV variables)
 secrets:
-  - name: Key of the argument
-  - description: Description of the secret
+  - name: API_KEY
+    description: API key for authentication
+    type: str
 
-# If the tool requires some building arguments such as Matlab license
+# Build Arguments (if any)
 build-args:
-  - name: Key of the argument
-  - description: Descriptio of the building argument
-  - secret: Bool
+  - name: MATLAB_LICENSE
+    description: License key for Matlab
+    secret: true # Mark as secret if sensitive
 
-# If applicable, ports exposed by the component
-# Include Name, Description, and Port Value for each port
+# Exposed Ports
 ports:
-  - name: PORT A
-    description: Description of Port A
-    port-value: XXXX
-  - name: PORT B
-    description: Description of Port B
-    port-value: YYYY
+  - name: PORT_A
+    description: Main server port
+    port-value: 8080
+  - name: PORT_B
+    description: Auxiliary service port
+    port-value: 9090
 
-# If applicable, parameters exposed by the component
-# Datatype can be str, int, float, or bool.
+# Parameters for the Component
 parameters:
-  - name: PARAMETER A
-    default-value: DEFAULT_VALUE_A
-    datatype: DATATYPE_A
-    description: Description of Parameter A
-    parameter-bounds: # Boundaries for int and float datatype
-      - 0 # Lower bound
-      - inf # Upper bound
+  - name: PARAMETER_A
+    default-value: 10
+    datatype: int
+    description: Max retries allowed
+    parameter-bounds: 
+      - 0 # Minimum value
+      - 100 # Maximum value
     options: null
-    allow-custom-value: false # If true the user can add a custom value out of parameter-bounds, or options
+    allow-custom-value: false
 
-  - name: PARAMETER B
-    default-value: DEFAULT_VALUE_B
-    datatype: DATATYPE_B
-    description: Description of Parameter B
-    parameter-bounds: null
-    options: # If your string parameter is limited to a few option, please list them here. 
+  - name: PARAMETER_B
+    default-value: OptionA
+    datatype: str
+    description: Select a mode
+    options: 
       - OptionA
       - OptionB
-      - OptionC
-    allow-custom-value: false # If true the user can add a custom value out of parameter-bounds, or options
+      - OptionC # Limited choices for str type
+    allow-custom-value: false
 
-# If applicable, data-input list required by the component
+# Data Inputs
 data-inputs:
-  - name: INPUT A
-    type: TYPE_A # Folder or filetype
-    path: VALUE_A  
-    description: Description of Input A
-  - name: INPUT B
-    type: TYPE_B # Folder or filetype
-    path: VALUE_B  
-    description: Description of Input B
+  - name: INPUT_A
+    type: .txt
+    path: /path/to/input/SIMPLE_INPUT.txt
+    description: Single static input file
+    naming-convention: "SIMPLE_INPUT.txt"
 
-# If applicable, data-output list produced by the component
-data-output:
-  - name: OUTPUT A
-    type: TYPE_A # Folder or filetype
-    path: VALUE_A
-    description: Description of Output A
-  - name: OUTPUT B
-    type: TYPE_B # Folder or filetype
-    path: VALUE_B
-    description: Description of Output B
+  - name: INPUT_B
+    type: TYPE_B
+    path: /path/to/input/folder_A
+    description: Folder containing dynamically named input files
+    naming-convention: "data_{PARAMETER_A}_{PARAMETER_B}_v{number}.ext"
+    dynamic-naming-based-on:
+      - PARAMETER_A
+      - PARAMETER_B
+    sequence:
+      start: 1
+      increment: 1
 
-# If applicable, path to schemas to perform semantic validation.
-# Still under development. Ignore.
+  - name: INPUT_C
+    type: TYPE_C
+    path: /path/to/input/folder_B
+    description: Folder with structured input files
+    folder-structure:
+      required-files:
+        - file-pattern: "summary_{PARAMETER_C}_{date}.txt"
+        - file-pattern: "log_{PARAMETER_C}_{number}.json"
+      naming-convention: "parameter_and_numeric_based"
+      dynamic-naming-based-on:
+        - PARAMETER_C
+      date-format: "YYYYMMDD"
+      sequence:
+        start: 1
+        increment: 1
+
+# Data Outputs
+data-outputs:
+  - name: OUTPUT_A
+    type: .txt
+    path: /path/to/output/SIMPLE_OUTPUT.txt
+    description: Static output file
+    naming-convention: "SIMPLE_OUTPUT.txt"
+
+  - name: OUTPUT_B
+    type: TYPE_B
+    path: /path/to/output/folder_A
+    description: Folder for dynamic output files
+    naming-convention: "prefix_{PARAMETER_A}_{PARAMETER_B}_v{number}.ext"
+    dynamic-naming-based-on:
+      - PARAMETER_A
+      - PARAMETER_B
+    sequence:
+      start: 1
+      increment: 1
+
+  - name: OUTPUT_C
+    type: TYPE_C
+    path: /path/to/output/folder_B
+    description: Folder for structured output files
+    folder-structure:
+      required-files:
+        - file-pattern: "output_summary_{PARAMETER_C}_{date}.txt"
+        - file-pattern: "log_{PARAMETER_C}_{number}.json"
+      naming-convention: "parameter_and_numeric_based"
+      dynamic-naming-based-on:
+        - PARAMETER_C
+      date-format: "YYYYMMDD"
+      sequence:
+        start: 1
+        increment: 1
+
+# Validation Schemas (Future Development)
 schema-input: PATH_TO_INPUT_SCHEMA
 schema-output: PATH_TO_OUTPUT_SCHEMA
 
-# If applicable, define devices needed such as GPU.
+# Device Requirements
 devices:
-  gpu: Bool
+  - type: gpu
+    required: true
 ```
 
 ## Step 5: Test the component
 
-There are 3 main ways in which you can test a component and the different odtp features. 
+There are 3 main ways in which you can test a component and the different odtp features.
 
 1. Testing it as a docker container
 2. Testing it as a single component using `odtp`
 3. Testing it in a `odtp` digital twin execution
 
-When developing we recommend to start by testing the component via docker and then follow with the others.  
+When developing we recommend to start by testing the component via docker and then follow with the others.
 
 ### Testing the component as a docker container
 
@@ -323,9 +384,9 @@ Prepare the following folder structure:
 
 Place all required input files in `testing-folder/data-input`.
 
-In case you have parameters specified in the `odtp.yaml` file: 
+In case you have parameters specified in the `odtp.yaml` file:
 
-- `cp .env.dist .env` 
+- `cp .env.dist .env`
 - Create your `.env` file with the following parameters. If you don't have parameters you can omit this.
 
 ``` bash
@@ -334,7 +395,7 @@ PARAMETER-A=.....
 PARAMETER-B=.....
 ```
 
-Build the dockerfile. 
+Build the dockerfile.
 
 ``` bash
 docker build -t odtp-component .
@@ -343,7 +404,7 @@ docker build -t odtp-component .
 Run the following command.
 
 ``` bash
-docker run -it --rm \ 
+docker run -it --rm \
 -v {PATH_TO_YOUR_INPUT_VOLUME}:/odtp/odtp-input \
 -v {PATH_TO_YOUR_OUTPUT_VOLUME}:/odtp/odtp-output \
 --env-file .env \
@@ -352,7 +413,7 @@ odtp-component
 
 This command will run the component. If you want debug some errors and execute the docker in an interactive manner, you can use the flag `--entrypoint bash` when running docker.
 
-Also if your tool is interactive such as an [Streamlit](https://streamlit.io/) app, don't forget to map the ports by using `-p XXXX:XXXX`. 
+Also if your tool is interactive such as an [Streamlit](https://streamlit.io/) app, don't forget to map the ports by using `-p XXXX:XXXX`.
 
 ### Testing the component as part of odtp
 
@@ -365,5 +426,5 @@ ODTP relies on tagged versions of Component. In the ODTP Orchestrator you need a
 
 ## Step 7: Publish your tool in the ODTP Zoo.
 
-Once your component has been tested you can publish it in the [ODTP Zoo](../zoo/index.md). 
+Once your component has been tested you can publish it in the [ODTP Zoo](../zoo/index.md).
 See [Add component to the ODTP-org zoo](../zoo/add-component.md)
