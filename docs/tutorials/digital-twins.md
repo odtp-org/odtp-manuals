@@ -34,9 +34,9 @@ So the first thing you need is a user:
     ``` 
 
 
-## Setup a digital twin project
+## Next: Setup a Digital Twin
 
-Once you have a user, you can set up a digital twin
+Once you have a user, you can set up a [digital twin](digital-twins.md)
 
 
 === "Dashboard GUI"
