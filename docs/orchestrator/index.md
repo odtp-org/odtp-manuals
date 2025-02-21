@@ -6,17 +6,20 @@ The Orchestrator is the Application behind ODTP: it can be installed and run.
 graph TD;
     ODTPOrchestrator --> |defines and runs| Executions
     ODTPOrchestrator --> |registers| ODTPComponents
+    ODTPOrchestrator --> |registers| Workflows
     ODTPOrchestrator --> |provides service to| Users
     ODTPOrchestrator --> |registers| DigitalTwins
     Users --> |own| DigitalTwins
     DigitalTwins --> |are collections of| Executions
-    Executions --> |are pipelines of| ODTPComponents
+    Executions --> |correspond to| Workflows
+    Executions --> |are configured pipelines of| ODTPComponents
+    Workflows --> |are unconfigured pipelines of| ODTPComponents
     subgraph ODTPOrchestrator
     Minio[S3: store snapshots between component runs]
     Mongodb[Mongodb: store all Metadata]
     Docker[Docker: run executions]
     end
-```  
+```
 
 The ODTP orchestrator registers [ODTP Components](../components/index.md) allows to combine them into executable workflows and to run these executions as docker containers.
 
