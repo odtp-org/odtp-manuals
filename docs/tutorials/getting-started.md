@@ -26,7 +26,7 @@ This tutorial will guide you through setting up a digital twin and running it
 
 ## Now the interface should be up
 
-So you can start working:    
+So you can start working:
 
 === "Dashboard GUI"
 
@@ -36,9 +36,14 @@ So you can start working:
 
     ![Terminal ready](../static/tutorials/getting-started/cli-start.png){ width="800" }
 
-Checkout the following topis:
+## Next for shared building blocks
 
--  [add users and digital twins](users-and-digital-twins.md)
--  [add components and versions](components-and-versions.md)
--  [add executions](executions.md)
--  [run executions](run-executions.md)
+The shared building blocks start with Component Versions:
+
+[Component Versions](components-and-versions.md){ .md-button }
+
+## Next for user owned projects
+
+The user journey starts at Users:
+
+[Users](users.md){ .md-button }

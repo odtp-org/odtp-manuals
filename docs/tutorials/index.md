@@ -28,3 +28,9 @@ Alternatively watch the [video-tutorials](video-tutorials.md). They are meant to
 !!!note
     It assumes that you have installed ODTP. If this is not the case:
     [Install ODTP](../installation/index.md){ .md-button }
+
+## Start at Getting Started
+
+Take a tour through ODTP:
+
+[Getting started](getting-started.md){ .md-button }
