@@ -44,5 +44,5 @@ graph RL;
 style ODTPComponents fill:white
 style ODTPWorkflows fill:white
 style ODTPOrchestrator fill:white
-style ODTPZoo fill:white 
+style ODTPZoo fill:white
 ```
