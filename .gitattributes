@@ -1,0 +1,2 @@
+docs/videos/example-pipeline.mov filter=lfs diff=lfs merge=lfs -text
+docs/videos/corsica-pipeline.mov filter=lfs diff=lfs merge=lfs -text
