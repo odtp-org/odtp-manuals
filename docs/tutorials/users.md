@@ -48,3 +48,9 @@ You can upload named files with secrets.
 ![Select a User](../static/tutorials/users/display-uploaded-secret.png){ width="400" }
 
 ![Select a User](../static/tutorials/users/user-with-secrets.png){ width="800" }
+
+## Add a Digital Twin
+
+Once you have a user, you can set up a Digital Twin.
+
+[Digital Twins](digital-twins.md){ .md-button }

@@ -27,22 +27,22 @@ You can go to the "EXECUTION TABLE" Tab and list all executions that belong to t
 
 === "Command Line CLI"
 
-    On the command you can only list all executions in json for a digital twin by running: 
+    On the command you can only list all executions in json for a digital twin by running:
 
     ```sh
     odtp db executions_for_digitalTwin \
-    --dt-id 65c3ab02b4afbca32db08738 
-    ```   
+    --dt-id 65c3ab02b4afbca32db08738
+    ```
 
 ## Select execution
 
-Existing executions can be selected in order to run them: when you select an execution you see a 
+Existing executions can be selected in order to run them: when you select an execution you see a
 button: "PREPARE AND RUN EXECUTION": click on it and you will get to a run page where you can run the
 execution: see [run executions](run-executions.md)
 
 === "Dashboard GUI"
 
-    In the Dashboard you are guided through the process of creating an execution step by step: 
+    In the Dashboard you are guided through the process of creating an execution step by step:
 
     ![Dashboard Add execution](../static/tutorials/executions/select-execution.png){ width="800" }
 
@@ -51,19 +51,19 @@ execution: see [run executions](run-executions.md)
 
 An execution consists of components and can have extra port mappings and parameters.
 
-- `digital-twin-id` (Optional): Obtained before. Alternatively, you can use the name of the digital twin. 
-- `digital-twin-name` (Optional): Name of the digital twin. Alternatively, you can use the `digital-twin-id`. 
+- `digital-twin-id` (Optional): Obtained before. Alternatively, you can use the name of the digital twin.
+- `digital-twin-name` (Optional): Name of the digital twin. Alternatively, you can use the `digital-twin-id`.
 - `name`: A name for the execution
-- `component-tags`: All components tags (`componentA:v0.1.0`) involved in the workflow aligned sequentially and separated by commas. 
+- `component-tags`: All components tags (`componentA:v0.1.0`) involved in the workflow aligned sequentially and separated by commas.
 - `parameter-files`: Parameters files separated by commas.
     - This file should contain all parameters used like in a dotenv file format.
-- `ports`: Ports matching used by the containers. 
+- `ports`: Ports matching used by the containers.
     - Components ports should be separated by `,`. i.e. `8763:3000,8501:8501`
     - Place as many `,` as connections between components (steps). If ports are not being used in the first, and second component: i.e. `,,8501:8501`
     - If multiple ports are being use in the same step please use `+`: i.e. `,,8501:8501+3000:3000`
 
 In the GUI a form is offered to guide you through the process of specifying all these elements.
-In the CLI you have to add all elements yourself: 
+In the CLI you have to add all elements yourself:
 
 In order to better understand these workflows it is best to set up workflow repos as we did in some of our use cases:
 
@@ -74,7 +74,7 @@ These repos help you to setup executions in both CLI and the GUI
 
 === "Dashboard GUI"
 
-    In the Dashboard you are guided through the process of creating an execution step by step: 
+    In the Dashboard you are guided through the process of creating an execution step by step:
 
     First you need to name your execution:
 
@@ -93,21 +93,21 @@ These repos help you to setup executions in both CLI and the GUI
 
     ![Dashboard Add execution](../static/tutorials/executions/overwrite-parameters.png){ width="800" }
 
-    Next you need to add port mappings: this is only necessary for persistent components and for the 
-    mapping you need to know the component port, that was registered with the component, see 
+    Next you need to add port mappings: this is only necessary for persistent components and for the
+    mapping you need to know the component port, that was registered with the component, see
     [components and versions](components-and-versions.md).
 
     ![Dashboard Add execution](../static/tutorials/executions/add-execution-ports.png){ width="800" }
 
-    Check your execution and save it if everything is correct. If not, you can walk back through the 
+    Check your execution and save it if everything is correct. If not, you can walk back through the
     steps and correct your settings without loosing any information that you already correctly.
-    
+
     ![Dashboard Save the execution](../static/tutorials/executions/save-execution.png){ width="800" }
     Once the execution is save you can run it. See above on Selecting an execution.
 
 === "Command Line CLI"
 
-    A set of parameters is a file containing all the variables needed to run that component. 
+    A set of parameters is a file containing all the variables needed to run that component.
 
     ```
     DATASET=rf3
@@ -130,7 +130,7 @@ These repos help you to setup executions in both CLI and the GUI
     step_ids 65c3ab980c57d37eb076b6bb, 65c3ab980c57d37eb076b6bc
     ```
 
-## Prepare and run an execution 
+## Prepare and run an execution
 
 Please refer to section [Run Executions](https://odtp-org.github.io/odtp-manuals/tutorials/run-executions/)
 
