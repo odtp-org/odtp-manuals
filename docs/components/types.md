@@ -5,7 +5,7 @@ ODTP offers the following types of components:
 ``` mermaid
 mindmap
   root((Component Types and Examples))
-    Component Type: Ephemeral 
+    Component Type: Ephemeral
       Dataloader
       Analytical
       Data Exporter
@@ -21,11 +21,11 @@ mindmap
 
 ``` mermaid
 flowchart LR
-    DockerBuild[Build Docker Image] --> DockerRun[Run Docker Container] 
+    DockerBuild[Build Docker Image] --> DockerRun[Run Docker Container]
     DockerRun[Run Docker Container] --> Stop[Stop]
-```   
+```
 
-Ephemeral components are docker container that run once and exit after they have run the tool that they wrap. The docker container is discarded after use. 
+Ephemeral components are docker container that run once and exit after they have run the tool that they wrap. The docker container is discarded after use.
 
 Examples for Ephemeral components are:
 
@@ -37,8 +37,8 @@ Examples for Ephemeral components are:
 
 ``` mermaid
 flowchart LR
-    DockerBuild[Build Docker Image] --> DockerRun[Run Docker Container] 
-```    
+    DockerBuild[Build Docker Image] --> DockerRun[Run Docker Container]
+```
 
 Interactive components are designed to interact with the user. Their docker container will be kept running until the user stops it. They usually have inputs (file or database) and they usually provide a webservice that is run on a port, that will be exposed, so that the user can change it.
 
@@ -52,11 +52,11 @@ Examples for Interactive components are:
 !!! warning end "Under Construction"
 
     - Api components are currently under construction and not yet available
-    
+
 ``` mermaid
 flowchart LR
-    DockerRun[Run Docker Container]  
-```  
+    DockerRun[Run Docker Container]
+```
 
 An API component by itself is similar to an interactive component: It mounts a long running service that will only end when termintated by the user.
 
@@ -64,4 +64,4 @@ API components differ though in the way they are handled by the ODTP orchestrato
 
 This kind of component is useful when the component building process (in docker)  takes a large amount of time, or when a long-lasting task can be reused in multiple executions. An example of this is the loading of a machine learning model into memory.
 
-The API component receives the parameters as JSON in the request’s payload. This allows a more complex configuration of parameters than in the other two component types. Input data can be provided in the request, or, if the file-size is big, as a item in the S3 storage.  
+The API component receives the parameters as JSON in the request’s payload. This allows a more complex configuration of parameters than in the other two component types. Input data can be provided in the request, or, if the file-size is big, as a item in the S3 storage.

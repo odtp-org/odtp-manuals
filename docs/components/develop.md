@@ -50,14 +50,14 @@ The resulting repo has the following structure:
 │       └── template.yml
 ├── odtp-component-client
 │   ├── LICENSE
-│   ├── README.md
-│   ├── __init__.py
-│   ├── logger.py
-│   ├── odtp-app.sh
-│   ├── parameters.py
-│   ├── requirements.txt
-│   ├── s3uploader.py
-│   └── startup.sh
+│   ├── README.md
+│   ├── __init__.py
+│   ├── logger.py
+│   ├── odtp-app.sh
+│   ├── parameters.py
+│   ├── requirements.txt
+│   ├── s3uploader.py
+│   └── startup.sh
 ├── odtp.yml
 ├── .env.dist
 └── requirements.txt
@@ -79,7 +79,7 @@ All changes will be further described in the steps below. So no need to do them 
 
 ## Step 2: Adapt the Dockerfile and Installations
 
-In this step you will adapt the build instructions for the Docker Image: 
+In this step you will adapt the build instructions for the Docker Image:
 
 - If your tool runs on python: adapt the `requirements.txt` file and add the libraries that you need.
 - Adapt the Dockerfile and install the needed libraries that your tool needs to run:
@@ -88,7 +88,7 @@ In this step you will adapt the build instructions for the Docker Image:
 FROM ubuntu:22.04
 
 RUN apt update
-RUN apt install python3.10 python3-pip -y 
+RUN apt install python3.10 python3-pip -y
 
 ##################################################
 # Ubuntu setup
@@ -102,7 +102,7 @@ RUN apt-get update && apt-get -y upgrade \
   && apt-get install -y --no-install-recommends \
     unzip \
     nano \
-    git \ 
+    git \
     g++ \
     gcc \
     htop \
@@ -131,21 +131,21 @@ Don't touch the second part of the Dockerfile, from this line onwards:
 
 ```
 ######################################################################
-# ODTP COMPONENT CONFIGURATION. 
+# ODTP COMPONENT CONFIGURATION.
 # DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING.
 ######################################################################
 ```
 
 ## Step 3: Adapt the app/app.sh
 
-Change the section below so that a version of your tool is checked out: 
+Change the section below so that a version of your tool is checked out:
 
 Clone the repository of your tool and checkout to one specific commit. We recommend to specify the commit with a tag for a semantic version.
 
 ```
 #########################################################
 # 1. GITHUB CLONING OF REPO
-# Clone the repository of your tool and checkout to one specific commit. 
+# Clone the repository of your tool and checkout to one specific commit.
 #########################################################
 
 # git clone https://github.com/odtp-org/tool-example.git /odtp/odtp-workdir/tool-example
@@ -158,13 +158,13 @@ Clone the repository of your tool and checkout to one specific commit. We recomm
 ```
 #########################################################
 # 2. CONFIG FILE CONFIGURATION
-# Read placeholders and create config file from Environment  
+# Read placeholders and create config file from Environment
 #########################################################
 
 # python3 /odtp/odtp-component-client/parameters.py /odtp/odtp-app/config_templates/template.yml /odtp/odtp-workdir/config.yml
 ```
 
-Copy (`cp -r`) or create symbolic links (`ln -s`) to locate the input files in `/odpt/odtp-input/` in the folder. 
+Copy (`cp -r`) or create symbolic links (`ln -s`) to locate the input files in `/odpt/odtp-input/` in the folder.
 
 ```
 #########################################################
@@ -198,171 +198,7 @@ Manage the output exporting. At the end of the component execution all generated
 
 ## Step 4: Provide Metadata for the Component
 
-ODTP requires a set of metadata to work that it is defined in a file called `odtp.yml` that should be in the root of the repository. As the file is parsed when a component is added to ODTP, it is important to  conform to the schema below when filling in the `odtp.yml` file.
-
-### odtp.yml Format
-
-Below you find an description of how to fill in the `odtp.yml` file:
-
-``` yaml title="odtp.yml"
-# Schema version for tracking updates to the schema format
-schema-version: "v0.5.0"
-
-# Component Information
-component-name: Component Name
-component-authors:
-  - name: Author One
-    orcid: "https://orcid.org/0000-0001-2345-6789"
-  - name: Author Two
-    orcid: "https://orcid.org/0000-0002-3456-7890"
-component-version: "1.0.0"
-component-repository:
-  url: "https://github.com/organization/component-repo"
-  doi: "https://doi.org/10.1234/component.doi"
-component-license: Component License
-component-type: ephemeral or interactive
-component-description: Description of the component's function
-component-docker-image: "dockeruser/dockerimage:label"
-tags:
-  - tag1
-  - tag2
-
-# Tool Information
-tools:
-  - tool-name: Tool Name
-    tool-authors:
-      - name: Tool Author
-        orcid: "https://orcid.org/0000-0001-1234-5678"
-    tool-version: Tool Version
-    tool-repository:
-      url: "https://github.com/organization/tool-repo"
-      doi: "https://doi.org/10.1234/tool.doi"
-    tool-license: Tool License
-
-# Secrets (ENV variables)
-secrets:
-  - name: API_KEY
-    description: API key for authentication
-    type: str
-
-# Build Arguments (if any)
-build-args:
-  - name: MATLAB_LICENSE
-    description: License key for Matlab
-    secret: true # Mark as secret if sensitive
-
-# Exposed Ports
-ports:
-  - name: PORT_A
-    description: Main server port
-    port-value: 8080
-  - name: PORT_B
-    description: Auxiliary service port
-    port-value: 9090
-
-# Parameters for the Component
-parameters:
-  - name: PARAMETER_A
-    default-value: 10
-    datatype: int
-    description: Max retries allowed
-    parameter-bounds:
-      - 0 # Minimum value
-      - 100 # Maximum value
-    options: null
-    allow-custom-value: false
-
-  - name: PARAMETER_B
-    default-value: OptionA
-    datatype: str
-    description: Select a mode
-    options:
-      - OptionA
-      - OptionB
-      - OptionC # Limited choices for str type
-    allow-custom-value: false
-
-# Data Inputs
-data-inputs:
-  - name: INPUT_A
-    type: .txt
-    path: /path/to/input/SIMPLE_INPUT.txt
-    description: Single static input file
-    naming-convention: "SIMPLE_INPUT.txt"
-
-  - name: INPUT_B
-    type: TYPE_B
-    path: /path/to/input/folder_A
-    description: Folder containing dynamically named input files
-    naming-convention: "data_{PARAMETER_A}_{PARAMETER_B}_v{number}.ext"
-    dynamic-naming-based-on:
-      - PARAMETER_A
-      - PARAMETER_B
-    sequence:
-      start: 1
-      increment: 1
-
-  - name: INPUT_C
-    type: TYPE_C
-    path: /path/to/input/folder_B
-    description: Folder with structured input files
-    folder-structure:
-      required-files:
-        - file-pattern: "summary_{PARAMETER_C}_{date}.txt"
-        - file-pattern: "log_{PARAMETER_C}_{number}.json"
-      naming-convention: "parameter_and_numeric_based"
-      dynamic-naming-based-on:
-        - PARAMETER_C
-      date-format: "YYYYMMDD"
-      sequence:
-        start: 1
-        increment: 1
-
-# Data Outputs
-data-outputs:
-  - name: OUTPUT_A
-    type: .txt
-    path: /path/to/output/SIMPLE_OUTPUT.txt
-    description: Static output file
-    naming-convention: "SIMPLE_OUTPUT.txt"
-
-  - name: OUTPUT_B
-    type: TYPE_B
-    path: /path/to/output/folder_A
-    description: Folder for dynamic output files
-    naming-convention: "prefix_{PARAMETER_A}_{PARAMETER_B}_v{number}.ext"
-    dynamic-naming-based-on:
-      - PARAMETER_A
-      - PARAMETER_B
-    sequence:
-      start: 1
-      increment: 1
-
-  - name: OUTPUT_C
-    type: TYPE_C
-    path: /path/to/output/folder_B
-    description: Folder for structured output files
-    folder-structure:
-      required-files:
-        - file-pattern: "output_summary_{PARAMETER_C}_{date}.txt"
-        - file-pattern: "log_{PARAMETER_C}_{number}.json"
-      naming-convention: "parameter_and_numeric_based"
-      dynamic-naming-based-on:
-        - PARAMETER_C
-      date-format: "YYYYMMDD"
-      sequence:
-        start: 1
-        increment: 1
-
-# Validation Schemas (Future Development)
-schema-input: PATH_TO_INPUT_SCHEMA
-schema-output: PATH_TO_OUTPUT_SCHEMA
-
-# Device Requirements
-devices:
-  - type: gpu
-    required: true
-```
+ODTP requires a set of metadata to work that it is defined in a file called `odtp.yml` that should be in the root of the repository. As the file is parsed when a Component Version is added to ODTP. Therefore it is important to  conform to the schema when filling in the `odtp.yml` file, see [Specifcation on `odtp.yml`](odtp-yml.md)
 
 ## Step 5: Test the component
 
