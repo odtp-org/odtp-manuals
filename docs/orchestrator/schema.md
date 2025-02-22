@@ -130,7 +130,7 @@ components = {
 
 ### Component Versions
 
-Component versions get their properties from [`odtp.yml`](../components/develop.md#step-4-provide-metadata-for-the-component) and contain default values for the executions.
+Component versions get their properties from [`odtp.yml`](../components/odtp-yml.md) and contain default values for the executions.
 
 ```json
 versions = {
