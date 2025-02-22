@@ -91,17 +91,19 @@ nav:
     - Getting started: tutorials/getting-started.md
     - Users: tutorials/users.md
     - Digital Twins: tutorials/digital-twins.md
-    - Components and Versions: tutorials/components-and-versions.md
+    - Component Versions: tutorials/component-versions.md
     - Workflows: tutorials/workflows.md
     - Executions: tutorials/executions.md
     - Run Executions: tutorials/run-executions.md
     - Video Tutorials: tutorials/video-tutorials.md
+    - Commandline: tutorials/command-line.md
   - Components:
     - Definition: components/index.md
     - Types: components/types.md
     - Develop a component: components/develop.md
     - Run a component: components/run.md
     - Find components: components/find.md
+    - odtp.yml: components/odtp-yml.md
   - Workflows:
     - Overview: workflows/index.md
   - ODTP Orchestrator:
