@@ -2,29 +2,13 @@
 
 !!! note
     * The username has to be unique and the github user has to exist.
-    * Some commands have equivalents in the GUI such as the user add command. Others have not.
+    * Users can also be added via the [Commandline](command-line.md#users)
 
 ## Setup a user
 
 So the first thing you need is a user:
 
-=== "Dashboard GUI"
-
-    ![Dashboard Add user](../static/tutorials/users/add-user.png){ width="800" }
-
-=== "Command Line CLI"
-
-    ``` sh
-    odtp new user-entry \
-    --name Max \
-    --email max@mail.com \
-    --github max
-    ```
-
-    The output should looks like:
-    ```
-    A user has been added: 65c3ab02b4afbca32db08738
-    ```
+![Dashboard Add user](../static/tutorials/users/add-user.png){ width="800" }
 
 ## Select a User
 
