@@ -5,6 +5,12 @@ repo_name: odtp-org/odtp
 plugins:
   - search
   - link-marker
+  - mkdocs-video:
+      is_video: True
+      video_muted: True
+      video_controls: True
+      css_style:
+        width: "50%"
 theme:
   name: material
   logo: static/logo/logo.png
@@ -33,19 +39,19 @@ theme:
     - scheme: slate
       toggle:
         icon: material/toggle-switch
-        name: Switch to light mode    
+        name: Switch to light mode
       primary: white
       accent: lime
-  custom_dir: overrides  
+  custom_dir: overrides
   features:
-    - content.tooltips   
-    - content.footnote.tooltips        
+    - content.tooltips
+    - content.footnote.tooltips
 
 markdown_extensions:
   - abbr
   - attr_list
   - def_list
-  - pymdownx.snippets  
+  - pymdownx.snippets
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -73,44 +79,47 @@ copyright: |
 
 # Page tree
 nav:
-  - Home: 
+  - Home:
     - Getting started: index.md
     - Introduction: home/index.md
-  - Install ODTP: 
+  - Install ODTP:
     - Installation Options: installation/index.md
     - Install with docker compose: installation/docker-compose_install.md
     - Install on a local server: installation/local_server_install.md
-  - Tutorials (Use ODTP): 
-    - Overview: tutorials/index.md 
+  - Tutorials (Use ODTP):
+    - Overview: tutorials/index.md
     - Getting started: tutorials/getting-started.md
-    - Users and Digital Twins: tutorials/users-and-digital-twins.md
+    - Users: tutorials/users.md
+    - Digital Twins: tutorials/digital-twins.md
     - Components and Versions: tutorials/components-and-versions.md
+    - Workflows: tutorials/workflows.md
     - Executions: tutorials/executions.md
     - Run Executions: tutorials/run-executions.md
+    - Video Tutorials: tutorials/video-tutorials.md
   - Components:
     - Definition: components/index.md
-    - Types: components/types.md     
+    - Types: components/types.md
     - Develop a component: components/develop.md
     - Run a component: components/run.md
-    - Find components: components/find.md  
-  - Workflows: 
+    - Find components: components/find.md
+  - Workflows:
     - Overview: workflows/index.md
   - ODTP Orchestrator:
     - Overview: orchestrator/index.md
     - Concept: orchestrator/concept.md
     - Architecture: orchestrator/architecture.md
     - Schema: orchestrator/schema.md
-    - Roadmap: orchestrator/roadmap.md    
+    - Roadmap: orchestrator/roadmap.md
   - ODTP Zoo:
     - Overview: zoo/index.md
     - Add Component: zoo/add-component.md
-  - Use Cases: 
+  - Use Cases:
     - Introduction: usecases/index.md
     - Mobility. Eqasim + Matsim: usecases/mobility-eqasim-matsim.md
     - Mobility. Causal Inference: usecases/mobility-causal-interventions.md
   - Contributing:
-    - Overview: contributing/index.md 
-  - Legal Notice: 
+    - Overview: contributing/index.md
+  - Legal Notice:
     - Acknowledgement: legal/acknowledgement.md
     - Copyright: legal/copyright.md
     - Licensing: legal/licensing.md
