@@ -5,6 +5,14 @@
     * workflows are templates for executions that determine the sequence of Component Versions to be run, without yet specifying the parameters or run time
     * workflows are shared between users and not owned by users
 
+
+``` mermaid
+graph TB
+A[component-example_0.1.0]
+B[travel_dashboard_0.2.1]
+A --> B;
+```
+
 ## Manage Workflows
 
 In the Dashboard you can list all Workflows that are already on ODTP.
