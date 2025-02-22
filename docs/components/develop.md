@@ -16,7 +16,7 @@ graph LR;
     Metadata[odtp.yml]
     Docker[Dockerfile]
     end
-``` 
+```
 
 [TOC]
 
@@ -30,11 +30,11 @@ Start with the ODTP component template:
 
 !!! Note
     This repository makes use of submodules. Therefore, when cloning it you need to include them.
-    
-    ```bash 
+
+    ```bash
     git clone --recurse-submodules https://github.com/your-organization/odtp-your-tool-name
     ```
-    
+
     See [README](https://github.com/odtp-org/odtp-component-template?tab=readme-ov-file#how-to-clone-this-repository)
 
 The resulting repo has the following structure:
@@ -45,11 +45,11 @@ The resulting repo has the following structure:
 ├── README.md
 ├── README.template.md
 ├── app
-│   ├── app.sh
-│   └── config_templates
-│       └── template.yml
+│  ├── app.sh
+│  └── config_templates
+│       └── template.yml
 ├── odtp-component-client
-│   ├── LICENSE
+│   ├── LICENSE
 │   ├── README.md
 │   ├── __init__.py
 │   ├── logger.py
@@ -198,7 +198,11 @@ Manage the output exporting. At the end of the component execution all generated
 
 ## Step 4: Provide Metadata for the Component
 
-ODTP requires a set of metadata to work that it is defined in a file called `odtp.yml` that should be in the root of the repository. These fields should be filled by the developers and they are used to provide a help to the users who wants to use your component.
+ODTP requires a set of metadata to work that it is defined in a file called `odtp.yml` that should be in the root of the repository. As the file is parsed when a component is added to ODTP, it is important to  conform to the schema below when filling in the `odtp.yml` file.
+
+### odtp.yml Format
+
+Below you find an description of how to fill in the `odtp.yml` file:
 
 ``` yaml title="odtp.yml"
 # Schema version for tracking updates to the schema format
@@ -262,7 +266,7 @@ parameters:
     default-value: 10
     datatype: int
     description: Max retries allowed
-    parameter-bounds: 
+    parameter-bounds:
       - 0 # Minimum value
       - 100 # Maximum value
     options: null
@@ -272,7 +276,7 @@ parameters:
     default-value: OptionA
     datatype: str
     description: Select a mode
-    options: 
+    options:
       - OptionA
       - OptionB
       - OptionC # Limited choices for str type
