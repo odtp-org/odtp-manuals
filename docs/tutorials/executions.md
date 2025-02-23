@@ -49,6 +49,14 @@ For each Step you can configure:
 
 You can upload parameters from a file: this will overwrite the existing parameters with out additional checks. The upload area need to be expanded above the Step on the right.
 
+A parameter file would look like this: so it contains keys and values:
+
+```
+DATASET=rf3
+CATEGORY=Health
+BATCH_SIZE=100
+```
+
 !!! note
     - Parameter uploads are only offered when you create the Execution
     - When you run the Execution you can only overwrite the existing parameters
