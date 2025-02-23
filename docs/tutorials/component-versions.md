@@ -29,11 +29,16 @@ Under the tab "Add Component Version" you can either add a new component with a 
 
 ![Add new component or new version](../static/tutorials/component-versions/add-component-or-version.png){ width="400" }
 
-![Add a new component version](../static/tutorials/component-versions/add-new-component.png){ width="800" }
+![Add a new version for existing component](../static/tutorials/component-versions/add-new-version.png){ width="800" }
+
 
 You will see a message when ODTP was able to parse the `odtp.yml` file
 
-![Add a new version for existing component](../static/tutorials/component-versions/add-new-version.png){ width="800" }
+![Add a new component version](../static/tutorials/component-versions/add-new-component.png){ width="800" }
+
+Error case: `odtp.yml` file could not be parsed:
+
+![Add a new version for existing component](../static/tutorials/component-versions/odtp-yml-parse-error.png){ width="800" }
 
 ## Component Version Details
 
