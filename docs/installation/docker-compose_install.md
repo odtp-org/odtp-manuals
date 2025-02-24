@@ -92,6 +92,8 @@ Decide on credentials for the different services
 - user and password for Mongodb Express: `[MONGO_EXPRESS_USER]`, `[MONGO_EXPRESS_PASSWORD]`
 - user and password for Minio: `[MINIO_ROOT_USER]`, `[MINIO_ROOT_PASSWORD]`
 
+You also need a password [ODTP_PASSWORD] for the [encrpytion and decryption of secrets](../tutorials/users.md#upload-secrets)
+
 For a docker compose production setup, your `.env` file will look like this:
 
 ```yaml
@@ -111,6 +113,12 @@ For a docker compose production setup, your `.env` file will look like this:
 # Credentials github
 # your github token
 GITHUB_TOKEN=[GITHUB_TOKEN]
+
+# ===========================================================
+# Credentials for odtp: to decrypt secret files
+# ===========================================================
+
+ODTP_PASSWORD=[ODTP_PASSWORD]
 
 # ===========================================================
 # Credentials that you can choose on setup
