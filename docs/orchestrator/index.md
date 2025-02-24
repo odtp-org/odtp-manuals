@@ -1,6 +1,6 @@
 # ODTP Orchestrator Overview
 
-The Orchestrator is the Application behind ODTP: it can be installed and run. 
+The Orchestrator is the Application behind ODTP: it can be installed and run.
 
 ``` mermaid
 graph TD;
