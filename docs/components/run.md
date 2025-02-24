@@ -53,4 +53,4 @@ odtp component delete-image --image_name image_test
 
 To start using component in Digital Twin's executions, first you need to register the component into odtp, and using it. 
 
-See the [tutorial](../tutorials/components-and-versions.md) on how to do this.
+See the [tutorial](../tutorials/component-versions.md) on how to do this.

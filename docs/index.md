@@ -19,7 +19,7 @@ Read about ODTP:
 
 ``` mermaid
 graph RL;
-    subgraph ODTP     
+    subgraph ODTP
         direction TB
         ODTPWorkflows[ODTP Workflows] -.- combine -.-> ODTPComponents[ODTP Components]
         ODTPOrchestrator[ODTP Orchestrator] -.- executes -.-> ODTPWorkflows[ODTP Workflows]
@@ -39,10 +39,10 @@ graph RL;
         end
         subgraph ODTPZoo[ODTP Zoo]
             D1[Components] -- register --> D2[Index]
-        end           
+        end
     end
 style ODTPComponents fill:white
 style ODTPWorkflows fill:white
 style ODTPOrchestrator fill:white
-style ODTPZoo fill:white 
+style ODTPZoo fill:white
 ```

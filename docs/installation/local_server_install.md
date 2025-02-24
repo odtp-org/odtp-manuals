@@ -5,13 +5,13 @@
 
 ## Prerequisites
 
-In order to install ODTP you need: 
+In order to install ODTP you need
 
 ### Docker
 
 - [Docker](https://www.docker.com/)
 
-### Git 
+### Git
 
 - [git](https://git-scm.com/)
 
@@ -25,7 +25,7 @@ Form this installation you need the following variables:
 
 - `[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGO_SERVER_URL]` from the Mongodb Installation
 
-Optional: for the Mongodb it is advisable to install also a graphical user interface for the mongodb. Options are: ¨
+Optional: for the Mongodb it is advisable to install also a graphical user interface for the mongodb. Options are:
 
 - https://www.mongodb.com/products/tools/compass
 - https://github.com/mongo-express/mongo-express
@@ -40,7 +40,7 @@ From these installations you need the following variables:
 
 ### Github token
 
-You need a github token: 
+You need a github token:
 
 Go to the [Github Token page](https://github.com/settings/tokens) and generate a new classic token with full access rights.
 Choose an appropriate expiration data to work with the token.
@@ -60,13 +60,13 @@ As  python dependency manager ODTP uses [poetry](https://python-poetry.org/docs/
 ODTP needs a Docker network to be setup:
 
 ```bash
-docker network create odtp_odtp-network 
+docker network create odtp_odtp-network
 ```
 
 ## 1. Install ODTP
 
 Clone the repository
- 
+
 ```bash
 git clone https://github.com/odtp-org/odtp.git
 cd odtp
@@ -84,13 +84,13 @@ poetry install
     On a server with Apple Chip you might need to change the shell using this command: `env /usr/bin/arch -x86_64 /bin/bash --login` before the installation.
 
 
-## 2. Set the environment variables: 
+## 2. Set the environment variables:
 
 Create a `.env` file from the template `.env.dist.local`
 
 ```bash
 cd odtp
-cp .env.dist.local .env
+cp .env.dist .env
 ```
 
 By now you should have:
@@ -103,53 +103,113 @@ Additionally you need:
 
 - Minio Bucket name: `[MINIO_BUCKET_NAME]`, recommended `odtp`
 - Minio Bucket name: `[MONGO_DB_NAME]`, recommended `odtp`
-- Dashboard port: `[ODTP_PORT]`, recommended `8003` or some other port that is not frequently used
 - Working directory: `[ODTP_PATH]`: working directory for user of ODTP, where projects and data files can be stored
 
+Delete the parts in the `.env` file that are not needed for the setup method [VM].
+
+For a server setup, your `.env` file will look like this:
 
 ```yaml
-# environment variables for local installation
-# ----------------------------------------------
-# fill these variables in case you want to 
-# install otdp locally on your computer or 
-# on a server
+# ===========================================================
+# Environment variables for odtp
+# Setup options:
+# - [COMPOSE] `docker compose` (recommended)
+# - [DEV] `docker compose -f compose.dev.yml` (for development)
+# - [VM] server setup with poetry
+# ===========================================================
 
-# mongo url: example "mongodb://localhost:27017/"
-ODTP_MONGO_SERVER=[MONGODB_URL]
-# S3 server url: example: "https://s3.epfl.ch"
-ODTP_S3_SERVER=[MINIO_URL]
+# ===========================================================
+# Credentials with other services
+# - needed for all setup methods
+# ===========================================================
 
-# odtp db instance in the mongo db: "odtp"
-ODTP_MONGO_DB=[MINIO_BUCKET_NAME]
-[MONGO_DB_USER]` and `[MONGO_DB_PASSWORD]` and `[MONGO_SERVER_URL]`
-# s3 bucket name: "odtp" 
-ODTP_BUCKET_NAME=[MONGO_DB_NAME]
-
-# s3 access and secret key
-ODTP_ACCESS_KEY=[MINIO_ROOT_USER]     
-ODTP_SECRET_KEY=[MINIO_ROOT_PASSWORD]
-
+# Credentials github
 # your github token
 GITHUB_TOKEN=[GITHUB_TOKEN]
 
+# ===========================================================
+# Credentials that you can choose on setup
+# - needed for all setup methods
+# ===========================================================
+
+# Credentials S3
+ODTP_ACCESS_KEY=[MINIO_ROOT_USER]
+ODTP_SECRET_KEY=[MINIO_ROOT_PASSWORD]
+
+# mongodb user and password
+MONGO_DB_USER=[MONGO_DB_USER]
+MONGO_DB_PASSWORD=[MONGO_DB_PASSWORD]
+
+# ===========================================================
+# Operational settings: change only if needed
+# - needed for all setup methods
+# ===========================================================
+
+# odtp db instance in the mongo db: "odtp"
+ODTP_MONGO_DB=odtp
+
+# s3 bucket name: "odtp"
+ODTP_BUCKET_NAME=odtp
+
+# ===========================================================
+# ODTP Path is where the dashboard will store users,
+# digital twins and executions
+# - needed for all setup methods
+# ===========================================================
+
+# path where your executions run and the digital twins are stored
+ODTP_PATH=[ODTP_PATH]
+
+# ===========================================================
+# Development settings: only needed for development
+# setup with compose.dev.yml:
+# `docker compose -f compose.dev.yml`
+# - only needed for setup method [DEV]
+# ===========================================================
+
 # Dashboard parameters
-ODTP_DASHBOARD_PORT=[ODTP_PORT]
+# you can chose a different port to serve the dashboard in case port
+# 8003 is not available as port on your computer
+ODTP_DASHBOARD_PORT=8003
+# this setting should only be True during development but False in
+# production
 ODTP_DASHBOARD_RELOAD=False
+
+# Log level
+# Log level for the dashboard
+ODTP_LOG_LEVEL=ERROR
+# log level for the component runs
+RUN_LOG_LEVEL=INFO
+
+# Set to False if your docker installation does not allow the flag --gpus all
+# Set to True in case you want to use GPUs
+ALLOW_DOCKER_GPUS=False
+
+# ===========================================================
+# Service URLS
+# - only needed for setup method [VM]
+# ===========================================================
+
+# mongo url: example "mongodb://localhost:27017/"
+ODTP_MONGO_SERVER=[MONGO_SERVER_URL]
+
+# S3 server url: example: "https://s3.epfl.ch"
+ODTP_S3_SERVER=[MINIO_URL]
 ```
 
 ODTP will use the .env file to access the services and github. Please make sure that you have entered all information correctly.
 
 !!! Note
     Under OSX, you may be asked to accept the type change through renaming of the .env file. If you don't accept, it will be named .env but will still be of type .env.dist meaning the installation will fail. This can be fixed by creating a new file named .env with the same contents.
-    
-    The `[ODTP_S3_SERVER]` requires the http:// 
+
+    The `[ODTP_S3_SERVER]` requires the http://
 
 
 ## 3. Install ODTP and dependencies locally
 
 We provide installation of ODTP via poetry:
 
-1. (Required for OSX) Run `poetry env use 3.11`. 
+1. (Required for OSX) Run `poetry env use 3.11`.
 2. Run `poetry install`
 3. Run `poetry shell`
 4. Run `odtp --help`
@@ -161,17 +221,17 @@ This should print out the help for `odtp --help`
 
 ## 4 Configure MongoDB and S3 bucket
 
-After deploying the different services you need to run the following command in order to finish the configuration of the collections required. 
+After deploying the different services you need to run the following command in order to finish the configuration of the collections required.
 
 ```
-odtp setup initiate 
+odtp setup initiate
 ```
 
-This command will create the collections needed in mongoDB and S3 automatically. 
+This command will create the collections needed in mongoDB and S3 automatically.
 
-## 5. How to test that everything works? 
+## 5. How to test that everything works?
 
-In order to do some test we can create first an user: 
+In order to do some test we can create first an user:
 
 ```
 odtp new user-entry \
@@ -186,11 +246,11 @@ user ID: 65c3648260106cc50f650bc1
 
 Now that everything has been set up, you are ready to work. Head over to the tutorials.
 
-[ODTP Tutorials](../tutorials/index.md){ .md-button } 
+[ODTP Tutorials](../tutorials/index.md){ .md-button }
 
 ## Services and Ports
 
-Below, you can see an overview of the dependencies of services required to run ODTP. 
+Below, you can see an overview of the dependencies of services required to run ODTP.
 Ports are defined by default. Please adjust them according to your installation.
 
 ``` mermaid
@@ -212,4 +272,4 @@ graph TD;
     MinioGUI[GUI in port 9001]
     end
     MongoDBExpress -->|dashboard for| MongoDBInstance
-``` 
+```
