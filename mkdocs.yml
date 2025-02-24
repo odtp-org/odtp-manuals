@@ -5,12 +5,6 @@ repo_name: odtp-org/odtp
 plugins:
   - search
   - link-marker
-  - mkdocs-video:
-      is_video: True
-      video_muted: True
-      video_controls: True
-      css_style:
-        width: "50%"
 theme:
   name: material
   logo: static/logo/logo.png

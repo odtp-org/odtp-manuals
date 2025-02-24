@@ -18,5 +18,5 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install mkdocs-material mkdocs-link-marker mkdocs-video
+      - run: pip install mkdocs-material mkdocs-link-marker
       - run: mkdocs gh-deploy --force
