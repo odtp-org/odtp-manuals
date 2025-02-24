@@ -17,14 +17,15 @@ graph TD;
     ToolC[Tool C: Example Dashboard]
 ```
 
-ODTP does this by turning the tools into components that are combatible and can be run by the ODTP Orchestrator. Each tool runs as an independent service (as Docker Container). Data between Components can be transfered via the help of Data Snapshots. Input and Outputs are semantically described and can be validated using Shacl. Not all these features have been implemented yet, see [architecture](architecture.md) and [roadmap](roadmap.md) for the currrent status.
+ODTP does this by turning the tools into components that are compatible and can be run by the ODTP Orchestrator. Each tool runs as an independent service (as Docker Container). Data between Components can be transferred via the help of Data Snapshots. Input and Outputs are semantically described and can be validated using Shacl. Not all these features have been implemented yet, see [architecture](architecture.md) and [roadmap](roadmap.md) for the current status.
 
 ## Classes in the ODTP:
 
 - **DigitalTwins**: One or more Executions are managed as a Digital Twin. The Executions of a Digital Twin can be rerun of similar or different workflows, that are grouped by a common goal or Use Case. Digital Twins are owned by Users.
 - **Users**: are the Users of ODTP. They define and then own Executions and Digital Twins. Components are not owned by Users but shared by all Users and just added once with updates of their Versions
 - **Components**: Components are the building blocks: they come in Versions that correspond to the versions of the tool that they wrap or versions of the Component code. Read about [ODTP Components](../components/index.md)
-- **Executions**: they can be combined into Workflows that are acyclic graphs (currently graphs have to be linear). These workflows are run as Executions. In an Executios each Component becomes a Step
+- **Workflows**: Components can be combined into Workflows that are acyclic graphs (currently graphs have to be linear). Read about [ODTP Workflows](../workflows/index.md)
+- **Executions**: These workflows are run as Executions. In an Executions each Component becomes a Step.
 
 
 ``` mermaid
@@ -77,10 +78,6 @@ DigitalTwin -- Operational data of all steps --> MongoDB
 DigitalTwin -- Transfers of Data between steps--> S3
 style ODTP fill:white
 ```
-
-### ODTP Executions
-
-The Executions are a core concept of ODTP
 
 ## Tools can be turned into ODTPComponents
 
