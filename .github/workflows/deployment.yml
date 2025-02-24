@@ -2,7 +2,7 @@ name: deployment
 on:
   push:
     branches:
-      - master 
+      - master
       - main
 permissions:
   contents: write
@@ -18,5 +18,5 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install mkdocs-material mkdocs-link-marker
+      - run: pip install mkdocs-material mkdocs-link-marker mkdocs-video
       - run: mkdocs gh-deploy --force
