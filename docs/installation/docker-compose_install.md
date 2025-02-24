@@ -38,7 +38,7 @@ Save the name of the path names for later use during the installation:
 - absolute path to the `mongodb` folder as `[MONGODB_PATH]`
 
 !!! Note
-    Windows users need to use Linux style syntax such as: `ODTP_PATH=//C/odtp/digitaltwins`
+    Windows users need to use Linux style syntax such as: `ODTP_PATH=/c/odtp/digitaltwins`
 
 ## 2. Get your your Github Token
 
