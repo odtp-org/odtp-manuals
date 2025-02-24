@@ -19,8 +19,7 @@ In order to install ODTP with Docker compose you need [Docker compose](https://d
 ## 1. Set up a folder configuration
 
 Create a folder (we recommend you name it `odtp`) where ODTP will locate all services, and files needed.
-Create the following sub-folders: `mongodb`, `minio`, and `digital-twins`. This folders will serve as 
-volumes for the odtp services.
+Create the following sub-folders: `mongodb`, `minio`, and `digital-twins`. This folders will serve as volumes for the odtp services.
 
 The file system structure should look like this:
 
@@ -37,6 +36,9 @@ Save the name of the path names for later use during the installation:
 - absolute path to the `digital-twins` folder as `[ODTP_PATH]`
 - absolute path to the `minio` folder as `[MINIO_PATH]`
 - absolute path to the `mongodb` folder as `[MONGODB_PATH]`
+
+!!! Note
+    Windows users need to use Linux style syntax such as: `ODTP_PATH=//C/odtp/digitaltwins`
 
 ## 2. Get your your Github Token
 
