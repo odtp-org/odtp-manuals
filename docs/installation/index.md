@@ -14,9 +14,9 @@ There are two ways of installing ODTP:
 !!! Note
     The installation on a local server is more complicated and requires you to also setup the required extra services such as mongodb and S3
 
-[Easy install with docker compose (Recommended)](docker-compose_install.md){ .md-button }    
+[Easy install with docker compose (Recommended)](docker-compose_install.md){ .md-button }
 
-[Install on a local server](local_server_install.md){ .md-button }    
+[Install on a local server](local_server_install.md){ .md-button }
 
 ## Service Dependencies
 
@@ -31,5 +31,5 @@ graph TD;
     ODTP -->|requires| MongoDB
     ODTP -->|requires| Minio
     MongoDBExpress -->|optional| MongoDB
-style ODTP fill:white     
-```     
+style ODTP fill:white
+```

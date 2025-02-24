@@ -1,119 +1,109 @@
 # Run Executions
 
 !!! note
+    - Run Executions by selecting them
+    - Partial runs of executions are possible
+    - You can also run executions via the [commandline](command-line.md#run-executions)
 
-    - Executions can be run on your local computer
-    - Executions need to be prepared before they can run
-    - Start with an empty folder on your local computer
 
-    ``` mermaid
-    graph LR
-    component-example_0.1.0 --> travel_dashboard_0.2.1;
-    ``` 
+``` mermaid
+graph TB
+A[component-example_0.1.0 + parameters + port mappings + secret files]
+B[travel_dashboard_0.2.1 + parameters + port mappings + secret files]
+A --> B;
+```
 
-## Explain the Execution Run
+Go to the tab "Execution Run".
 
-To run an execution you need to go through the following steps:
+## Select an Execution for Run
 
-### Prepare => Docker Build, Prepare File System
+Select a new execution for a run and you will see how it has been set up in each step:
 
-- in this step a folder structure will be established in an empty project folder on your local computer and the repository will be downloaded into it. Also folders for logs, input and output will be created
-- for all components it is checked whether docker images already exist, otherwise they will be build: As the settings are added only when the execution is run, images for components can be reused as long as the component version does not change. In case of a version change on the component all existing docker images for that component should be deleted. 
-     
+* parameters
+* port mappings
+* secret files
 
-### Run => Docker Run
+![Manage executions](../static/tutorials/run-executions/select-execution-for-run.png){ width="800" }
 
-- the docker containers for the components will run in sequence as specified in the workflow
-- Only when the execution runs all parameters, secrets, volumes and port mapping are needed. Except for the secrets and the project folder they are taken from the execution as it is stored in the mongo db.
+![Manage executions](../static/tutorials/run-executions/select-executions-with-secrets.png){ width="800" }
 
-## Run the execution in practice
+## Step 1: Adapt Configuration
 
-### Prepare the Execution CLI/GUI
+You can still overwrite the configuration:
 
-=== "Dashboard GUI"
+### Overwrite Parameter Values
 
-    As most arguments that are needed for the execution run are stored in the mongo db only the project folder and secrets if needed have to be added. The GUI takes you through the process step by step. You enter the execution run page with an execution that has already been selected. You first task is to check whether it has all parameters and ports setup correctly. For that the execution is displayed again on the run page: 
-    ![Dashboard Run execution](../static/tutorials/run-executions/prepare-and-run-execution.png){ width="800" }
+You can overwrite the parameter values, but not [upload parameters from file](executions.md#parameters) as when an execution is created
 
-    You can see that the project path has not been set yet: so in the first step you need to choose the project path by creating a new project folder:
+![Manage executions](../static/tutorials/run-executions/overwrite-parameter-values.png){ width="400" }
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/create-project-folder.png){ width="800" } 
+### Overwrite Port Mappings
 
-    Don't worry: it will tell you in case the project folder already exists:
+You can overwrite port mappings
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/validate-project-folder.png){ width="800" }
+![Manage executions](../static/tutorials/run-executions/overwrite-port-mapping.png){ width="400" }
 
-    The next step is optional: only if your components needs secrets such as for example github credential, then you need to add the secrets as a file. This might be the case if your tool is in a private repository.
+### Select Secrets Files
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/select-secrets.png){ width="800" }
+You can select files with the secrets that the step need [similar to when the execution is created](executions.md#secrets-files)
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/secrets-selected.png){ width="800" }
+![Manage executions](../static/tutorials/run-executions/select-secrets-file.png){ width="400" }
 
-    Now you are ready to prepare your execution: 
+## Step 3: Create Execution Directory
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/prepare-execution.png){ width="800" }
+Next you need to create an execution directory by clicking on the button at the bottom of the page: "Create Project Directory"
 
-    Once you click the button the log will open:
+![Create Execution Directory](../static/tutorials/run-executions/create-execution-directory.png){ width="200" }
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/prepare-execution-log.png){ width="800" }
+You will see a new button "Prepare Execution" appear.
 
-    There will be a success message at the end of the log file indicating that all docker images have been build. 
-    Then you will be able to click the "NEXT" button to proceed to the run step.
+## Step 4: Prepare the Execution
 
-=== "Command Line CLI"
+![Create Execution Directory](../static/tutorials/run-executions/prepare-execution.png){ width="800" }
 
-    Prepare the execution. This will generate all the folder structure and build all necesary docker images for our digital twin. From `v0.4.0` odtp will check for available images before building, if no image is available then the repository will be pulled and the docker image will be built. 
+Click on the button and it will start to build the images. When possible previously build images will be reused. You will see the terminal output in a window.
 
-    An empty folder must be provided to generate the data folder required, and we recommend placing it in a preconfigured digital twin folder. 
+![Create Execution Directory](../static/tutorials/run-executions/images-built.png){ width="800" }
 
-    ``` sh
-    odtp execution prepare \
-    --execution-name execution-example \
-    --project-path /path/execution
-    ```
+Once the images have been build you will see a new button "Run execution" appear.
 
-    A normal preparation looks like this:
+## Step 5: Run Execution
 
-    ``` sh
-    INFO (21/12/2023 02:53:02 PM): Connected to: <odtp.db.MongoManager object at 0x138546950> (LineL 22 [initial_setup.py])
-    INFO (21/12/2023 02:53:03 PM): Connected to: <odtp.db.MongoManager object at 0x12eca4110> (LineL 22 [initial_setup.py])
-    INFO (21/12/2023 02:53:03 PM): Connected to: <odtp.db.MongoManager object at 0x138530bd0> (LineL 22 [initial_setup.py])
-    INFO (21/12/2023 02:53:04 PM): Removing all files and directories (LineL 23 [run.py])
-    INFO (21/12/2023 02:53:04 PM): Downloading repository from https://github.com/odtp-org/odtp-component-example to dt_test/component-example_0.0.1_0/repository (LineL 35 [run.py])
-    Cloning into 'dt_test/component-example_0.0.1_0/repository'...
-    remote: Enumerating objects: 65, done.
-    remote: Counting objects: 100% (65/65), done.
-    remote: Compressing objects: 100% (42/42), done.
-    remote: Total 65 (delta 30), reused 52 (delta 18), pack-reused 0
-    Receiving objects: 100% (65/65), 31.23 KiB | 376.00 KiB/s, done.
-    Resolving deltas: 100% (30/30), done.
-    INFO (21/12/2023 02:53:05 PM): Building Docker image component-example_0.0.1 from dt_test/component-example_0.0.1_0/repository (LineL 47 [run.py])
+![Create Execution Directory](../static/tutorials/run-executions/run-execution-button.png){ width="800" }
 
-    INFO (21/12/2023 03:24:36 PM): COMPONENTS DOWNLOADES AND BUILT (LineL 60 [workflow.py])
-    ```
+Again you will see the terminal output in a window: in the example below the component run failed.
 
-### Run the Execution CLI/GUI  
+![Create Execution Directory](../static/tutorials/run-executions/run-log.png){ width="800" }
 
-In this step the docker container for the components will run and produce logs and output. For this step it is essential that all parameters and ports have been set correctly and also that secrets files have been selected, in case the secrets will be needed during the execution of the components.
+Once you close the terminal window, you will also be able to see the error on the execution run page.
 
-=== "Dashboard GUI"
+![Create Execution Directory](../static/tutorials/run-executions/step-error.png){ width="800" }
+![Create Execution Directory](../static/tutorials/run-executions/port-error.png){ width="400" }
 
-    Click on the button "RUN EXECUTION" to start a run. You will see a message indicating that the run started. After that click on the Log Button for the first step. The log will open and you can follow the execution run directly from the GUI. The messages that you will see are also stored on file in the logs directory `odtp-logs`, which is a subdirectory of the project folder: there is one logs directory for each component in your execution. The logs are also identical with what you would see in your docker container as long as it runs.
+## Step 6 (Optional) Rerun a Step
 
-    ![Dashboard Run execution](../static/tutorials/run-executions/run-execution.png){ width="800" }
-    ![Dashboard Run execution](../static/tutorials/run-executions/run-execution-logs.png){ width="800" }
+In case a Step failed to run you can make correction and switch a flag to rerun the Step.
 
-    For ephemeral components will be a line at the end of each log, indicating that the component ended the run. 
-    For persistent components that line will not be there as they did not end but the docker container should remain
-    up until shut down manually by the user.
+![Create Execution Directory](../static/tutorials/run-executions/rerun-step.png){ width="400" }
+![Create Execution Directory](../static/tutorials/run-executions/execution-rerun-button.png){ width="800" }
+![Create Execution Directory](../static/tutorials/run-executions/log-rerun.png){ width="800" }
 
-=== "Command Line CLI"
+Interactive Components stay running, so in that case you won't see a success message in the terminal output window. You may also take a look on docker to see what is happening:
 
-    Once your execution is prepared, it's time to run it! When running an execution you can provide some secrets for your components separated by commas (`,`) similar to how you define the pipeline in the execution generation. Secrets files are structure in a similar way to parameters files described in [Executions](https://odtp-org.github.io/odtp-manuals/tutorials/executions/#__tabbed_3_2)
+![Create Execution Directory](../static/tutorials/run-executions/docker-desktop.png){ width="800" }
 
-    ``` sh
-    odtp execution run \
-    --execution-name execution-example \
-    --secrets-files /path/Secrets001,/path/Secrets001 \
-    --project-path /path/execution
-    ```
+Since the Step is running as a container, we can close the Terminal output window and take a look on the page again:
+
+## Step 7 Check the logs
+
+Each step may have a button to check the logs.
+
+![Create Execution Directory](../static/tutorials/run-executions/show-step-logs.png){ width="800" }
+
+Typical log of an ephermeral Step: the Component ran and ended.
+
+![Create Execution Directory](../static/tutorials/run-executions/component-ephermeral-log.png){ width="800" }
+
+Typical log of an interactive Step: the application started and is served.
+
+![Create Execution Directory](../static/tutorials/run-executions/persistent-component-log.png){ width="800" }
