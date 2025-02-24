@@ -105,6 +105,8 @@ Additionally you need:
 - Minio Bucket name: `[MONGO_DB_NAME]`, recommended `odtp`
 - Working directory: `[ODTP_PATH]`: working directory for user of ODTP, where projects and data files can be stored
 
+You also need a password [ODTP_PASSWORD] for the [encrpytion and decryption of secrets](../tutorials/users.md#upload-secrets)
+
 Delete the parts in the `.env` file that are not needed for the setup method [VM].
 
 For a server setup, your `.env` file will look like this:
@@ -126,6 +128,12 @@ For a server setup, your `.env` file will look like this:
 # Credentials github
 # your github token
 GITHUB_TOKEN=[GITHUB_TOKEN]
+
+# ===========================================================
+# Credentials for odtp: to decrypt secret files
+# ===========================================================
+
+ODTP_PASSWORD=[ODTP_PASSWORD]
 
 # ===========================================================
 # Credentials that you can choose on setup
